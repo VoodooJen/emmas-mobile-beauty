@@ -104,9 +104,9 @@ section{padding:96px 0}
 /* ---------- NAV ---------- */
 nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(250,246,239,.92);backdrop-filter:blur(10px);border-bottom:1px solid rgba(181,174,158,.35)}
 .navin{display:flex;align-items:center;justify-content:space-between;height:76px;max-width:1180px;margin:0 auto;padding:0 24px}
-.brand{display:flex;flex-direction:column;align-items:flex-start;gap:4px;cursor:pointer;line-height:1}
-.brand .btx{font-family:var(--serif);font-size:16.5px;letter-spacing:2.5px;color:var(--sage-dk);white-space:nowrap}
-@media(max-width:400px){.brand .btx{font-size:14px;letter-spacing:2px}.brand svg{width:82px}}
+.brand{display:flex;align-items:center;cursor:pointer;line-height:1}
+.brand .btx{font-family:var(--serif);font-size:21px;letter-spacing:3px;color:var(--sage-dk);white-space:nowrap}
+@media(max-width:400px){.brand .btx{font-size:16px;letter-spacing:2px}}
 .navlinks{display:flex;gap:34px;align-items:center}
 .navlinks a{font-family:var(--jost);font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--ink);cursor:pointer;transition:color .25s}
 .navlinks a:hover,.navlinks a.active{color:var(--gold-dk)}
@@ -133,7 +133,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(250,246,239,
 @keyframes gslide{0%,100%{background-position:0% 0}50%{background-position:100% 0}}
 @keyframes kenburns{from{transform:scale(1)}to{transform:scale(1.09) translate(-1.4%,1.4%)}}
 .h2photo::before{content:'';position:absolute;inset:0;z-index:2;background:linear-gradient(rgba(58,66,50,.05),rgba(58,66,50,.32))}
-.h2frame{position:absolute;inset:14px;border:1px solid rgba(191,160,94,.75);border-radius:14px;z-index:3;pointer-events:none}
+.h2frame{position:absolute;inset:14px;z-index:3;pointer-events:none;overflow:visible}
+.h2frame rect{fill:none;vector-effect:non-scaling-stroke}
+.fbase{stroke:rgba(191,160,94,.5);stroke-width:1;animation:framebreathe 6s ease-in-out infinite}
+.fglow{stroke:#EBDCAC;stroke-width:1.7;stroke-linecap:round;stroke-dasharray:14 86;animation:framerun 10s linear infinite;filter:drop-shadow(0 0 5px rgba(235,220,172,.9))}
+@keyframes framerun{to{stroke-dashoffset:-100}}
+@keyframes framebreathe{0%,100%{opacity:.45}50%{opacity:.9}}
+.fleaf{position:absolute;z-index:4;pointer-events:none;animation:leafsway 5.5s ease-in-out infinite;transform-origin:bottom left}
+@keyframes leafsway{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(5deg)}}
 .h2cap{position:absolute;bottom:24px;left:0;right:0;z-index:3;text-align:center;font-family:var(--serif);font-style:italic;font-size:15.5px;letter-spacing:1px;color:var(--cream);text-shadow:0 2px 14px rgba(0,0,0,.45)}
 @media(max-width:900px){.h2grid{grid-template-columns:1fr;gap:26px}.h2copy{padding:6px 0;text-align:center;align-items:center}.h2photo{min-height:320px}.h2btns{justify-content:center}}
 .portalsec{background:var(--cream2);padding:34px 24px 84px}
@@ -387,14 +394,6 @@ footer a:hover{color:var(--gold)}
   <div class="aph" id="ap3">
     <div class="a3wrap">
       <div id="aflare"></div>
-      <svg width="160" height="31" viewBox="0 0 230 44" style="opacity:.92">
-        <circle cx="24" cy="30" r="7.5" fill="#E8DFC8"/><circle cx="21.5" cy="27.8" r="1.7" fill="#B4AD97" opacity=".6"/><circle cx="26.8" cy="31" r="1.1" fill="#B4AD97" opacity=".55"/><circle cx="23" cy="33.2" r="1.3" fill="#B4AD97" opacity=".5"/>
-        <path d="M 68 11 A 9.5 9.5 0 0 1 68 30 Z" fill="#E8DFC8"/>
-        <path d="M 113 5 A 10 10 0 0 1 113 25 A 14.5 14.5 0 0 0 113 5 Z" fill="#E8DFC8"/>
-        <path d="M 158 11 A 9.5 9.5 0 0 0 158 30 Z" fill="#E8DFC8"/>
-        <circle cx="203" cy="26" r="7.5" fill="#BFA05E"/>
-        <g stroke="#BFA05E" stroke-width="1.6" stroke-linecap="round"><line x1="213.5" y1="26" x2="216.5" y2="26"/><line x1="192.5" y1="26" x2="189.5" y2="26"/><line x1="203" y1="15.5" x2="203" y2="12.5"/><line x1="203" y1="36.5" x2="203" y2="39.5"/><line x1="210.4" y1="18.6" x2="212.6" y2="16.4"/><line x1="195.6" y1="18.6" x2="193.4" y2="16.4"/><line x1="210.4" y1="33.4" x2="212.6" y2="35.6"/><line x1="195.6" y1="33.4" x2="193.4" y2="35.6"/></g>
-      </svg>
       <div class="abrand1">EMMA’S</div>
       <div class="abrand2">MOBILE BEAUTY</div>
       <div class="arule" id="arule"></div>
@@ -413,8 +412,7 @@ footer a:hover{color:var(--gold)}
  function tick(){try{var c=ac();if(!c||c.state!=='running')return;var t=c.currentTime,s=c.createBufferSource();s.buffer=nb(c);var bp=c.createBiquadFilter();bp.type='bandpass';bp.frequency.value=2100;bp.Q.value=9;var g=c.createGain();env(g,t,.004,.05,.04);s.connect(bp);bp.connect(g);g.connect(c.destination);s.start(t);s.stop(t+.08);}catch(e){}}
  function click(){try{var c=ac();if(!c||c.state!=='running')return;var t=c.currentTime,o=c.createOscillator();o.type='sine';o.frequency.setValueAtTime(2400,t);o.frequency.exponentialRampToValueAtTime(900,t+.05);var g=c.createGain();env(g,t,.003,.07,.1);o.connect(g);g.connect(c.destination);o.start(t);o.stop(t+.1);}catch(e){}}
  function chime(){try{var c=ac();if(!c||c.state!=='running')return;[660,990].forEach(function(f,i){var t=c.currentTime,o=c.createOscillator();o.type='sine';o.frequency.value=f;var g=c.createGain();env(g,t+i*.02,.05,1.5,.03);o.connect(g);g.connect(c.destination);o.start(t);o.stop(t+1.7);});}catch(e){}}
- function prime(){if(soundOn)return;soundOn=true;var c=ac();
-  if(a.parentNode){setTimeout(chime,120);var lbl=document.getElementById('askiplbl');if(lbl)lbl.textContent='SOUND ON · TAP TO ENTER';}}
+ function prime(){if(soundOn)return;soundOn=true;ac();}
  ['pointerdown','touchstart','keydown','wheel','scroll'].forEach(function(ev){window.addEventListener(ev,prime,{once:false,passive:true});});
  function uiclick(){try{var c=ac();if(!c||c.state!=='running')return;var t=c.currentTime,o=c.createOscillator();o.type='sine';o.frequency.setValueAtTime(1900,t);o.frequency.exponentialRampToValueAtTime(750,t+.04);var g=c.createGain();env(g,t,.002,.05,.055);o.connect(g);g.connect(c.destination);o.start(t);o.stop(t+.08);}catch(e){}}
  window.SND={click:click,uiclick:uiclick,whoosh:whoosh,chime:chime};
@@ -447,14 +445,6 @@ footer a:hover{color:var(--gold)}
 <nav id="mainnav">
   <div class="navin">
     <div class="brand" onclick="go('home')">
-      <svg width="96" height="18" viewBox="0 0 230 44" aria-hidden="true">
-        <circle cx="24" cy="30" r="7.5" fill="#55604C"/><circle cx="21.5" cy="27.8" r="1.7" fill="#39412F" opacity=".55"/><circle cx="26.8" cy="31" r="1.1" fill="#39412F" opacity=".5"/><circle cx="23" cy="33.2" r="1.3" fill="#39412F" opacity=".45"/>
-        <path d="M 68 11 A 9.5 9.5 0 0 1 68 30 Z" fill="#55604C"/>
-        <path d="M 113 5 A 10 10 0 0 1 113 25 A 14.5 14.5 0 0 0 113 5 Z" fill="#55604C"/>
-        <path d="M 158 11 A 9.5 9.5 0 0 0 158 30 Z" fill="#55604C"/>
-        <circle cx="203" cy="26" r="7.5" fill="#BFA05E"/>
-        <g stroke="#BFA05E" stroke-width="1.6" stroke-linecap="round"><line x1="213.5" y1="26" x2="216.5" y2="26"/><line x1="192.5" y1="26" x2="189.5" y2="26"/><line x1="203" y1="15.5" x2="203" y2="12.5"/><line x1="203" y1="36.5" x2="203" y2="39.5"/><line x1="210.4" y1="18.6" x2="212.6" y2="16.4"/><line x1="195.6" y1="18.6" x2="193.4" y2="16.4"/><line x1="210.4" y1="33.4" x2="212.6" y2="35.6"/><line x1="195.6" y1="33.4" x2="193.4" y2="35.6"/></g>
-      </svg>
       <span class="btx">EMMA’S MOBILE BEAUTY</span>
     </div>
     <div class="navlinks" id="navlinks">
@@ -474,16 +464,6 @@ footer a:hover{color:var(--gold)}
   <div class="hero2" id="entry">
     <div class="h2grid">
       <div class="h2copy">
-        <div class="earc">
-          <svg width="250" height="48" viewBox="0 0 230 44">
-            <circle cx="24" cy="30" r="7.5" fill="#55604C"/><circle cx="21.5" cy="27.8" r="1.7" fill="#39412F" opacity=".55"/><circle cx="26.8" cy="31" r="1.1" fill="#39412F" opacity=".5"/><circle cx="23" cy="33.2" r="1.3" fill="#39412F" opacity=".45"/>
-            <path d="M 68 11 A 9.5 9.5 0 0 1 68 30 Z" fill="#55604C"/>
-            <path d="M 113 5 A 10 10 0 0 1 113 25 A 14.5 14.5 0 0 0 113 5 Z" fill="#55604C"/>
-            <path d="M 158 11 A 9.5 9.5 0 0 0 158 30 Z" fill="#55604C"/>
-            <circle cx="203" cy="26" r="7.5" fill="#BFA05E"/>
-            <g stroke="#BFA05E" stroke-width="1.6" stroke-linecap="round"><line x1="213.5" y1="26" x2="216.5" y2="26"/><line x1="192.5" y1="26" x2="189.5" y2="26"/><line x1="203" y1="15.5" x2="203" y2="12.5"/><line x1="203" y1="36.5" x2="203" y2="39.5"/><line x1="210.4" y1="18.6" x2="212.6" y2="16.4"/><line x1="195.6" y1="18.6" x2="193.4" y2="16.4"/><line x1="210.4" y1="33.4" x2="212.6" y2="35.6"/><line x1="195.6" y1="33.4" x2="193.4" y2="35.6"/></g>
-          </svg>
-        </div>
         <div class="h2kick">Beauty · Wellbeing · Soul Care</div>
         <h1 class="h2title">Beauty that comes<br>to your door.</h1>
         <p class="h2sub" data-c="tagline">and calm that stays with you · Preston & surrounds</p>
@@ -496,7 +476,12 @@ footer a:hover{color:var(--gold)}
       </div>
       <div class="h2photo">
         <img src="photos/photo12.jpg" alt="Emma walking through a Preston meadow at golden hour">
-        <div class="h2frame"></div>
+        <svg class="h2frame" viewBox="0 0 100 100" preserveAspectRatio="none" style="inset:14px;width:calc(100% - 28px);height:calc(100% - 28px)">
+          <rect x="1" y="1" width="98" height="98" rx="2.5" pathLength="100" class="fbase"/>
+          <rect x="1" y="1" width="98" height="98" rx="2.5" pathLength="100" class="fglow"/>
+        </svg>
+        <svg class="fleaf" style="top:6px;left:8px" width="42" height="42" viewBox="0 0 40 40"><g fill="none" stroke="#D8BE82" stroke-width="1.5" stroke-linecap="round"><path d="M 6 34 Q 14 24 30 8"/><path d="M 13 26 C 18 25 20 21 20 16 C 15 18 13 21 13 26 Z" fill="rgba(216,190,130,.35)"/><path d="M 20 19 C 25 18 27 14 27 9 C 22 11 20 14 20 19 Z" fill="rgba(216,190,130,.35)"/></g></svg>
+        <svg class="fleaf" style="bottom:6px;right:8px;transform:scaleX(-1);animation-delay:2.6s" width="42" height="42" viewBox="0 0 40 40"><g fill="none" stroke="#D8BE82" stroke-width="1.5" stroke-linecap="round"><path d="M 6 34 Q 14 24 30 8"/><path d="M 13 26 C 18 25 20 21 20 16 C 15 18 13 21 13 26 Z" fill="rgba(216,190,130,.35)"/><path d="M 20 19 C 25 18 27 14 27 9 C 22 11 20 14 20 19 Z" fill="rgba(216,190,130,.35)"/></g></svg>
         <div class="h2cap">grounded &amp; grateful · Preston</div>
       </div>
     </div>
@@ -602,7 +587,7 @@ footer a:hover{color:var(--gold)}
   </section>
 
   <div class="wave" style="background:var(--sand)"><svg viewBox="0 0 1440 74" preserveAspectRatio="none"><path d="M0 42 C 260 6 520 70 760 40 C 1000 12 1240 60 1440 26 L 1440 74 L 0 74 Z" fill="#46503E"/></svg></div>
-  <section style="background:linear-gradient(rgba(58,66,50,.55),rgba(58,66,50,.75)),url('photos/photo06.jpg') center/cover;color:var(--cream);text-align:center">
+  <section style="background:linear-gradient(rgba(58,66,50,.45),rgba(46,53,39,.8)),url('photos/photo06.jpg') center/cover;color:var(--cream);text-align:center;min-height:78vh;display:flex;align-items:center;justify-content:center;margin-top:-2px">
     <div class="wrap">
       <h2 style="color:var(--cream);font-size:44px">Ready when you are</h2>
       <p style="font-family:var(--serif);font-style:italic;font-size:22px;opacity:.8;margin:16px 0 36px">Your moment of calm, or your next glow up, is one click away.</p>
@@ -1846,7 +1831,6 @@ window.giftPDF=id=>{const g=giftcards.find(x=>x.id===id);if(!g)return;
 .ft{position:absolute;bottom:6mm;left:0;right:0;font-size:9pt;font-style:italic;color:#8A8072}
 .ft .j{font-family:Jost;font-style:normal;font-size:6.5pt;letter-spacing:2.5pt;color:#A98D52;margin-top:1.2mm}
 </style></head><body><div class="card"><div class="inner">
-<svg width="130" height="25" viewBox="0 0 230 44"><circle cx="24" cy="30" r="7.5" fill="#55604C"/><circle cx="21.5" cy="27.8" r="1.7" fill="#39412F" opacity=".55"/><circle cx="26.8" cy="31" r="1.1" fill="#39412F" opacity=".5"/><circle cx="23" cy="33.2" r="1.3" fill="#39412F" opacity=".45"/><path d="M 68 11 A 9.5 9.5 0 0 1 68 30 Z" fill="#55604C"/><path d="M 113 5 A 10 10 0 0 1 113 25 A 14.5 14.5 0 0 0 113 5 Z" fill="#55604C"/><path d="M 158 11 A 9.5 9.5 0 0 0 158 30 Z" fill="#55604C"/><circle cx="203" cy="26" r="7.5" fill="#BFA05E"/><g stroke="#BFA05E" stroke-width="1.6" stroke-linecap="round"><line x1="213.5" y1="26" x2="216.5" y2="26"/><line x1="192.5" y1="26" x2="189.5" y2="26"/><line x1="203" y1="15.5" x2="203" y2="12.5"/><line x1="203" y1="36.5" x2="203" y2="39.5"/><line x1="210.4" y1="18.6" x2="212.6" y2="16.4"/><line x1="195.6" y1="18.6" x2="193.4" y2="16.4"/><line x1="210.4" y1="33.4" x2="212.6" y2="35.6"/><line x1="195.6" y1="33.4" x2="193.4" y2="35.6"/></g></svg>
 <div class="b1">EMMA’S</div><div class="b2">MOBILE BEAUTY</div><div class="rl"></div><div class="b3">&amp; HOLISTIC WELLNESS</div>
 <div class="gift">A GIFT FOR</div>
 <div class="name">${esc(g.to)}</div>
