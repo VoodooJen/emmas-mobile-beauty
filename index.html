@@ -404,6 +404,11 @@ footer a:hover{color:var(--gold)}
 .day.dim{opacity:.35}
 .day.today{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold)}
 .day.blocked{background:repeating-linear-gradient(45deg,#F1EDE3,#F1EDE3 6px,#E7E2D5 6px,#E7E2D5 12px)}
+.dnm{font-size:10.5px;line-height:1.35;padding:2px 6px;border-radius:6px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.dnm.beauty{background:#F3ECD9;color:#7A6435}
+.dnm.soul{background:#E4E9DD;color:#46503E}
+.dnm.pend{box-shadow:inset 0 0 0 1px var(--gold-dk);opacity:.85}
+.dnm.more{background:none;color:var(--taupe);padding-left:2px}
 .dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin:2px 3px 0 0}
 .dot.soul{background:var(--sage)}
 .dot.beauty{background:var(--gold)}
@@ -1801,7 +1806,10 @@ function vCal(m){
   const bs=(byDate[iso]||[]).filter(b=>['pending','confirmed'].includes(b.status));
   const blocked=settings.blocked.includes(iso);
   cells+=`<div class="day ${iso===todayISO()?'today':''} ${blocked?'blocked':''}" onclick="selDay('${iso}')">
-   <b>${d}</b><br>${bs.map(b=>`<span class="dot ${b.sec}"></span>`).join('')}${blocked?'<div class="muted" style="font-size:10px;letter-spacing:1px">BLOCKED</div>':''}</div>`;}
+   <b>${d}</b>
+   ${bs.slice(0,3).map(b=>`<div class="dnm ${b.sec}${b.status==='pending'?' pend':''}" title="${esc(b.name)} · ${esc(b.service)}">${esc((b.time||'').replace(/\s/g,''))} ${esc(b.name.split(' ')[0])}</div>`).join('')}
+   ${bs.length>3?`<div class="dnm more">+${bs.length-3} more</div>`:''}
+   ${blocked?'<div class="muted" style="font-size:10px;letter-spacing:1px;margin-top:3px">BLOCKED</div>':''}</div>`;}
  m.innerHTML=`<h2>Calendar & availability</h2><div class="adm-sub">Sage dots = Soul Space, gold = Mobile Beauty. Blocked days show as unavailable on the public booking calendar.</div>
  <div class="panel">
  <div class="calhead"><button class="icobtn" onclick="calM--;if(calM<0){calM=11;calY--}adm('calendar')">‹ Prev</button>
