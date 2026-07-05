@@ -128,27 +128,34 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(250,246,239,
 }
 /* ---------- HERO v2 · split editorial ---------- */
 .hero2{position:relative;background:radial-gradient(700px 500px at 10% 12%,rgba(138,155,110,.09),transparent 62%),radial-gradient(620px 480px at 92% 85%,rgba(191,160,94,.12),transparent 62%),radial-gradient(1200px 700px at 50% -10%,#FFFDF8 0%,var(--cream) 45%,var(--cream2) 100%);padding:118px 24px 36px}
-.h2grid{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1.08fr 1fr;gap:44px;align-items:stretch}
+.h2grid{max-width:1220px;margin:0 auto;display:grid;grid-template-columns:1.08fr 1fr;gap:48px;align-items:stretch;min-height:min(660px,calc(100svh - 200px))}
 .h2copy{display:flex;flex-direction:column;justify-content:center;padding:30px 0}
 .h2copy .earc{margin-bottom:20px;animation:eFade 1.2s .15s both}
 .h2kick{font-family:var(--jost);font-weight:300;font-size:11.5px;letter-spacing:6px;color:var(--gold-dk);text-transform:uppercase;margin-bottom:16px;animation:eFade 1.2s .3s both}
-.h2title{font-family:var(--serif);font-weight:500;font-size:clamp(40px,5.6vw,72px);line-height:1.05;color:var(--sage-dk);animation:eFade 1.2s .45s both}
+.h2title{font-family:var(--serif);font-weight:500;font-size:clamp(46px,6.2vw,86px);line-height:1.04;color:var(--sage-dk);animation:eFade 1.2s .45s both}
 .h2sub{font-family:var(--serif);font-style:italic;font-size:clamp(17px,2.2vw,24px);color:var(--taupe);margin:12px 0 32px;animation:eFade 1.2s .6s both}
 .h2btns{display:flex;gap:12px;flex-wrap:wrap;animation:eFade 1.2s .75s both}
 .h2note{font-family:var(--serif);font-size:14px;letter-spacing:3px;color:var(--taupe);margin-top:26px;animation:eFade 1.2s .9s both}
 .h2note b{color:var(--gold-dk);font-weight:500}
-.h2photo{position:relative;border-radius:24px;overflow:hidden;min-height:480px;box-shadow:0 34px 80px rgba(62,58,50,.18);animation:eFade 1.4s .35s both}
+.h2photo{position:relative;border-radius:24px;overflow:hidden;min-height:540px;box-shadow:0 34px 80px rgba(62,58,50,.18);animation:eFade 1.4s .35s both}
 .h2photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%;filter:grayscale(1) contrast(1.06) brightness(1.02);animation:kenburns 20s ease-in-out infinite alternate}
 @keyframes btnsheen{0%{transform:translateX(-120%)}45%,100%{transform:translateX(120%)}}
 @keyframes gslide{0%,100%{background-position:0% 0}50%{background-position:100% 0}}
 @keyframes kenburns{from{transform:scale(1)}to{transform:scale(1.09) translate(-1.4%,1.4%)}}
 .h2photo::before{content:'';position:absolute;inset:0;z-index:2;background:linear-gradient(rgba(58,66,50,.05),rgba(58,66,50,.32))}
-.h2frame{position:absolute;inset:14px;z-index:3;pointer-events:none;overflow:visible}
+.h2frame{position:absolute;inset:12px;z-index:3;pointer-events:none;overflow:visible}
 .h2frame rect{fill:none;vector-effect:non-scaling-stroke}
-.fbase{stroke:rgba(191,160,94,.5);stroke-width:1;animation:framebreathe 6s ease-in-out infinite}
-.fglow{stroke:#EBDCAC;stroke-width:1.7;stroke-linecap:round;stroke-dasharray:14 86;animation:framerun 10s linear infinite;filter:drop-shadow(0 0 5px rgba(235,220,172,.9))}
+.fbase{stroke:rgba(191,160,94,.9);stroke-width:2}
+.fbase2{stroke:rgba(191,160,94,.4);stroke-width:1;animation:framebreathe 6s ease-in-out infinite}
+.fglow{stroke:#EBDCAC;stroke-width:3;stroke-linecap:round;stroke-dasharray:26 74;animation:framerun 9s linear infinite;filter:drop-shadow(0 0 7px rgba(235,220,172,1))}
+.fglow2{stroke:#EBDCAC;stroke-width:3;stroke-linecap:round;stroke-dasharray:26 74;animation:framerun 9s linear infinite;animation-delay:-4.5s;filter:drop-shadow(0 0 7px rgba(235,220,172,1))}
 @keyframes framerun{to{stroke-dashoffset:-100}}
-@keyframes framebreathe{0%,100%{opacity:.45}50%{opacity:.9}}
+@keyframes framebreathe{0%,100%{opacity:.35}50%{opacity:.85}}
+.fcorn{position:absolute;width:30px;height:30px;z-index:4;pointer-events:none;border:0 solid #BFA05E;animation:framebreathe 6s ease-in-out infinite}
+.fcorn.tl{top:5px;left:5px;border-top-width:2.5px;border-left-width:2.5px}
+.fcorn.tr{top:5px;right:5px;border-top-width:2.5px;border-right-width:2.5px}
+.fcorn.bl{bottom:5px;left:5px;border-bottom-width:2.5px;border-left-width:2.5px}
+.fcorn.br{bottom:5px;right:5px;border-bottom-width:2.5px;border-right-width:2.5px}
 .fleaf{position:absolute;z-index:4;pointer-events:none;animation:leafsway 5.5s ease-in-out infinite;transform-origin:bottom left}
 @keyframes leafsway{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(5deg)}}
 .h2photo .fall{position:absolute;top:-9%;z-index:3;pointer-events:none;opacity:0;animation-name:leaffall;animation-timing-function:linear;animation-iteration-count:infinite}
@@ -495,10 +502,13 @@ footer a:hover{color:var(--gold)}
       </div>
       <div class="h2photo">
         <img src="photos/photo05.jpg" alt="Emma walking through tall wildflowers in Preston">
-        <svg class="h2frame" viewBox="0 0 100 100" preserveAspectRatio="none" style="inset:14px;width:calc(100% - 28px);height:calc(100% - 28px)">
-          <rect x="1" y="1" width="98" height="98" rx="2.5" pathLength="100" class="fbase"/>
-          <rect x="1" y="1" width="98" height="98" rx="2.5" pathLength="100" class="fglow"/>
+        <svg class="h2frame" viewBox="0 0 100 100" preserveAspectRatio="none" style="inset:12px;width:calc(100% - 24px);height:calc(100% - 24px)">
+          <rect x="1" y="1" width="98" height="98" rx="2" pathLength="100" class="fbase"/>
+          <rect x="3.4" y="3.4" width="93.2" height="93.2" rx="1.6" pathLength="100" class="fbase2"/>
+          <rect x="1" y="1" width="98" height="98" rx="2" pathLength="100" class="fglow"/>
+          <rect x="1" y="1" width="98" height="98" rx="2" pathLength="100" class="fglow2"/>
         </svg>
+        <div class="fcorn tl"></div><div class="fcorn tr"></div><div class="fcorn bl"></div><div class="fcorn br"></div>
         <svg class="fleaf" style="top:6px;left:8px" width="42" height="42" viewBox="0 0 40 40"><g fill="none" stroke="#97A87F" stroke-width="1.5" stroke-linecap="round"><path d="M 6 34 Q 14 24 30 8"/><path d="M 13 26 C 18 25 20 21 20 16 C 15 18 13 21 13 26 Z" fill="rgba(151,168,127,.35)"/><path d="M 20 19 C 25 18 27 14 27 9 C 22 11 20 14 20 19 Z" fill="rgba(151,168,127,.35)"/></g></svg>
         <svg class="fleaf" style="bottom:6px;right:8px;transform:scaleX(-1);animation-delay:2.6s" width="42" height="42" viewBox="0 0 40 40"><g fill="none" stroke="#97A87F" stroke-width="1.5" stroke-linecap="round"><path d="M 6 34 Q 14 24 30 8"/><path d="M 13 26 C 18 25 20 21 20 16 C 15 18 13 21 13 26 Z" fill="rgba(151,168,127,.35)"/><path d="M 20 19 C 25 18 27 14 27 9 C 22 11 20 14 20 19 Z" fill="rgba(151,168,127,.35)"/></g></svg>
         <svg class="fall" style="left:14%;animation-duration:10s;animation-delay:.6s" width="16" height="18" viewBox="0 0 16 18"><path d="M 8 1 C 13 6 12.5 12 8 16 C 3.5 12 3 6 8 1 Z" fill="rgba(151,168,127,.75)"/></svg>
@@ -913,6 +923,7 @@ footer a:hover{color:var(--gold)}
       <a data-av="services" onclick="adm('services')">Services</a>
       <a data-av="promos" onclick="adm('promos')">Promotions</a>
       <a data-av="gifts" onclick="adm('gifts')">Gift cards</a>
+      <a data-av="invoices" onclick="adm('invoices')">Invoices</a>
       <a data-av="anns" onclick="adm('anns')">Announcements</a>
       <a data-av="gallery" onclick="adm('gallery')">Gallery</a>
       <a data-av="content" onclick="adm('content')">Content</a>
@@ -1088,6 +1099,8 @@ let content=DB.get('content',{tagline:'Beauty, wellbeing and soul care, brought 
  soulIntro:'A calm place for mind, body & soul. Meditation, mindfulness, sound and breathwork.',
  beautyIntro:'& HOLISTIC WELLNESS · BROUGHT TO YOU'});
 let waitlist=DB.get('waitlist',[]);
+let invoices=DB.get('invoices',[]);const saveINV=()=>DB.set('invoices',invoices);
+function nextInvNum(){const n=DB.get('invnum',0)+1;DB.set('invnum',n);return 'INV-'+String(n).padStart(4,'0');}
 const saveW=()=>DB.set('waitlist',waitlist);
 let giftcards=DB.get('giftcards',[]);
 const saveGC=()=>DB.set('giftcards',giftcards);
@@ -1391,7 +1404,7 @@ function logout(){sessionStorage.removeItem('emmaAdmin');go('home');}
 function requireAuth(){if(sessionStorage.getItem('emmaAdmin')!=='1'){go('login');return false}return true}
 function adm(view){if(!requireAuth())return;curAdm=view;
  document.querySelectorAll('[data-av]').forEach(a=>a.classList.toggle('on',a.dataset.av===view));
- ({dash:vDash,analytics:vAnalytics,bookings:vBookings,calendar:vCal,clients:vClients,services:vServices,promos:vPromos,gifts:vGifts,anns:vAnns,gallery:vGallery,content:vContent,settings:vSettings})[view](document.getElementById('admmain'));}
+ ({dash:vDash,analytics:vAnalytics,bookings:vBookings,calendar:vCal,clients:vClients,services:vServices,promos:vPromos,gifts:vGifts,invoices:vInvoices,anns:vAnns,gallery:vGallery,content:vContent,settings:vSettings})[view](document.getElementById('admmain'));}
 const badge=s=>`<span class="badge b-${s}">${s}</span>`;
 const fmtD=d=>{if(!d)return '·';const x=new Date(d+'T12:00');return x.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})};
 function cxCount(b){const k=(b.email||b.phone||b.name).toLowerCase();
@@ -1868,6 +1881,169 @@ ${g.msg?`<div class="pm">“${esc(g.msg)}”</div>`:''}
  w.document.close();};
 window.gcStatus=(id,s)=>{giftcards.find(g=>g.id===id).status=s;saveGC();adm('gifts');};
 window.gcDel=id=>{if(confirm('Delete this gift card request?')){giftcards=giftcards.filter(g=>g.id!==id);saveGC();adm('gifts');}};
+/* ---- invoices ---- */
+const gbp=n=>'£'+(+n).toFixed(2).replace(/\.00$/,'');
+function invTotal(v){const sub=v.items.reduce((a,i)=>a+i.price*i.qty,0);
+ let disc=0;if(v.disc&&v.disc.val>0)disc=v.disc.type==='%'?sub*v.disc.val/100:Math.min(v.disc.val,sub);
+ return {sub,disc,total:Math.max(0,sub-disc)};}
+function vInvoices(m){
+ const ib=s=>`<span class="badge ${s==='paid'?'b-completed':s==='sent'?'b-confirmed':'b-pending'}">${s}</span>`;
+ const paidSum=invoices.filter(v=>v.status==='paid').reduce((a,v)=>a+invTotal(v).total,0);
+ const outSum=invoices.filter(v=>v.status!=='paid').reduce((a,v)=>a+invTotal(v).total,0);
+ m.innerHTML=`<h2>Invoices</h2><div class="adm-sub">Beautiful invoices in seconds. Print them, save as PDF, or text them straight to the client.</div>
+ <div class="stats">
+  <div class="stat"><div class="k">Invoices raised</div><div class="v">${invoices.length}</div></div>
+  <div class="stat"><div class="k">Paid</div><div class="v">${gbp(paidSum)}</div></div>
+  <div class="stat"><div class="k">Outstanding</div><div class="v">${gbp(outSum)}</div></div>
+ </div>
+ <div class="panel"><button class="btn small gold" onclick="editInv()">+ New invoice</button>
+ ${invoices.length?`<div style="margin-top:20px;overflow-x:auto"><table>
+ <tr><th>No.</th><th>Client</th><th>Date</th><th>Items</th><th>Total</th><th>Status</th><th></th></tr>
+ ${invoices.map(v=>{const t=invTotal(v);return `<tr>
+  <td><b style="font-family:var(--jost);letter-spacing:1px">${esc(v.num)}</b><br><span class="muted" style="font-size:11px">${v.biz==='soul'?'Soul Space':'Mobile Beauty'}</span></td>
+  <td>${esc(v.name)}<br><span class="muted" style="font-size:12px">${esc(v.phone||'')}</span></td>
+  <td>${fmtD(v.date)}</td>
+  <td style="font-size:12.5px;max-width:220px">${v.items.map(i=>esc(i.name)+(i.qty>1?' ×'+i.qty:'')).join('<br>')}</td>
+  <td class="pr">${gbp(t.total)}${t.disc?`<br><span class="muted" style="font-size:11px">disc ${gbp(t.disc)}</span>`:''}</td>
+  <td>${ib(v.status)}</td>
+  <td><div class="rowbtns">
+   <button class="icobtn" onclick="invPDF('${v.id}')">Print / PDF</button>
+   <button class="icobtn" onclick="editInv('${v.id}')">Edit</button>
+   ${v.status==='draft'?`<button class="icobtn" onclick="invStatus('${v.id}','sent')">Mark sent</button>`:''}
+   ${v.status!=='paid'?`<button class="icobtn" onclick="invPaid('${v.id}')">Mark paid</button>`:''}
+   <button class="icobtn warn" onclick="invDel('${v.id}')">✕</button>
+  </div></td></tr>`;}).join('')}</table></div>`
+ :'<p class="muted" style="margin-top:14px">No invoices yet. Raise your first one and it will look a million pounds.</p>'}</div>`;}
+window._inv=null;
+window.editInv=id=>{
+ const v=id?JSON.parse(JSON.stringify(invoices.find(x=>x.id===id))):{id:'',biz:'beauty',name:'',phone:'',email:'',addr:'',date:todayISO(),items:[],disc:{type:'%',val:0},notes:''};
+ window._inv=v;
+ const recent=[...new Map(bookings.map(b=>[b.phone,b])).values()].slice(0,12);
+ openModal(`<h3>${id?'Edit invoice':'New invoice'}</h3>
+ <div class="two">
+  <div><label>Business</label><select id="ivbiz" onchange="_inv.biz=this.value;invSvcOpts()">
+   <option value="beauty" ${v.biz==='beauty'?'selected':''}>Emma’s Mobile Beauty</option>
+   <option value="soul" ${v.biz==='soul'?'selected':''}>Emma’s Soul Space</option></select></div>
+  <div><label>Invoice date</label><input type="date" id="ivdate" value="${v.date}"></div>
+ </div>
+ ${recent.length?`<label>Quick fill from a recent client</label><select id="ivrecent" onchange="invRecent(this.value)"><option value="">Choose…</option>${recent.map((b,i)=>`<option value="${i}">${esc(b.name)} · ${esc(b.phone)}</option>`).join('')}</select>`:''}
+ <div class="two">
+  <div><label>Client name</label><input id="ivname" value="${esc(v.name)}"></div>
+  <div><label>Phone</label><input id="ivphone" value="${esc(v.phone)}"></div>
+ </div>
+ <div class="two">
+  <div><label>Email (optional)</label><input id="ivemail" value="${esc(v.email)}"></div>
+  <div><label>Address (optional)</label><input id="ivaddr" value="${esc(v.addr)}"></div>
+ </div>
+ <label>Treatments</label>
+ <div class="two" style="align-items:end">
+  <div><select id="ivsvc"></select></div>
+  <div><button type="button" class="icobtn" onclick="invAddItem()" style="width:100%">+ Add to invoice</button></div>
+ </div>
+ <div id="ivitems" style="margin-top:12px"></div>
+ <div class="two">
+  <div><label>Discount</label><select id="ivdtype"><option value="%" ${v.disc.type==='%'?'selected':''}>Percent (%)</option><option value="£" ${v.disc.type==='£'?'selected':''}>Amount (£)</option></select></div>
+  <div><label>Discount value</label><input type="number" id="ivdval" min="0" step="0.5" value="${v.disc.val||0}"></div>
+ </div>
+ <label>Notes on invoice (optional)</label><input id="ivnotes" value="${esc(v.notes)}" placeholder="e.g. Thank you for a lovely afternoon">
+ <div class="center" style="margin-top:22px">
+  <button class="btn small gold" onclick="saveInvoice('${id||''}')">Save invoice</button>
+  <button class="btn small" style="margin-left:8px" onclick="closeModal()">Cancel</button>
+ </div>`);
+ invSvcOpts();invRenderItems();
+ document.getElementById('ivdtype').onchange=e=>{_inv.disc.type=e.target.value;invRenderItems();};
+ document.getElementById('ivdval').oninput=e=>{_inv.disc.val=+e.target.value||0;invRenderItems();};};
+window.invSvcOpts=()=>{const biz=document.getElementById('ivbiz').value;
+ const opts=pubServices().filter(s=>biz==='soul'?s.sec==='soul':s.sec!=='soul').map(s=>`<option value="${s.id}">${esc(s.name)} · £${s.price}</option>`).join('');
+ document.getElementById('ivsvc').innerHTML=opts+'<option value="custom">Custom line…</option>';};
+window.invRecent=i=>{if(i==='')return;const recent=[...new Map(bookings.map(b=>[b.phone,b])).values()].slice(0,12);const b=recent[+i];if(!b)return;
+ document.getElementById('ivname').value=b.name;document.getElementById('ivphone').value=b.phone;
+ document.getElementById('ivemail').value=b.email||'';document.getElementById('ivaddr').value=b.addr||'';};
+window.invAddItem=()=>{const sel=document.getElementById('ivsvc');
+ if(sel.value==='custom'){const nm=prompt('Line description:');if(!nm)return;
+  const pr=+prompt('Price (£):','25')||0;_inv.items.push({name:nm,price:pr,qty:1});}
+ else{const s=pubServices().find(x=>x.id===sel.value);if(!s)return;
+  const ex=_inv.items.find(i=>i.name===s.name&&i.price===s.price);
+  if(ex)ex.qty++;else _inv.items.push({name:s.name,price:s.price,qty:1});}
+ invRenderItems();};
+window.invDelItem=i=>{_inv.items.splice(i,1);invRenderItems();};
+window.invRenderItems=()=>{const w=document.getElementById('ivitems');if(!w)return;
+ const t=invTotal(_inv);
+ w.innerHTML=(_inv.items.length?_inv.items.map((i,ix)=>`<div style="display:flex;align-items:center;gap:10px;padding:8px 12px;background:var(--sand);border-radius:9px;margin-bottom:6px;font-size:13.5px">
+  <span style="flex:1">${esc(i.name)}</span>
+  <span class="muted">×${i.qty}</span><span>${gbp(i.price*i.qty)}</span>
+  <button class="icobtn warn" onclick="invDelItem(${ix})" style="padding:2px 8px">✕</button></div>`).join('')
+ :'<p class="muted" style="font-size:13px">No treatments added yet.</p>')
+ +`<div style="text-align:right;font-size:14px;margin-top:10px">Subtotal <b>${gbp(t.sub)}</b>${t.disc?` · discount −<b>${gbp(t.disc)}</b>`:''} · total <b style="color:var(--gold-dk);font-size:17px">${gbp(t.total)}</b></div>`;};
+window.saveInvoice=id=>{
+ _inv.biz=document.getElementById('ivbiz').value;_inv.date=document.getElementById('ivdate').value||todayISO();
+ _inv.name=document.getElementById('ivname').value.trim();_inv.phone=document.getElementById('ivphone').value.trim();
+ _inv.email=document.getElementById('ivemail').value.trim();_inv.addr=document.getElementById('ivaddr').value.trim();
+ _inv.notes=document.getElementById('ivnotes').value.trim();
+ if(!_inv.name){alert('Pop the client’s name in first.');return;}
+ if(!_inv.items.length){alert('Add at least one treatment.');return;}
+ if(id){const ix=invoices.findIndex(x=>x.id===id);invoices[ix]=_inv;}
+ else{_inv.id=uid();_inv.num=nextInvNum();_inv.status='draft';invoices.unshift(_inv);}
+ saveINV();closeModal();adm('invoices');};
+window.invStatus=(id,s)=>{invoices.find(v=>v.id===id).status=s;saveINV();adm('invoices');};
+window.invDel=id=>{if(confirm('Delete this invoice?')){invoices=invoices.filter(v=>v.id!==id);saveINV();adm('invoices');}};
+window.invSMS=v=>{const t=invTotal(v);
+ return `Hi ${v.name.split(' ')[0]}, here’s your ${v.status==='paid'?'receipt':'invoice'} ${v.num} from ${v.biz==='soul'?'Emma’s Soul Space':'Emma’s Mobile Beauty'}:\n${v.items.map(i=>`· ${i.name}${i.qty>1?' ×'+i.qty:''} — ${gbp(i.price*i.qty)}`).join('\n')}${t.disc?`\nDiscount — −${gbp(t.disc)}`:''}\nTotal — ${gbp(t.total)}${v.status==='paid'?'\nPaid with thanks. See you next time!':'\nPay by bank transfer, PayPal or SumUp — just reply and I’ll send details.'}\nEmma x`;};
+window.invPaid=id=>{const v=invoices.find(x=>x.id===id);v.status='paid';saveINV();
+ openModal(`<h3>Marked paid</h3><p class="muted" style="font-size:13.5px">Here’s the receipt text ready to send to ${esc(v.name.split(' ')[0])} (auto-sends once Twilio is live):</p>
+ <div style="background:var(--sand);border-radius:12px;padding:14px 16px;font-size:13.5px;white-space:pre-wrap;margin:12px 0">${esc(invSMS(v))}</div>
+ <div class="center"><a class="btn small gold" href="${smsLink(v.phone,invSMS(v))}">Send by text</a>
+ <button class="btn small" style="margin-left:8px" onclick="closeModal();adm('invoices')">Done</button></div>`);};
+window.invPDF=id=>{const v=invoices.find(x=>x.id===id);if(!v)return;const t=invTotal(v);
+ const w=window.open('','_blank');if(!w){alert('Please allow pop ups to print invoices.');return;}
+ const soul=v.biz==='soul';
+ w.document.write(`<!DOCTYPE html><html><head><meta charset="utf-8"><title>${esc(v.num)}</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,500&family=Jost:wght@300;400&display=swap" rel="stylesheet">
+<style>@page{size:A4;margin:0}*{box-sizing:border-box}
+body{margin:0;background:#FAF6EF;font-family:Jost,sans-serif;font-weight:300;color:#3E3A32;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.page{width:210mm;min-height:297mm;padding:16mm 18mm;position:relative}
+.top{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:.4mm solid #BFA05E;padding-bottom:8mm}
+.l1{font-family:'Cormorant Garamond',serif;font-size:10pt;letter-spacing:4pt;color:#8A8072}
+.l2{font-family:'Cormorant Garamond',serif;font-size:21pt;letter-spacing:2pt;color:#46503E;margin:1mm 0}
+.l3{font-size:6.5pt;letter-spacing:2.5pt;color:#A98D52}
+.inv{text-align:right}
+.inv h1{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:24pt;letter-spacing:3pt;color:#46503E;margin:0}
+.inv p{margin:1mm 0 0;font-size:9pt;color:#8A8072}
+.paid{display:inline-block;border:.6mm solid #55604C;color:#55604C;font-size:9pt;letter-spacing:3pt;padding:1.6mm 4mm;border-radius:1.5mm;transform:rotate(-4deg);margin-top:3mm}
+.bill{margin:9mm 0 6mm;font-size:10pt;line-height:1.6}
+.bill b{font-family:'Cormorant Garamond',serif;font-size:13pt;color:#46503E;font-weight:500}
+table{width:100%;border-collapse:collapse;font-size:10pt}
+th{font-size:7.5pt;letter-spacing:2pt;color:#A98D52;text-align:left;padding:3mm 2mm;border-bottom:.3mm solid #D8D2C2}
+td{padding:3.4mm 2mm;border-bottom:.2mm solid #E4DECE}
+.r{text-align:right}
+.tot{margin-top:6mm;margin-left:auto;width:70mm;font-size:10.5pt}
+.tot div{display:flex;justify-content:space-between;padding:1.6mm 0}
+.tot .grand{border-top:.4mm solid #BFA05E;font-family:'Cormorant Garamond',serif;font-size:15pt;color:#46503E;margin-top:1mm;padding-top:3mm}
+.notes{margin-top:8mm;font-size:9.5pt;font-style:italic;font-family:'Cormorant Garamond',serif;color:#6E6656}
+.pay{margin-top:8mm;background:#F3EEE1;border-radius:3mm;padding:5mm 6mm;font-size:9pt;line-height:1.7}
+.ft{position:absolute;bottom:12mm;left:18mm;right:18mm;text-align:center;font-size:8.5pt;color:#8A8072;border-top:.2mm solid #D8D2C2;padding-top:4mm}
+.ft .j{font-size:6.5pt;letter-spacing:2.5pt;color:#A98D52;margin-top:1.5mm}
+</style></head><body><div class="page">
+<div class="top">
+ <div><div class="l1">EMMA’S</div><div class="l2">${soul?'SOUL SPACE':'MOBILE BEAUTY'}</div><div class="l3">${soul?'MEDITATION · SOUND · BREATHWORK':'&amp; HOLISTIC WELLNESS'}</div>
+ <div style="font-size:8.5pt;color:#8A8072;margin-top:3mm">07501 411 252 · beautybyemma@live.co.uk<br>www.emmasholisticbeauty.co.uk · Preston</div></div>
+ <div class="inv"><h1>${v.status==='paid'?'RECEIPT':'INVOICE'}</h1><p>${esc(v.num)}</p><p>${fmtD(v.date)}</p>${v.status==='paid'?'<div class="paid">PAID WITH THANKS</div>':''}</div>
+</div>
+<div class="bill">Billed to<br><b>${esc(v.name)}</b><br>${esc(v.phone||'')}${v.email?'<br>'+esc(v.email):''}${v.addr?'<br>'+esc(v.addr):''}</div>
+<table><tr><th>TREATMENT</th><th class="r">QTY</th><th class="r">PRICE</th><th class="r">AMOUNT</th></tr>
+${v.items.map(i=>`<tr><td>${esc(i.name)}</td><td class="r">${i.qty}</td><td class="r">${gbp(i.price)}</td><td class="r">${gbp(i.price*i.qty)}</td></tr>`).join('')}
+</table>
+<div class="tot">
+ <div><span>Subtotal</span><span>${gbp(t.sub)}</span></div>
+ ${t.disc?`<div><span>Discount${v.disc.type==='%'?' ('+v.disc.val+'%)':''}</span><span>−${gbp(t.disc)}</span></div>`:''}
+ <div class="grand"><span>Total</span><span>${gbp(t.total)}</span></div>
+</div>
+${v.notes?`<div class="notes">“${esc(v.notes)}”</div>`:''}
+<div class="pay"><b style="letter-spacing:2pt;font-size:8pt;color:#55604C">PAYMENT</b><br>Bank transfer, PayPal or SumUp link — Emma will confirm receipt by text. Please give 48 hours’ notice to change or cancel an appointment.</div>
+<div class="ft">Every appointment is mobile · your home, your comfort · thank you for supporting a one woman business
+<div class="j">11:11 · GROUNDED &amp; GRATEFUL</div></div>
+</div><script>window.onload=function(){setTimeout(function(){window.print()},600)}<\/script></body></html>`);
+ w.document.close();};
 /* ---- announcements ---- */
 function vAnns(m){
  m.innerHTML=`<h2>Soul Space announcements</h2><div class="adm-sub">Upcoming circles, sound baths and series. Live ones show on the Soul Space page with a booking link.</div>
