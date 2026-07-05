@@ -835,6 +835,7 @@ footer a:hover{color:var(--gold)}
               <div><button type="button" class="btn small" style="width:100%;margin-bottom:2px" onclick="findAddr()">Find my address</button></div>
             </div>
             <p id="pcfound" class="muted" style="font-size:13px;margin-top:8px;display:none"></p>
+            <div id="housepick" style="display:none"></div>
             <label>House number & street</label><input type="text" id="baddr" placeholder="e.g. 12 Elm Grove">
           </div>
           <label>Notes, requests or promo code</label><textarea id="bnotes" rows="3"></textarea>
@@ -968,7 +969,8 @@ footer a:hover{color:var(--gold)}
         <label>Email or username</label><input id="luser" required autocomplete="username">
         <label>Password</label><input id="lpass" type="password" required autocomplete="current-password">
         <p id="lerr" style="display:none;color:var(--danger);font-size:13px;margin-top:10px">Not quite, try again.</p>
-        <div class="center" style="margin-top:26px"><button class="btn gold" type="submit" style="width:100%">Sign in</button></div>
+        <label style="display:flex;gap:8px;align-items:center;text-transform:none;letter-spacing:0;font-size:13px;margin-top:14px;color:var(--taupe)"><input type="checkbox" id="lremember" checked style="width:auto;margin:0"> Keep me signed in on this device</label>
+        <div class="center" style="margin-top:20px"><button class="btn gold" type="submit" style="width:100%">Sign in</button></div>
       </form>
       <p class="muted" style="font-size:12px;margin-top:20px">Private area for Emma only</p>
     </div>
@@ -1316,15 +1318,39 @@ window.findAddr=async()=>{
  const out=document.getElementById('pcfound');
  if(!pc){out.style.display='block';out.textContent='Pop your postcode in first.';return;}
  out.style.display='block';out.textContent='Looking up your postcode…';
+ let pretty='';
  try{
   const r=await fetch('https://api.postcodes.io/postcodes/'+encodeURIComponent(pc));
   const j=await r.json();
-  if(j.status===200){const d=j.result;
+  if(j.status===200){const d=j.result;pretty=d.postcode;
    foundArea=[d.admin_ward,d.admin_district].filter(Boolean).join(', ');
-   out.innerHTML='✓ Found: <b>'+foundArea+', '+d.postcode+'</b>. Just add your house number and street below.';
+   out.innerHTML='✓ Found: <b>'+foundArea+', '+d.postcode+'</b>. Fetching the houses on your street…';
+  }else{foundArea='';out.textContent='Hmm, that postcode isn’t coming up. Double-check it or type your address below.';return;}
+ }catch(e){foundArea='';out.textContent='Couldn’t reach the address service. Just type your full address below.';return;}
+ /* pull every mapped house on this postcode from OpenStreetMap */
+ try{
+  const q='[out:json][timeout:10];(node["addr:housenumber"]["addr:postcode"~"^'+pretty.replace(' ','\\\\s?')+'$",i];way["addr:housenumber"]["addr:postcode"~"^'+pretty.replace(' ','\\\\s?')+'$",i];);out tags 120;';
+  const o=await fetch('https://overpass-api.de/api/interpreter',{method:'POST',body:'data='+encodeURIComponent(q)});
+  const oj=await o.json();
+  const seen={};const houses=[];
+  (oj.elements||[]).forEach(el=>{const t=el.tags||{};
+   const label=[(t['addr:housename']||''),(t['addr:housenumber']||''),(t['addr:street']||'')].filter(Boolean).join(' ').trim();
+   if(label&&!seen[label]){seen[label]=1;houses.push(label);}});
+  houses.sort((x,y)=>(parseInt(x)||999)-(parseInt(y)||999)||x.localeCompare(y));
+  const wrap=document.getElementById('housepick');
+  if(houses.length){
+   wrap.style.display='block';
+   wrap.innerHTML='<label>Choose your house</label><select id="bhouse" onchange="if(this.value){document.getElementById(\'baddr\').value=this.value;}"><option value="">Pick your address ('+houses.length+' found)…</option>'+houses.map(h=>'<option value="'+h.replace(/"/g,'&quot;')+'">'+h+'</option>').join('')+'<option value="">My house isn’t listed — I’ll type it</option></select>';
+   out.innerHTML='✓ <b>'+foundArea+', '+pretty+'</b> — pick your house below, or type it if it’s missing.';
+  }else{
+   wrap.style.display='none';wrap.innerHTML='';
+   out.innerHTML='✓ Found: <b>'+foundArea+', '+pretty+'</b>. Just add your house number and street below.';
    document.getElementById('baddr').focus();
-  }else{foundArea='';out.textContent='Hmm, that postcode isn’t coming up. Double-check it or type your address below.';}
- }catch(e){foundArea='';out.textContent='Couldn’t reach the address service. Just type your full address below.';}};
+  }
+ }catch(e){
+  const wrap=document.getElementById('housepick');if(wrap){wrap.style.display='none';wrap.innerHTML='';}
+  out.innerHTML='✓ Found: <b>'+foundArea+', '+pretty+'</b>. Just add your house number and street below.';
+ }};
 const fmtT=t=>{const[h,m]=t.split(':').map(Number);const ap=h>=12?'pm':'am';return `${((h+11)%12)+1}:${String(m).padStart(2,'0')}${ap}`;};
 function freeSlots(iso){
  if(settings.blocked.includes(iso))return[];
@@ -1461,15 +1487,24 @@ function doLogin(e){e.preventDefault();
  (async()=>{
   const u=await sha(document.getElementById('luser').value.trim().toLowerCase());
   const p=await sha(document.getElementById('lpass').value);
-  if(AUTH_U.includes(u)&&p===AUTH_P){sessionStorage.setItem('emmaAdmin','1');go('admin');}
+  if(AUTH_U.includes(u)&&p===AUTH_P){sessionStorage.setItem('emmaAdmin','1');
+   const rm=document.getElementById('lremember');
+   if(rm&&rm.checked){try{localStorage.setItem('emmaAdminP','1');}catch(x){}}
+   go('admin');}
   else document.getElementById('lerr').style.display='block';
  })();
  return false;}
-function logout(){sessionStorage.removeItem('emmaAdmin');go('home');}
-function requireAuth(){if(sessionStorage.getItem('emmaAdmin')!=='1'){go('login');return false}return true}
+function logout(){sessionStorage.removeItem('emmaAdmin');try{localStorage.removeItem('emmaAdminP');}catch(x){}go('home');}
+function requireAuth(){if(sessionStorage.getItem('emmaAdmin')!=='1'&&(function(){try{return localStorage.getItem('emmaAdminP')}catch(x){return null}})()!=='1'){go('login');return false}return true}
 function adm(view){if(!requireAuth())return;curAdm=view;
  document.querySelectorAll('[data-av]').forEach(a=>a.classList.toggle('on',a.dataset.av===view));
- ({dash:vDash,analytics:vAnalytics,bookings:vBookings,calendar:vCal,clients:vClients,services:vServices,promos:vPromos,gifts:vGifts,invoices:vInvoices,anns:vAnns,gallery:vGallery,content:vContent,settings:vSettings})[view](document.getElementById('admmain'));}
+ ({dash:vDash,analytics:vAnalytics,bookings:vBookings,calendar:vCal,clients:vClients,services:vServices,promos:vPromos,gifts:vGifts,invoices:vInvoices,anns:vAnns,gallery:vGallery,content:vContent,settings:vSettings})[view](document.getElementById('admmain'));
+ updBkBadge();}
+function updBkBadge(){
+ const seen=DB.get('seenB',[]);
+ const n=bookings.filter(b=>b.status==='pending'&&!seen.includes(b.id)).length;
+ document.querySelectorAll('[data-av="bookings"]').forEach(a=>{
+  a.innerHTML='Bookings'+(n?' <span style="display:inline-flex;min-width:19px;height:19px;border-radius:10px;background:#B3543F;color:#fff;font-family:var(--jost);font-size:11.5px;font-weight:400;align-items:center;justify-content:center;padding:0 5px;vertical-align:1px;letter-spacing:0">'+n+'</span>':'');});}
 const badge=s=>`<span class="badge b-${s}">${s}</span>`;
 const fmtD=d=>{if(!d)return '·';const x=new Date(d+'T12:00');return x.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})};
 function cxCount(b){const k=(b.email||b.phone||b.name).toLowerCase();
@@ -1517,8 +1552,22 @@ function vDash(m){
   const bs=byD[iso]||[];const blk=settings.blocked.includes(iso);
   mcCells+=`<div class="mday ${iso===t?'tdy':''} ${blk?'blk':''}" style="aspect-ratio:auto;padding:6px 0;flex-direction:column" onclick="selDay('${iso}');adm('calendar')">${d}${bs.length?`<span style="display:block;width:5px;height:5px;border-radius:50%;background:${bs.some(x=>x.sec==='soul')?'var(--sage)':'var(--gold)'};margin:2px auto 0"></span>`:''}</div>`;}
  const doy=Math.floor((Date.now()-new Date(new Date().getFullYear(),0,0))/86400000);
+ const seenB=DB.get('seenB',[]);
+ const newPend=pending.filter(b=>!seenB.includes(b.id));
+ if(newPend.length&&!window.__notified&&typeof Notification!=='undefined'&&Notification.permission==='granted'){
+  window.__notified=true;
+  try{new Notification('Emma’s Studio — new enquiry',{body:newPend.length+' new booking enquir'+(newPend.length===1?'y':'ies')+' waiting for a yes'});}catch(x){}}
  m.innerHTML=`<h2>Good ${new Date().getHours()<12?'morning':'afternoon'}, Emma ✨</h2>
  <div class="adm-sub">${new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'})} · 11:11 energy</div>
+ ${newPend.length?`<div class="panel" style="border:1.5px solid var(--gold);background:#FDFBF4;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap">
+  <div><b style="font-family:var(--serif);font-size:19px;color:var(--sage-dk)">${newPend.length} new enquir${newPend.length===1?'y':'ies'}</b><br><span class="muted" style="font-size:13px">${newPend.slice(0,3).map(b=>esc(b.name)+' · '+esc(b.service)).join(' — ')}${newPend.length>3?' +'+(newPend.length-3)+' more':''}</span></div>
+  <button class="btn small gold" onclick="adm('bookings')">Review now</button></div>`:''}
+ ${(typeof Notification!=='undefined'&&Notification.permission==='default')?`<div class="panel" style="display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap">
+  <span style="font-size:13.5px" class="muted">Get a ping on this device the moment a new enquiry lands.</span>
+  <button class="icobtn" onclick="Notification.requestPermission().then(()=>adm('dash'))">Enable notifications</button></div>`:''}
+ <div class="panel"><h3>This month <button class="icobtn" style="float:right" onclick="adm('calendar')">Full calendar</button></h3>
+ <div class="mgrid">${['Mo','Tu','We','Th','Fr','Sa','Su'].map(d=>`<div class="dw">${d}</div>`).join('')}${mcCells}</div>
+ <div class="legend" style="margin-top:10px"><span><span class="dot soul"></span> Soul Space</span><span><span class="dot beauty"></span> Mobile Beauty</span><span style="margin-left:auto" class="muted">Tap a day to manage it</span></div></div>
  <div class="panel" style="background:linear-gradient(135deg,#46503E,#3C4535);border:none;color:var(--cream)">
   <div style="font-family:var(--jost);font-size:11px;letter-spacing:4px;color:var(--gold);text-transform:uppercase;margin-bottom:10px">Today’s affirmation</div>
   <div style="font-family:var(--serif);font-style:italic;font-size:24px;line-height:1.4">“${QUOTES[doy%QUOTES.length]}”</div></div>
@@ -1535,11 +1584,8 @@ function vDash(m){
  ${week.length?week.slice(0,6).map(b=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid rgba(181,174,158,.3)">
   <span><b>${fmtD(b.date)}</b> ${esc(b.time||'')} · ${esc(b.name)}<br><span class="muted" style="font-size:12.5px">${esc(b.service)} · £${b.price} ${b.addr?'· '+esc(b.addr.split(',')[0]):''}</span></span>
   ${badge(b.status)}</div>`).join(''):'<p class="muted">A clear week so far. Time for a promotion?</p>'}</div>
- <div class="panel"><h3>This month <button class="icobtn" style="float:right" onclick="adm('calendar')">Full calendar</button></h3>
- <div class="mgrid">${['Mo','Tu','We','Th','Fr','Sa','Su'].map(d=>`<div class="dw">${d}</div>`).join('')}${mcCells}</div>
- <div class="legend" style="margin-top:10px"><span><span class="dot soul"></span> Soul Space</span><span><span class="dot beauty"></span> Mobile Beauty</span></div></div>
- </div>
  <div class="panel"><h3>Today <button class="icobtn" style="float:right" onclick="weeklyDigest()">Weekly digest</button></h3>${todays.length?tableB(todays,true):'<p class="muted">Nothing booked today. A rest day is productive too.</p>'}</div>
+ </div>
  ${(()=>{const mo=new Date().getMonth()+1;
   const seen={},bds=[];bookings.forEach(b=>{if(b.bday&&+b.bday.slice(5,7)===mo){const k=(b.email||b.phone).toLowerCase();if(!seen[k]){seen[k]=1;bds.push(b);}}});
   return bds.length?`<div class="panel"><h3>🎂 Birthdays this month</h3>${bds.map(b=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(181,174,158,.3)"><span>${esc(b.name)} · ${fmtD(b.bday.slice(0,4)===String(new Date().getFullYear())?b.bday:new Date().getFullYear()+b.bday.slice(4))}</span><a class="icobtn" href="${smsLink(b.phone,`Happy birthday month, ${b.name.split(' ')[0]}! 🎂 Enjoy 10% off any treatment this month, my treat. Emma x`)}">Send birthday treat</a></div>`).join('')}</div>`:'';})()}
@@ -1682,6 +1728,7 @@ function vBookings(m){
  if(fState.sec!=='all')list=list.filter(b=>b.sec===fState.sec);
  if(fState.date)list=list.filter(b=>b.date===fState.date);
  if(fState.q)list=list.filter(b=>(b.name+b.service).toLowerCase().includes(fState.q.toLowerCase()));
+ DB.set('seenB',[...new Set([...DB.get('seenB',[]),...bookings.filter(b=>b.status==='pending').map(b=>b.id)])]);
  m.innerHTML=`<h2>Bookings</h2><div class="adm-sub">Accept, move, complete. Everything in one calm place.</div>
  <div class="filters">
   <select onchange="fState.status=this.value;adm('bookings')">${['all','pending','confirmed','completed','cancelled','rejected'].map(s=>`<option ${fState.status===s?'selected':''} value="${s}">${s==='all'?'All statuses':s}</option>`).join('')}</select>
@@ -2244,14 +2291,22 @@ function closeModal(){document.getElementById('modal').classList.remove('open');
   });
 })();
 /* ---- floating back button (phone + desktop) ---- */
-(function(){var st=[],cur='home',_go=window.go;if(typeof _go!=='function')return;
+(function(){var st=[],_go=window.go;if(typeof _go!=='function')return;
+ function curPage(){var p=document.querySelector('.page.active');return p?p.id.replace('page-',''):'home';}
+ var cur=curPage();
  var b=document.createElement('button');b.id='backtab';b.setAttribute('aria-label','Go back');
- b.style.cssText='position:fixed;bottom:18px;left:18px;z-index:290;width:44px;height:44px;border-radius:50%;border:1px solid rgba(191,160,94,.6);background:rgba(250,246,239,.94);cursor:pointer;display:none;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(62,58,50,.2);padding:0';
+ b.style.cssText='position:fixed;bottom:18px;left:18px;z-index:295;width:44px;height:44px;border-radius:50%;border:1px solid rgba(191,160,94,.6);background:rgba(250,246,239,.94);cursor:pointer;display:none;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(62,58,50,.2);padding:0;-webkit-tap-highlight-color:transparent';
  b.innerHTML='<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#55604C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>';
- function upd(){b.style.display=(st.length||cur!=='home')?'flex':'none';}
- window.go=function(p,anchor){if(p!==cur){st.push(cur);if(st.length>20)st.shift();cur=p;}var r=_go(p,anchor);upd();return r;};
- b.addEventListener('click',function(){var p=st.pop()||'home';cur=p;_go(p);upd();});
- document.body.appendChild(b);upd();})();
+ function upd(){var c=curPage();
+  if(c!==cur){st.push(cur);if(st.length>20)st.shift();cur=c;}
+  b.style.display=(c!=='home'||st.length)?'flex':'none';}
+ window.go=function(p,anchor){var r=_go(p,anchor);upd();return r;};
+ b.addEventListener('click',function(){var p=st.pop()||'home';st.pop&&null;cur=p;_go(p);
+  b.style.display=(p!=='home'||st.length)?'flex':'none';});
+ document.body.appendChild(b);
+ try{document.querySelectorAll('main.page').forEach(function(pg){
+  new MutationObserver(upd).observe(pg,{attributes:true,attributeFilter:['class']});});}catch(e){}
+ upd();})();
 renderPublic();initPola();initPromo();
 document.getElementById('bookform').addEventListener('input',function once(){
  metrics.bstart++;saveM();this.removeEventListener('input',once);});
