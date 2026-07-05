@@ -49,7 +49,7 @@ fbq('init','META_PIXEL_ID_HERE');fbq('track','PageView');
   --sage:#55604C; --sage-dk:#46503E; --sage-lt:#7A8468;
   --gold:#8A9B6E; --gold-dk:#6E7F5C;
   --taupe:#8A8072; --ink:#3E3A32; --line:#B5AE9E; --danger:#A65454;
-  --clay:#B97C5C; --olive:#8A9B6E;
+  --clay:#6E7F5C; --olive:#8A9B6E;
   --serif:'Cormorant Garamond',serif; --sans:'Outfit',sans-serif; --jost:'Jost',sans-serif;
 }
 *{margin:0;padding:0;box-sizing:border-box}
@@ -63,7 +63,7 @@ a{color:inherit;text-decoration:none}
 .rule.center{margin:22px auto}
 .btn{display:inline-block;font-family:var(--jost);font-weight:400;font-size:14px;letter-spacing:3px;text-transform:uppercase;padding:16px 36px;border:1px solid var(--sage-dk);color:var(--sage-dk);border-radius:9px;transition:all .3s ease;cursor:pointer;background:transparent;position:relative;overflow:hidden;text-align:center}
 .btn:hover{background:var(--sage-dk);color:var(--cream);transform:translateY(-2px)}
-.btn.gold{border:0;padding:17px 37px;background:linear-gradient(115deg,#8A9B6E,#A9BA92 45%,#B97C5C);background-size:200% 100%;color:#fff;animation:gslide 4s ease-in-out infinite}
+.btn.gold{border:0;padding:17px 37px;background:linear-gradient(115deg,#8A9B6E,#A9BA92 45%,#6E7F5C);background-size:200% 100%;color:#fff;animation:gslide 4s ease-in-out infinite}
 .btn.gold::after{content:'';position:absolute;inset:0;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.5) 50%,transparent 65%);transform:translateX(-120%);animation:btnsheen 3.2s ease-in-out infinite;pointer-events:none}
 .btn.gold:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(110,127,92,.35)}
 .btngroup{display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:center}
@@ -123,7 +123,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(250,246,239,
   #burger{display:block}
 }
 /* ---------- HERO v2 · split editorial ---------- */
-.hero2{position:relative;background:radial-gradient(700px 500px at 10% 12%,rgba(185,124,92,.09),transparent 62%),radial-gradient(620px 480px at 92% 85%,rgba(138,155,110,.12),transparent 62%),radial-gradient(1200px 700px at 50% -10%,#FFFDF8 0%,var(--cream) 45%,var(--cream2) 100%);padding:118px 24px 36px}
+.hero2{position:relative;background:radial-gradient(700px 500px at 10% 12%,rgba(110,127,92,.09),transparent 62%),radial-gradient(620px 480px at 92% 85%,rgba(138,155,110,.12),transparent 62%),radial-gradient(1200px 700px at 50% -10%,#FFFDF8 0%,var(--cream) 45%,var(--cream2) 100%);padding:118px 24px 36px}
 .h2grid{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1.08fr 1fr;gap:44px;align-items:stretch}
 .h2copy{display:flex;flex-direction:column;justify-content:center;padding:30px 0}
 .h2copy .earc{margin-bottom:20px;animation:eFade 1.2s .15s both}
@@ -269,7 +269,7 @@ footer a:hover{color:var(--gold)}
 .wave{line-height:0}
 .wave svg{display:block;width:100%;height:72px}
 .haswash{position:relative;overflow:hidden}
-.haswash::before{content:'';position:absolute;width:580px;height:580px;border-radius:50%;background:radial-gradient(circle,rgba(185,124,92,.16),transparent 68%);top:-150px;right:-150px;pointer-events:none}
+.haswash::before{content:'';position:absolute;width:580px;height:580px;border-radius:50%;background:radial-gradient(circle,rgba(110,127,92,.16),transparent 68%);top:-150px;right:-150px;pointer-events:none}
 .haswash::after{content:'';position:absolute;width:540px;height:540px;border-radius:50%;background:radial-gradient(circle,rgba(138,155,110,.18),transparent 68%);bottom:-160px;left:-130px;pointer-events:none}
 .haswash .wrap{position:relative;z-index:2}
 .grid3 .card:nth-child(3n+1){border-top:3px solid var(--olive)}
@@ -447,8 +447,10 @@ footer a:hover{color:var(--gold)}
   T(function(){document.getElementById('arule').classList.add('draw');click();},6650);
   T(open,7750);}
  function begin(){prime();}
- a.addEventListener('click',function(){prime();}); /* tap brings sound in, never skips the film */
- play(); /* the film always plays in full, no tap needed */
+ /* no tap behaviour at all — sound self-starts the moment the browser allows it */
+ var sTry=setInterval(function(){try{var c=ac();if(c&&c.state==='running'){soundOn=true;clearInterval(sTry);}}catch(e){}},350);
+ setTimeout(function(){clearInterval(sTry);},30000);
+ play(); /* the film always plays in full, nothing to tap */
  setTimeout(open,12000); /* absolute failsafe */
 })();
 </script>
@@ -486,7 +488,7 @@ footer a:hover{color:var(--gold)}
         <div class="h2note"><b>11:11</b> · grounded · grateful · exactly on time</div>
       </div>
       <div class="h2photo">
-        <img src="photos/photo10.jpg" alt="Emma’s gentle hands holding a wildflower — beauty services with care">
+        <img src="photos/photo05.jpg" alt="Emma walking through tall wildflowers in Preston">
         <svg class="h2frame" viewBox="0 0 100 100" preserveAspectRatio="none" style="inset:14px;width:calc(100% - 28px);height:calc(100% - 28px)">
           <rect x="1" y="1" width="98" height="98" rx="2.5" pathLength="100" class="fbase"/>
           <rect x="1" y="1" width="98" height="98" rx="2.5" pathLength="100" class="fglow"/>
@@ -508,7 +510,7 @@ footer a:hover{color:var(--gold)}
         <div class="eportal pbeauty" onclick="portalGo('beauty',this)">
           <div class="glare"></div><div class="cardsheen"></div>
           <svg class="pfloat" style="top:16px;right:20px" width="20" height="20" viewBox="0 0 20 20"><path d="M10 1 Q11.3 8.7 19 10 Q11.3 11.3 10 19 Q8.7 11.3 1 10 Q8.7 8.7 10 1 Z" fill="#8A9B6E"/></svg>
-          <svg class="pfloat p2" style="bottom:60px;left:18px" width="15" height="24" viewBox="0 0 15 24"><path d="M 7.5 1 C 12 7 11.6 15 7.5 20 C 3.4 15 3 7 7.5 1 Z" fill="none" stroke="#B97C5C" stroke-width="1.6"/></svg>
+          <svg class="pfloat p2" style="bottom:60px;left:18px" width="15" height="24" viewBox="0 0 15 24"><path d="M 7.5 1 C 12 7 11.6 15 7.5 20 C 3.4 15 3 7 7.5 1 Z" fill="none" stroke="#6E7F5C" stroke-width="1.6"/></svg>
           <div class="logo">
             <svg width="260" height="110" viewBox="0 0 520 220">
               <text x="260" y="62" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="28" letter-spacing="12" fill="#8A8072">EMMA’S</text>
