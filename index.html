@@ -149,7 +149,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(250,246,239,
 .h2copy{display:flex;flex-direction:column;justify-content:center;padding:30px 0}
 .h2copy .earc{margin-bottom:20px;animation:eFade 1.2s .15s both}
 .h2kick{font-family:var(--jost);font-weight:300;font-size:11.5px;letter-spacing:6px;color:var(--gold-dk);text-transform:uppercase;margin-bottom:16px;animation:eFade 1.2s .3s both}
-.h2title{font-family:var(--serif);font-weight:500;font-size:clamp(46px,6.2vw,86px);line-height:1.04;color:var(--sage-dk);animation:eFade 1.2s .45s both}
+.h2title{font-family:var(--serif);font-weight:500;font-size:clamp(42px,5.7vw,78px);line-height:1.08;letter-spacing:.005em;color:var(--sage-dk);animation:eFade 1.2s .45s both}
+.h2title .amp{font-style:italic;color:var(--gold-dk);font-weight:400}
+.h2title em{font-style:italic;font-weight:400;color:var(--sage)}
 .h2sub{font-family:var(--serif);font-style:italic;font-size:clamp(17px,2.2vw,24px);color:var(--taupe);margin:12px 0 32px;animation:eFade 1.2s .6s both}
 .h2btns{display:flex;gap:12px;flex-wrap:wrap;animation:eFade 1.2s .75s both}
 .h2note{font-family:var(--serif);font-size:14px;letter-spacing:3px;color:var(--taupe);margin-top:26px;animation:eFade 1.2s .9s both;text-align:center;width:100%;max-width:520px}
@@ -563,7 +565,7 @@ footer a:hover{color:var(--gold)}
     <div class="h2grid">
       <div class="h2copy">
         <div class="h2kick">Beauty · Wellbeing · Soul Care</div>
-        <h1 class="h2title">Beauty that comes<br>to your door.</h1>
+        <h1 class="h2title">Beauty <span class="amp">&amp;</span> holistic<br>wellness, <em>to your door.</em></h1>
         <p class="h2sub" data-c="tagline">and calm that stays with you · Preston & surrounds</p>
         <div class="h2btns">
           <button class="btn gold" onclick="go('book')">Book now</button>
