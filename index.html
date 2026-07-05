@@ -404,7 +404,9 @@ footer a:hover{color:var(--gold)}
 .day.dim{opacity:.35}
 .day.today{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold)}
 .day.blocked{background:repeating-linear-gradient(45deg,#F1EDE3,#F1EDE3 6px,#E7E2D5 6px,#E7E2D5 12px)}
-.dnm{font-size:10.5px;line-height:1.35;padding:2px 6px;border-radius:6px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.dnm{font-size:10.5px;line-height:1.35;padding:3px 6px 4px;border-radius:6px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.dnm b{font-weight:500}
+.dnm .sv{display:block;font-size:9.5px;opacity:.75;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .dnm.beauty{background:#F3ECD9;color:#7A6435}
 .dnm.soul{background:#E4E9DD;color:#46503E}
 .dnm.pend{box-shadow:inset 0 0 0 1px var(--gold-dk);opacity:.85}
@@ -1577,13 +1579,32 @@ function vDash(m){
   <div style="font-family:var(--jost);font-size:11px;letter-spacing:4px;color:var(--gold);text-transform:uppercase;margin-bottom:10px">Today’s affirmation</div>
   <div style="font-family:var(--serif);font-style:italic;font-size:24px;line-height:1.4">“${QUOTES[doy%QUOTES.length]}”</div></div>
  <div class="stats">
+  <div class="stat"><div class="k">Booked in</div><div class="v">${todays.length+upcoming.length}<small style="font-size:13px;color:var(--taupe)"> people</small></div></div>
   <div class="stat"><div class="k">Today</div><div class="v">${todays.length}</div></div>
   <div class="stat"><div class="k">Pending</div><div class="v">${pending.length}</div></div>
   <div class="stat"><div class="k">This week</div><div class="v">£${wkIncome} ${trend!==null?`<small style="font-size:14px;color:${trend>=0?'var(--sage)':'var(--danger)'}">${trend>=0?'▲':'▼'}${Math.abs(trend)}%</small>`:''}</div></div>
   <div class="stat"><div class="k">Month income</div><div class="v">£${income}</div></div>
   <div class="stat"><div class="k">Booked ahead (7 days)</div><div class="v">£${wkEarnAhead}</div></div>
-  <div class="stat"><div class="k">Completed all time</div><div class="v">${completed.length}</div></div>
  </div>
+ ${(()=>{
+  const wkBars=[];for(let i=7;i>=0;i--){const s=dOff(-7*i-6),e=dOff(-7*i);
+   wkBars.push(bookings.filter(b=>b.date>=s&&b.date<=e&&['completed','confirmed'].includes(b.status)).reduce((a,b)=>a+b.price,0));}
+  const mx=Math.max(...wkBars,1);
+  const bars=wkBars.map((v,i)=>{const h=Math.max(3,Math.round(v/mx*70));
+   return `<rect x="${i*30+4}" y="${82-h}" width="22" height="${h}" rx="3" fill="${i===7?'#BFA05E':'#DDD6C4'}"/>`;}).join('');
+  const mCounts={};bookings.filter(b=>b.date.slice(0,7)===month).forEach(b=>mCounts[b.service]=(mCounts[b.service]||0)+1);
+  const topSvc=Object.entries(mCounts).sort((a,b)=>b[1]-a[1])[0];
+  const conv=metrics.views?Math.round(metrics.bsent/metrics.views*100):0;
+  return `<div class="panel"><h3>Business at a glance <button class="icobtn" style="float:right" onclick="adm('analytics')">Full analytics</button></h3>
+  <div style="display:flex;gap:30px;flex-wrap:wrap;align-items:flex-end;margin-top:6px">
+   <div style="flex:1;min-width:230px">
+    <svg width="100%" height="86" viewBox="0 0 240 86" preserveAspectRatio="none">${bars}</svg>
+    <div class="muted" style="font-size:11.5px;margin-top:4px">Income by week · last 8 weeks · this week £${wkBars[7]}</div></div>
+   <div style="min-width:200px;font-size:13.5px;line-height:2.1">
+    Star service this month: <b>${topSvc?esc(topSvc[0])+' ('+topSvc[1]+')':'—'}</b><br>
+    Site visits: <b>${metrics.views}</b> · enquiries: <b>${metrics.bsent}</b><br>
+    Visit to enquiry: <b>${conv}%</b></div>
+  </div></div>`;})()}
  <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:26px" class="dashcols">
  <div class="panel"><h3>Your week ahead ${nextUp?`<span class="muted" style="font-family:var(--sans);font-size:13px;letter-spacing:0;float:right">Next: ${esc(nextUp.name.split(' ')[0])} · ${fmtD(nextUp.date)} ${esc(nextUp.time||'')}</span>`:''}</h3>
  ${week.length?week.slice(0,6).map(b=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid rgba(181,174,158,.3)">
@@ -1807,8 +1828,8 @@ function vCal(m){
   const blocked=settings.blocked.includes(iso);
   cells+=`<div class="day ${iso===todayISO()?'today':''} ${blocked?'blocked':''}" onclick="selDay('${iso}')">
    <b>${d}</b>
-   ${bs.slice(0,3).map(b=>`<div class="dnm ${b.sec}${b.status==='pending'?' pend':''}" title="${esc(b.name)} · ${esc(b.service)}">${esc((b.time||'').replace(/\s/g,''))} ${esc(b.name.split(' ')[0])}</div>`).join('')}
-   ${bs.length>3?`<div class="dnm more">+${bs.length-3} more</div>`:''}
+   ${bs.slice(0,2).map(b=>`<div class="dnm ${b.sec}${b.status==='pending'?' pend':''}" title="${esc(b.name)} · ${esc(b.service)} · ${esc(b.time||'')}">${esc((b.time||'').replace(/\s/g,''))} <b>${esc(b.name.split(' ')[0])}</b><span class="sv">${esc(b.service)}</span></div>`).join('')}
+   ${bs.length>2?`<div class="dnm more">+${bs.length-2} more</div>`:''}
    ${blocked?'<div class="muted" style="font-size:10px;letter-spacing:1px;margin-top:3px">BLOCKED</div>':''}</div>`;}
  m.innerHTML=`<h2>Calendar & availability</h2><div class="adm-sub">Sage dots = Soul Space, gold = Mobile Beauty. Blocked days show as unavailable on the public booking calendar.</div>
  <div class="panel">
