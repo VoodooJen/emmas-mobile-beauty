@@ -61,10 +61,12 @@ a{color:inherit;text-decoration:none}
 .eyebrow{font-family:var(--jost);font-weight:300;font-size:13px;letter-spacing:5px;color:var(--gold-dk);text-transform:uppercase;margin-bottom:14px}
 .rule{width:72px;height:2px;background:var(--gold);margin:22px 0}
 .rule.center{margin:22px auto}
-.btn{display:inline-block;font-family:var(--jost);font-weight:400;font-size:14px;letter-spacing:3px;text-transform:uppercase;padding:16px 36px;border:1.5px solid var(--sage-dk);color:var(--sage-dk);border-radius:999px;transition:all .3s ease;cursor:pointer;background:transparent}
-.btn:hover{background:var(--sage-dk);color:var(--cream)}
-.btn.gold{border-color:var(--gold);background:var(--gold);color:#fff}
-.btn.gold:hover{background:var(--gold-dk);border-color:var(--gold-dk)}
+.btn{display:inline-block;font-family:var(--jost);font-weight:400;font-size:14px;letter-spacing:3px;text-transform:uppercase;padding:16px 36px;border:1px solid var(--sage-dk);color:var(--sage-dk);border-radius:9px;transition:all .3s ease;cursor:pointer;background:transparent;position:relative;overflow:hidden;text-align:center}
+.btn:hover{background:var(--sage-dk);color:var(--cream);transform:translateY(-2px)}
+.btn.gold{border:0;padding:17px 37px;background:linear-gradient(115deg,#BFA05E,#D8BE82 45%,#B97C5C);background-size:200% 100%;color:#fff;animation:gslide 4s ease-in-out infinite}
+.btn.gold::after{content:'';position:absolute;inset:0;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.5) 50%,transparent 65%);transform:translateX(-120%);animation:btnsheen 3.2s ease-in-out infinite;pointer-events:none}
+.btn.gold:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(169,141,82,.35)}
+.btngroup{display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:center}
 .btn.ghost-light{border-color:rgba(250,246,239,.7);color:var(--cream)}
 .btn.ghost-light:hover{background:var(--cream);color:var(--sage-dk)}
 .btn.small{padding:10px 22px;font-size:12px}
@@ -127,11 +129,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(250,246,239,
 .h2note b{color:var(--gold-dk);font-weight:500}
 .h2photo{position:relative;border-radius:24px;overflow:hidden;min-height:480px;box-shadow:0 34px 80px rgba(62,58,50,.18);animation:eFade 1.4s .35s both}
 .h2photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%;filter:grayscale(1) contrast(1.06) brightness(1.02);animation:kenburns 20s ease-in-out infinite alternate}
-.sqbtn{font-family:var(--jost);font-weight:300;font-size:12px;letter-spacing:3px;text-transform:uppercase;padding:15px 28px;border-radius:8px;position:relative;overflow:hidden;cursor:pointer;border:0;background:transparent;transition:transform .25s,box-shadow .25s}
-.sqbtn:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(62,58,50,.16)}
-.sqgold{background:linear-gradient(115deg,#BFA05E,#D8BE82 45%,#B97C5C);background-size:200% 100%;color:#fff;animation:gslide 4s ease-in-out infinite}
-.sqline{border:1px solid var(--sage-dk);color:var(--sage-dk)}
-.sqbtn::after{content:'';position:absolute;inset:0;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.5) 50%,transparent 65%);transform:translateX(-120%);animation:btnsheen 3.2s ease-in-out infinite;pointer-events:none}
 @keyframes btnsheen{0%{transform:translateX(-120%)}45%,100%{transform:translateX(120%)}}
 @keyframes gslide{0%,100%{background-position:0% 0}50%{background-position:100% 0}}
 @keyframes kenburns{from{transform:scale(1)}to{transform:scale(1.09) translate(-1.4%,1.4%)}}
@@ -304,7 +301,9 @@ footer a:hover{color:var(--gold)}
 .pfloat{position:absolute;pointer-events:none;animation:driftrot 8s ease-in-out infinite}
 @keyframes driftrot{0%,100%{transform:translate(0,0) rotate(0deg);opacity:.85}50%{transform:translate(-8px,-14px) rotate(14deg);opacity:1}}
 .pfloat.p2{animation-duration:10s;animation-delay:2s}
-.trustchip{font-family:var(--jost);font-size:13px;letter-spacing:2px;text-transform:uppercase;padding:11px 20px;border:1px solid rgba(191,160,94,.55);border-radius:999px;background:#fff;color:var(--sage-dk)}
+.cred{display:flex;align-items:center;gap:14px;background:#fff;border:1px solid rgba(191,160,94,.45);border-radius:12px;padding:15px 22px;box-shadow:0 6px 18px rgba(70,80,62,.06);text-align:left}
+.cred b{display:block;font-family:var(--jost);font-weight:400;font-size:12.5px;letter-spacing:2.5px;text-transform:uppercase;color:var(--sage-dk)}
+.cred span{font-size:12.5px;color:var(--taupe)}
 /* cinematic portal zoom */
 #zoomov{position:fixed;z-index:400;border-radius:26px;transition:all .68s cubic-bezier(.2,.8,.2,1);box-shadow:0 40px 90px rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center;pointer-events:none}
 #zoomov .zt{font-family:var(--serif);letter-spacing:6px;font-size:clamp(20px,4vw,34px);opacity:0;transition:opacity .4s .25s;text-transform:uppercase}
@@ -388,12 +387,13 @@ footer a:hover{color:var(--gold)}
   <div class="aph" id="ap3">
     <div class="a3wrap">
       <div id="aflare"></div>
-      <svg width="160" height="28" viewBox="0 0 230 40" style="opacity:.9">
-        <circle cx="25" cy="20" r="11" fill="#E8DFC8"/>
-        <path d="M 70 8 Q 72.8 17.2 82 20 Q 72.8 22.8 70 32 Q 67.2 22.8 58 20 Q 67.2 17.2 70 8 Z" fill="#E8DFC8"/>
-        <path d="M 115 9 A 11 11 0 0 1 115 31 A 16 16 0 0 0 115 9 Z" fill="#E8DFC8"/>
-        <path d="M 160 7.6 L 163.3 15.7 L 172 16.2 L 165.3 21.9 L 167.4 30.4 L 160 25.7 L 152.6 30.4 L 154.7 21.9 L 148 16.2 L 156.7 15.7 Z" fill="#E8DFC8"/>
-        <circle cx="205" cy="20" r="9" fill="#BFA05E"/>
+      <svg width="160" height="31" viewBox="0 0 230 44" style="opacity:.92">
+        <circle cx="24" cy="30" r="7.5" fill="#E8DFC8"/><circle cx="21.5" cy="27.8" r="1.7" fill="#B4AD97" opacity=".6"/><circle cx="26.8" cy="31" r="1.1" fill="#B4AD97" opacity=".55"/><circle cx="23" cy="33.2" r="1.3" fill="#B4AD97" opacity=".5"/>
+        <path d="M 68 11 A 9.5 9.5 0 0 1 68 30 Z" fill="#E8DFC8"/>
+        <path d="M 113 5 A 10 10 0 0 1 113 25 A 14.5 14.5 0 0 0 113 5 Z" fill="#E8DFC8"/>
+        <path d="M 158 11 A 9.5 9.5 0 0 0 158 30 Z" fill="#E8DFC8"/>
+        <circle cx="203" cy="26" r="7.5" fill="#BFA05E"/>
+        <g stroke="#BFA05E" stroke-width="1.6" stroke-linecap="round"><line x1="213.5" y1="26" x2="216.5" y2="26"/><line x1="192.5" y1="26" x2="189.5" y2="26"/><line x1="203" y1="15.5" x2="203" y2="12.5"/><line x1="203" y1="36.5" x2="203" y2="39.5"/><line x1="210.4" y1="18.6" x2="212.6" y2="16.4"/><line x1="195.6" y1="18.6" x2="193.4" y2="16.4"/><line x1="210.4" y1="33.4" x2="212.6" y2="35.6"/><line x1="195.6" y1="33.4" x2="193.4" y2="35.6"/></g>
       </svg>
       <div class="abrand1">EMMA’S</div>
       <div class="abrand2">MOBILE BEAUTY</div>
@@ -401,11 +401,11 @@ footer a:hover{color:var(--gold)}
       <div class="abrand3">& HOLISTIC WELLNESS</div>
     </div>
   </div>
-  <div class="askip">TAP TO ENTER</div>
+  <div class="askip" id="askiplbl">TAP FOR SOUND</div>
 </div>
 <script>
 (function(){var a=document.getElementById('arrival');if(!a)return;
- var opened=false,timers=[],AC=null,NB=null;
+ var opened=false,timers=[],AC=null,NB=null,soundOn=false;
  function ac(){try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();if(AC.state==='suspended')AC.resume();return AC;}catch(e){return null;}}
  function env(g,t,at,d,pk){g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(pk,t+at);g.gain.exponentialRampToValueAtTime(.0001,t+at+d);}
  function nb(c){if(!NB){NB=c.createBuffer(1,c.sampleRate*1.2,c.sampleRate);var d=NB.getChannelData(0);for(var i=0;i<d.length;i++)d[i]=Math.random()*2-1;}return NB;}
@@ -418,7 +418,12 @@ footer a:hover{color:var(--gold)}
   timers.forEach(function(t){clearTimeout(t);clearInterval(t);});
   whoosh(1.1,480,160,.12);a.classList.add('open');
   setTimeout(function(){if(a.parentNode)a.parentNode.removeChild(a);},1200);}
- a.addEventListener('click',open);
+ a.addEventListener('click',function(){
+  if(!soundOn){soundOn=true;ac();
+   setTimeout(chime,180);
+   var lbl=document.getElementById('askiplbl');if(lbl)lbl.textContent='SOUND ON · TAP TO ENTER';
+   return;}
+  open();});
  function T(fn,ms){timers.push(setTimeout(fn,ms));}
  var MSG='Take a breath. You’re exactly where you’re meant to be.';
  var p1=document.getElementById('ap1'),p2=document.getElementById('ap2'),p3=document.getElementById('ap3');
@@ -439,12 +444,13 @@ footer a:hover{color:var(--gold)}
 <nav id="mainnav">
   <div class="navin">
     <div class="brand" onclick="go('home')">
-      <svg width="96" height="17" viewBox="0 0 230 40" aria-hidden="true">
-        <circle cx="25" cy="20" r="11" fill="#55604C"/>
-        <path d="M 70 8 Q 72.8 17.2 82 20 Q 72.8 22.8 70 32 Q 67.2 22.8 58 20 Q 67.2 17.2 70 8 Z" fill="#55604C"/>
-        <path d="M 115 9 A 11 11 0 0 1 115 31 A 16 16 0 0 0 115 9 Z" fill="#55604C"/>
-        <path d="M 160 7.6 L 163.3 15.7 L 172 16.2 L 165.3 21.9 L 167.4 30.4 L 160 25.7 L 152.6 30.4 L 154.7 21.9 L 148 16.2 L 156.7 15.7 Z" fill="#55604C"/>
-        <circle cx="205" cy="20" r="9" fill="#BFA05E"/>
+      <svg width="96" height="18" viewBox="0 0 230 44" aria-hidden="true">
+        <circle cx="24" cy="30" r="7.5" fill="#55604C"/><circle cx="21.5" cy="27.8" r="1.7" fill="#39412F" opacity=".55"/><circle cx="26.8" cy="31" r="1.1" fill="#39412F" opacity=".5"/><circle cx="23" cy="33.2" r="1.3" fill="#39412F" opacity=".45"/>
+        <path d="M 68 11 A 9.5 9.5 0 0 1 68 30 Z" fill="#55604C"/>
+        <path d="M 113 5 A 10 10 0 0 1 113 25 A 14.5 14.5 0 0 0 113 5 Z" fill="#55604C"/>
+        <path d="M 158 11 A 9.5 9.5 0 0 0 158 30 Z" fill="#55604C"/>
+        <circle cx="203" cy="26" r="7.5" fill="#BFA05E"/>
+        <g stroke="#BFA05E" stroke-width="1.6" stroke-linecap="round"><line x1="213.5" y1="26" x2="216.5" y2="26"/><line x1="192.5" y1="26" x2="189.5" y2="26"/><line x1="203" y1="15.5" x2="203" y2="12.5"/><line x1="203" y1="36.5" x2="203" y2="39.5"/><line x1="210.4" y1="18.6" x2="212.6" y2="16.4"/><line x1="195.6" y1="18.6" x2="193.4" y2="16.4"/><line x1="210.4" y1="33.4" x2="212.6" y2="35.6"/><line x1="195.6" y1="33.4" x2="193.4" y2="35.6"/></g>
       </svg>
       <span class="btx">EMMA’S MOBILE BEAUTY</span>
     </div>
@@ -466,22 +472,22 @@ footer a:hover{color:var(--gold)}
     <div class="h2grid">
       <div class="h2copy">
         <div class="earc">
-          <svg width="250" height="44" viewBox="0 0 230 40">
-            <circle cx="25" cy="20" r="12" fill="#55604C"/><circle cx="21" cy="16.5" r="2.4" fill="#39412F" opacity=".55"/><circle cx="28.5" cy="21" r="1.6" fill="#39412F" opacity=".5"/><circle cx="24" cy="25.5" r="1.9" fill="#39412F" opacity=".45"/>
-            <path d="M 70 7 Q 72.9 17.1 83 20 Q 72.9 22.9 70 33 Q 67.1 22.9 57 20 Q 67.1 17.1 70 7 Z" fill="#55604C"/>
-            <path d="M 115 8 A 12 12 0 0 1 115 32 A 17.4 17.4 0 0 0 115 8 Z" fill="#55604C"/>
-            <path d="M 160.0 6.6 L 163.5 15.2 L 172.8 15.8 L 165.6 21.8 L 167.9 30.9 L 160.0 25.9 L 152.1 30.9 L 154.4 21.8 L 147.2 15.8 L 156.5 15.2 Z" fill="#55604C"/>
-            <circle cx="205" cy="20" r="9.5" fill="#BFA05E"/>
-            <g stroke="#BFA05E" stroke-width="1.8" stroke-linecap="round"><line x1="218" y1="20" x2="222" y2="20"/><line x1="192" y1="20" x2="188" y2="20"/><line x1="205" y1="7" x2="205" y2="3"/><line x1="205" y1="33" x2="205" y2="37"/><line x1="214.2" y1="10.8" x2="217" y2="8"/><line x1="195.8" y1="10.8" x2="193" y2="8"/><line x1="214.2" y1="29.2" x2="217" y2="32"/><line x1="195.8" y1="29.2" x2="193" y2="32"/></g>
+          <svg width="250" height="48" viewBox="0 0 230 44">
+            <circle cx="24" cy="30" r="7.5" fill="#55604C"/><circle cx="21.5" cy="27.8" r="1.7" fill="#39412F" opacity=".55"/><circle cx="26.8" cy="31" r="1.1" fill="#39412F" opacity=".5"/><circle cx="23" cy="33.2" r="1.3" fill="#39412F" opacity=".45"/>
+            <path d="M 68 11 A 9.5 9.5 0 0 1 68 30 Z" fill="#55604C"/>
+            <path d="M 113 5 A 10 10 0 0 1 113 25 A 14.5 14.5 0 0 0 113 5 Z" fill="#55604C"/>
+            <path d="M 158 11 A 9.5 9.5 0 0 0 158 30 Z" fill="#55604C"/>
+            <circle cx="203" cy="26" r="7.5" fill="#BFA05E"/>
+            <g stroke="#BFA05E" stroke-width="1.6" stroke-linecap="round"><line x1="213.5" y1="26" x2="216.5" y2="26"/><line x1="192.5" y1="26" x2="189.5" y2="26"/><line x1="203" y1="15.5" x2="203" y2="12.5"/><line x1="203" y1="36.5" x2="203" y2="39.5"/><line x1="210.4" y1="18.6" x2="212.6" y2="16.4"/><line x1="195.6" y1="18.6" x2="193.4" y2="16.4"/><line x1="210.4" y1="33.4" x2="212.6" y2="35.6"/><line x1="195.6" y1="33.4" x2="193.4" y2="35.6"/></g>
           </svg>
         </div>
         <div class="h2kick">Beauty · Wellbeing · Soul Care</div>
         <h1 class="h2title">Beauty that comes<br>to your door.</h1>
         <p class="h2sub" data-c="tagline">and calm that stays with you · Preston & surrounds</p>
         <div class="h2btns">
-          <button class="sqbtn sqgold" onclick="go('book')">Book now</button>
-          <button class="sqbtn sqline" onclick="go('pricelist')">Price list</button>
-          <button class="sqbtn sqline" onclick="go('gift')">Gift cards</button>
+          <button class="btn gold" onclick="go('book')">Book now</button>
+          <button class="btn" onclick="go('pricelist')">Price list</button>
+          <button class="btn" onclick="go('gift')">Gift cards</button>
         </div>
         <div class="h2note"><b>11:11</b> · grounded · grateful · exactly on time</div>
       </div>
@@ -551,12 +557,12 @@ footer a:hover{color:var(--gold)}
     </div>
     <div class="wrap" style="margin-top:60px">
       <div class="center"><div class="eyebrow">Fully qualified · fully insured</div></div>
-      <div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:18px">
-        <span class="trustchip">✓ VTCT Qualified</span>
-        <span class="trustchip">✓ City & Guilds Qualified</span>
-        <span class="trustchip">✓ Beauty & Holistic Therapist and Trainer</span>
-        <span class="trustchip">✓ Sound Therapy & Meditation Facilitator</span>
-        <span class="trustchip">✓ Fully Insured</span>
+      <div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:22px">
+        <div class="cred"><svg width="32" height="40" viewBox="0 0 40 48" aria-hidden="true"><path d="M 14.5 29 L 11.5 42 L 16.5 39.5 L 19.5 45.5 L 19.5 32 Z" fill="#D8BE82"/><path d="M 25.5 29 L 28.5 42 L 23.5 39.5 L 20.5 45.5 L 20.5 32 Z" fill="#A98D52"/><circle cx="20" cy="18" r="13.5" fill="#FAF6EF" stroke="#BFA05E" stroke-width="1.6"/><circle cx="20" cy="18" r="9.5" fill="none" stroke="#BFA05E" stroke-width="1"/><path d="M 15.5 18.2 L 18.4 21.2 L 24.6 14.6" fill="none" stroke="#55604C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><div><b>VTCT</b><span>Qualified therapist</span></div></div>
+        <div class="cred"><svg width="32" height="40" viewBox="0 0 40 48" aria-hidden="true"><path d="M 14.5 29 L 11.5 42 L 16.5 39.5 L 19.5 45.5 L 19.5 32 Z" fill="#D8BE82"/><path d="M 25.5 29 L 28.5 42 L 23.5 39.5 L 20.5 45.5 L 20.5 32 Z" fill="#A98D52"/><circle cx="20" cy="18" r="13.5" fill="#FAF6EF" stroke="#BFA05E" stroke-width="1.6"/><circle cx="20" cy="18" r="9.5" fill="none" stroke="#BFA05E" stroke-width="1"/><path d="M 15.5 18.2 L 18.4 21.2 L 24.6 14.6" fill="none" stroke="#55604C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><div><b>City &amp; Guilds</b><span>Qualified</span></div></div>
+        <div class="cred"><svg width="32" height="40" viewBox="0 0 40 48" aria-hidden="true"><path d="M 14.5 29 L 11.5 42 L 16.5 39.5 L 19.5 45.5 L 19.5 32 Z" fill="#D8BE82"/><path d="M 25.5 29 L 28.5 42 L 23.5 39.5 L 20.5 45.5 L 20.5 32 Z" fill="#A98D52"/><circle cx="20" cy="18" r="13.5" fill="#FAF6EF" stroke="#BFA05E" stroke-width="1.6"/><circle cx="20" cy="18" r="9.5" fill="none" stroke="#BFA05E" stroke-width="1"/><path d="M 15.5 18.2 L 18.4 21.2 L 24.6 14.6" fill="none" stroke="#55604C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><div><b>Beauty &amp; Holistic</b><span>Therapist and trainer</span></div></div>
+        <div class="cred"><svg width="32" height="40" viewBox="0 0 40 48" aria-hidden="true"><path d="M 14.5 29 L 11.5 42 L 16.5 39.5 L 19.5 45.5 L 19.5 32 Z" fill="#D8BE82"/><path d="M 25.5 29 L 28.5 42 L 23.5 39.5 L 20.5 45.5 L 20.5 32 Z" fill="#A98D52"/><circle cx="20" cy="18" r="13.5" fill="#FAF6EF" stroke="#BFA05E" stroke-width="1.6"/><circle cx="20" cy="18" r="9.5" fill="none" stroke="#BFA05E" stroke-width="1"/><path d="M 15.5 18.2 L 18.4 21.2 L 24.6 14.6" fill="none" stroke="#55604C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><div><b>Sound Therapy</b><span>Meditation facilitator</span></div></div>
+        <div class="cred"><svg width="32" height="40" viewBox="0 0 40 48" aria-hidden="true"><path d="M 14.5 29 L 11.5 42 L 16.5 39.5 L 19.5 45.5 L 19.5 32 Z" fill="#D8BE82"/><path d="M 25.5 29 L 28.5 42 L 23.5 39.5 L 20.5 45.5 L 20.5 32 Z" fill="#A98D52"/><circle cx="20" cy="18" r="13.5" fill="#FAF6EF" stroke="#BFA05E" stroke-width="1.6"/><circle cx="20" cy="18" r="9.5" fill="none" stroke="#BFA05E" stroke-width="1"/><path d="M 15.5 18.2 L 18.4 21.2 L 24.6 14.6" fill="none" stroke="#55604C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><div><b>Fully Insured</b><span>Public liability</span></div></div>
       </div>
     </div>
   </section>
@@ -597,8 +603,10 @@ footer a:hover{color:var(--gold)}
     <div class="wrap">
       <h2 style="color:var(--cream);font-size:44px">Ready when you are</h2>
       <p style="font-family:var(--serif);font-style:italic;font-size:22px;opacity:.8;margin:16px 0 36px">Your moment of calm, or your next glow up, is one click away.</p>
-      <button class="btn ghost-light" onclick="go('book')">Book an appointment</button>
-      <button class="btn ghost-light" style="margin-left:12px" onclick="go('gift')">🎁 Buy a gift card</button>
+      <div class="btngroup">
+        <button class="btn ghost-light" onclick="go('book')">Book an appointment</button>
+        <button class="btn ghost-light" onclick="go('gift')">Buy a gift card</button>
+      </div>
     </div>
   </section>
 </main>
@@ -719,9 +727,12 @@ footer a:hover{color:var(--gold)}
           <select id="bservice"></select>
           <div style="margin-top:12px"><button type="button" class="btn small" onclick="addToVisit()">+ Add to my visit</button></div>
           <div id="basket" style="margin-top:14px"></div>
+          <div id="datewrap">
           <label>Chosen date</label><input type="date" id="bdate" required readonly placeholder="Pick a green day above">
           <label>Available times <span style="text-transform:none;letter-spacing:0">(bookings open up to 48 hours before)</span></label>
           <div id="slotwrap" style="display:flex;gap:10px;flex-wrap:wrap;min-height:44px"><span class="muted" style="font-size:13.5px">Pick a date on the calendar above to see Emma’s free times.</span></div>
+          </div>
+          <p id="soulnote" style="display:none;background:var(--sand);border:1px dashed var(--gold);border-radius:10px;padding:14px 18px;font-size:13.5px;color:var(--taupe);margin-top:14px">🌙 Soul Space circles and sound baths have no dates to pick — Emma announces each one personally. Send your enquiry and she will invite you when the next session is announced. Any live announcements appear on the Soul Space page.</p>
           <div class="two">
             <div><label>Your name</label><input type="text" id="bname" required></div>
             <div><label>Phone number</label><input type="tel" id="bphone" required></div>
@@ -842,9 +853,9 @@ footer a:hover{color:var(--gold)}
       <h2 style="font-size:44px">Every treatment, one page</h2>
       <div class="rule center"></div>
       <p class="muted" style="max-width:480px;margin:0 auto 30px">Emma’s full menu with prices and timings. Save it, print it, or pop straight to booking.</p>
-      <div style="margin-bottom:30px">
+      <div class="btngroup" style="margin-bottom:30px">
         <a class="btn gold" href="emmas-price-list.pdf" download>Download the PDF</a>
-        <button class="btn" style="margin-left:10px" onclick="go('book')">Book now</button>
+        <button class="btn" onclick="go('book')">Book now</button>
       </div>
       <object data="emmas-price-list.pdf" type="application/pdf" style="width:min(860px,100%);height:82vh;border-radius:18px;border:1px solid rgba(181,174,158,.5);background:#fff">
         <p class="muted" style="padding:40px">Your browser can’t preview PDFs here. <a href="emmas-price-list.pdf" style="color:var(--gold-dk)" download>Tap to download the price list</a> instead.</p>
@@ -857,13 +868,13 @@ footer a:hover{color:var(--gold)}
 <main class="page" id="page-login">
   <div class="loginwrap">
     <div class="loginbox">
-      <svg width="150" height="28" viewBox="0 0 230 40" style="margin-bottom:18px">
-        <circle cx="25" cy="20" r="12" fill="#55604C"/><circle cx="21" cy="16.5" r="2.4" fill="#39412F" opacity=".55"/><circle cx="28.5" cy="21" r="1.6" fill="#39412F" opacity=".5"/><circle cx="24" cy="25.5" r="1.9" fill="#39412F" opacity=".45"/>
-        <path d="M 70 7 Q 72.9 17.1 83 20 Q 72.9 22.9 70 33 Q 67.1 22.9 57 20 Q 67.1 17.1 70 7 Z" fill="#55604C"/>
-        <path d="M 115 8 A 12 12 0 0 1 115 32 A 17.4 17.4 0 0 0 115 8 Z" fill="#55604C"/>
-        <path d="M 160.0 6.6 L 163.5 15.2 L 172.8 15.8 L 165.6 21.8 L 167.9 30.9 L 160.0 25.9 L 152.1 30.9 L 154.4 21.8 L 147.2 15.8 L 156.5 15.2 Z" fill="#55604C"/>
-        <circle cx="205" cy="20" r="9.5" fill="#BFA05E"/>
-        <g stroke="#BFA05E" stroke-width="1.8" stroke-linecap="round"><line x1="218" y1="20" x2="222" y2="20"/><line x1="192" y1="20" x2="188" y2="20"/><line x1="205" y1="7" x2="205" y2="3"/><line x1="205" y1="33" x2="205" y2="37"/><line x1="214.2" y1="10.8" x2="217" y2="8"/><line x1="195.8" y1="10.8" x2="193" y2="8"/><line x1="214.2" y1="29.2" x2="217" y2="32"/><line x1="195.8" y1="29.2" x2="193" y2="32"/></g>
+      <svg width="150" height="29" viewBox="0 0 230 44" style="margin-bottom:18px">
+        <circle cx="24" cy="30" r="7.5" fill="#55604C"/><circle cx="21.5" cy="27.8" r="1.7" fill="#39412F" opacity=".55"/><circle cx="26.8" cy="31" r="1.1" fill="#39412F" opacity=".5"/><circle cx="23" cy="33.2" r="1.3" fill="#39412F" opacity=".45"/>
+        <path d="M 68 11 A 9.5 9.5 0 0 1 68 30 Z" fill="#55604C"/>
+        <path d="M 113 5 A 10 10 0 0 1 113 25 A 14.5 14.5 0 0 0 113 5 Z" fill="#55604C"/>
+        <path d="M 158 11 A 9.5 9.5 0 0 0 158 30 Z" fill="#55604C"/>
+        <circle cx="203" cy="26" r="7.5" fill="#BFA05E"/>
+        <g stroke="#BFA05E" stroke-width="1.6" stroke-linecap="round"><line x1="213.5" y1="26" x2="216.5" y2="26"/><line x1="192.5" y1="26" x2="189.5" y2="26"/><line x1="203" y1="15.5" x2="203" y2="12.5"/><line x1="203" y1="36.5" x2="203" y2="39.5"/><line x1="210.4" y1="18.6" x2="212.6" y2="16.4"/><line x1="195.6" y1="18.6" x2="193.4" y2="16.4"/><line x1="210.4" y1="33.4" x2="212.6" y2="35.6"/><line x1="195.6" y1="33.4" x2="193.4" y2="35.6"/></g>
       </svg>
       <h2 style="font-size:30px">Emma’s Studio</h2>
       <p class="muted" style="font-size:14px;margin-bottom:10px">Private admin · welcome back, Emma</p>
@@ -1182,9 +1193,14 @@ window.submitGift=e=>{e.preventDefault();
   from:document.getElementById('gfrom').value,msg:document.getElementById('gmsg').value,
   phone:document.getElementById('gphone').value,email:document.getElementById('gemail').value,
   status:'requested',created:todayISO()});
- saveGC();
+ saveGC();window.lastGiftId=giftcards[0].id;
  if(window.fbq)fbq('track','Lead');
- document.getElementById('giftmsg').innerHTML=`Your gift card request for <b>£${amt}</b> is with Emma. Your code is <b style="font-family:var(--jost);letter-spacing:2px">${code}</b>. Emma will text you payment details (bank transfer, PayPal or SumUp), and once paid the card is ready to give. Valid for one year.`;
+ document.getElementById('giftmsg').innerHTML=`Your gift card request for <b>£${amt}</b> is with Emma. Your code is <b style="font-family:var(--jost);letter-spacing:2px">${code}</b>. Emma will text you payment details (bank transfer, PayPal or SumUp), and once paid the card is ready to give. Valid for one year.
+ <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:24px">
+  <button class="btn small gold" onclick="giftPDF(window.lastGiftId)">Print your gift card</button>
+  <button class="btn small" onclick="giftCopy(window.lastGiftId)">Copy the gift message</button>
+ </div>
+ <p class="muted" style="font-size:12.5px;margin-top:14px">The printed card and message are ready now — just wait for Emma to confirm payment before gifting it.</p>`;
  document.getElementById('giftform').style.display='none';
  document.getElementById('giftconfirm').style.display='block';
  return false;};
@@ -1194,6 +1210,12 @@ function fillServices(preId){const sec=document.getElementById('bsection').value
  const sel=document.getElementById('bservice');
  sel.innerHTML=pubServices().filter(s=>s.sec===sec).map(s=>`<option value="${s.id}">${esc(s.name)} · £${s.price} (${s.mins} mins)</option>`).join('');
  document.getElementById('addrwrap').style.display=sec==='beauty'?'block':'none';
+ const isSoul=sec==='soul';
+ const dw=document.getElementById('datewrap'),sn=document.getElementById('soulnote'),mc=document.getElementById('minical'),bd=document.getElementById('bdate');
+ if(dw)dw.style.display=isSoul?'none':'block';
+ if(sn)sn.style.display=isSoul?'block':'none';
+ if(mc)mc.style.display=isSoul?'none':'';
+ if(bd){bd.required=!isSoul;if(isSoul){bd.value='';selSlot='';}}
  if(preId)sel.value=preId;
  sel.onchange=patchCheck;patchCheck();renderBasket();}
 function prefill(sec,id){go('book');
@@ -1227,12 +1249,12 @@ function submitBooking(e){e.preventDefault();
  if(!document.getElementById('bagree').checked){alert('Please tick to agree to the terms & conditions first 💛');return false;}
  if(!basket.length)addToVisit();
  if(basketTotal()<MIN_VISIT){alert(`Emma’s minimum visit is £${MIN_VISIT} 💛 Add another treatment to your visit to reach it.`);return false;}
- if(!selSlot||!document.getElementById('bdate').value){alert('Please pick an available day and time on the calendar first 💛');return false;}
  const sec=document.getElementById('bsection').value;
+ if(sec!=='soul'&&(!selSlot||!document.getElementById('bdate').value)){alert('Please pick an available day and time on the calendar first 💛');return false;}
  const pref=document.getElementById('bpref').value;
  const phone=document.getElementById('bphone').value;
  const bk={id:uid(),sec,service:basket.map(b=>b.name).join(' + '),price:basketTotal(),mins:basket.reduce((a,b)=>a+b.mins,0),
-  date:document.getElementById('bdate').value,time:fmtT(selSlot),pref,src:SRC,
+  date:sec==='soul'?'':document.getElementById('bdate').value,time:sec==='soul'?'TBC · next announced session':fmtT(selSlot),pref,src:SRC,
   bday:document.getElementById('bbday').value||'',
   patch:basket.some(b=>PATCH_NEEDED.includes(b.name)),
   name:document.getElementById('bname').value,phone,
@@ -1243,7 +1265,7 @@ function submitBooking(e){e.preventDefault();
  metrics.bsent++;saveM();
  if(window.fbq)fbq('track','Lead');
  document.getElementById('confmsg').innerHTML=`Thank you! This just pinged to your phone via <b>${esc(pref)}</b> (auto-sends once Twilio is live):<br><br>
- <span style="display:inline-block;background:var(--sand);border-radius:12px;padding:14px 18px;font-size:14px;text-align:left">${esc(fillTpl(settings.enquiryReply,bk))}</span><br><br>Emma will approve your ${fmtT(selSlot)} slot shortly, and you’ll get a gentle reminder the night before.`;
+ <span style="display:inline-block;background:var(--sand);border-radius:12px;padding:14px 18px;font-size:14px;text-align:left">${esc(fillTpl(settings.enquiryReply,bk))}</span><br><br>${sec==='soul'?'Emma will personally invite you to the next announced Soul Space session.':`Emma will approve your ${fmtT(selSlot)} slot shortly, and you’ll get a gentle reminder the night before.`}`;
  document.getElementById('bookform').style.display='none';
  document.getElementById('confirm').style.display='block';
  return false;}
@@ -1789,9 +1811,51 @@ function vGifts(m){
  <td><div class="rowbtns">
  ${g.status==='requested'?`<a class="icobtn" href="${smsLink(g.phone,`Hi ${g.from.split(' ')[0]} 💛 thank you for your £${g.amount} gift card for ${g.to}! To confirm it, you can pay by bank transfer, PayPal or SumUp link. Just reply and I’ll send the details. Emma x`)}">Send payment text</a>
  <button class="icobtn" onclick="gcStatus('${g.id}','paid')">Mark paid</button>`:''}
- ${g.status==='paid'?`<button class="icobtn" onclick="gcStatus('${g.id}','redeemed')">Mark redeemed</button>`:''}
+ ${g.status==='paid'?`<button class="icobtn" onclick="gcStatus('${g.id}','redeemed')">Mark redeemed</button>
+ <a class="icobtn" href="${smsLink(g.phone,giftTpl(g))}">Send gift message</a>`:''}
+ <button class="icobtn" onclick="giftPDF('${g.id}')">Gift card PDF</button>
  <button class="icobtn warn" onclick="gcDel('${g.id}')">✕</button></div></td></tr>`).join('')}</table></div>`
  :'<p class="muted">No gift card requests yet. The Gift Cards page is linked in the footer and home page.</p>'}</div>`;}
+window.giftTpl=g=>`A little something for you, ${g.to} ✨\n\n${g.from} has treated you to a £${g.amount} gift card for Emma’s Mobile Beauty & Holistic Wellness in Preston.${g.msg?`\n\n“${g.msg}” — ${g.from}`:''}\n\nYour code: ${g.code}\nValid for one year on any treatment, brought to your door.\n\nBook your treat: www.emmasholisticbeauty.co.uk`;
+window.giftCopy=id=>{const g=giftcards.find(x=>x.id===id);if(!g)return;
+ const done=()=>alert('Gift message copied 💛 paste it into a text or WhatsApp for '+g.to+'.');
+ if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(giftTpl(g)).then(done).catch(()=>prompt('Copy your gift message:',giftTpl(g)));
+ else prompt('Copy your gift message:',giftTpl(g));};
+window.giftPDF=id=>{const g=giftcards.find(x=>x.id===id);if(!g)return;
+ const w=window.open('','_blank');if(!w){alert('Please allow pop ups to print your gift card.');return;}
+ w.document.write(`<!DOCTYPE html><html><head><meta charset="utf-8"><title>Gift card ${esc(g.code)}</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,500&family=Jost:wght@300&display=swap" rel="stylesheet">
+<style>@page{size:A5 landscape;margin:0}
+*{box-sizing:border-box}body{margin:0;background:#FAF6EF;font-family:'Cormorant Garamond',serif;color:#3E3A32;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.card{width:210mm;height:148mm;padding:10mm;display:flex}
+.inner{flex:1;border:1px solid #BFA05E;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:8mm 12mm;background:radial-gradient(340mm 200mm at 50% -30%,#FFFDF8,#FAF6EF 60%)}
+.inner:before{content:'';position:absolute;inset:2.2mm;border:.4mm solid rgba(191,160,94,.35);pointer-events:none}
+.b1{font-size:11pt;letter-spacing:5pt;color:#8A8072;margin-top:5mm}
+.b2{font-size:20pt;letter-spacing:2.5pt;color:#46503E;margin:1mm 0}
+.rl{width:42mm;height:.4mm;background:linear-gradient(90deg,transparent,#BFA05E,transparent);margin:2mm auto}
+.b3{font-family:Jost;font-weight:300;font-size:7.5pt;letter-spacing:3pt;color:#A98D52}
+.gift{font-family:Jost;font-weight:300;font-size:8.5pt;letter-spacing:4.5pt;color:#8A8072;margin-top:7mm}
+.name{font-style:italic;font-size:30pt;color:#46503E;margin:2mm 0}
+.amt{font-size:15pt;color:#3E3A32}.amt b{color:#A98D52;font-weight:500}
+.pm{font-style:italic;font-size:11.5pt;color:#6E6656;max-width:120mm;margin:3mm auto 0}
+.frm{font-style:italic;font-size:11pt;color:#8A8072;margin-top:2mm}
+.code{display:inline-block;font-family:Jost;font-weight:300;font-size:10pt;letter-spacing:3pt;color:#46503E;border:.4mm solid #BFA05E;border-radius:2mm;padding:2.6mm 6mm;margin-top:5mm}
+.ft{position:absolute;bottom:6mm;left:0;right:0;font-size:9pt;font-style:italic;color:#8A8072}
+.ft .j{font-family:Jost;font-style:normal;font-size:6.5pt;letter-spacing:2.5pt;color:#A98D52;margin-top:1.2mm}
+</style></head><body><div class="card"><div class="inner">
+<svg width="130" height="25" viewBox="0 0 230 44"><circle cx="24" cy="30" r="7.5" fill="#55604C"/><circle cx="21.5" cy="27.8" r="1.7" fill="#39412F" opacity=".55"/><circle cx="26.8" cy="31" r="1.1" fill="#39412F" opacity=".5"/><circle cx="23" cy="33.2" r="1.3" fill="#39412F" opacity=".45"/><path d="M 68 11 A 9.5 9.5 0 0 1 68 30 Z" fill="#55604C"/><path d="M 113 5 A 10 10 0 0 1 113 25 A 14.5 14.5 0 0 0 113 5 Z" fill="#55604C"/><path d="M 158 11 A 9.5 9.5 0 0 0 158 30 Z" fill="#55604C"/><circle cx="203" cy="26" r="7.5" fill="#BFA05E"/><g stroke="#BFA05E" stroke-width="1.6" stroke-linecap="round"><line x1="213.5" y1="26" x2="216.5" y2="26"/><line x1="192.5" y1="26" x2="189.5" y2="26"/><line x1="203" y1="15.5" x2="203" y2="12.5"/><line x1="203" y1="36.5" x2="203" y2="39.5"/><line x1="210.4" y1="18.6" x2="212.6" y2="16.4"/><line x1="195.6" y1="18.6" x2="193.4" y2="16.4"/><line x1="210.4" y1="33.4" x2="212.6" y2="35.6"/><line x1="195.6" y1="33.4" x2="193.4" y2="35.6"/></g></svg>
+<div class="b1">EMMA’S</div><div class="b2">MOBILE BEAUTY</div><div class="rl"></div><div class="b3">&amp; HOLISTIC WELLNESS</div>
+<div class="gift">A GIFT FOR</div>
+<div class="name">${esc(g.to)}</div>
+<div class="amt"><b>£${g.amount}</b> to spend on any treatment, brought to your door</div>
+${g.msg?`<div class="pm">“${esc(g.msg)}”</div>`:''}
+<div class="frm">with love from ${esc(g.from)}</div>
+<div class="code">${esc(g.code)}</div>
+<div class="ft">Valid for one year · Preston &amp; surrounds · www.emmasholisticbeauty.co.uk
+<div class="j">11:11 · GROUNDED &amp; GRATEFUL</div></div>
+</div></div>
+<script>window.onload=function(){setTimeout(function(){window.print()},600)}<\/script></body></html>`);
+ w.document.close();};
 window.gcStatus=(id,s)=>{giftcards.find(g=>g.id===id).status=s;saveGC();adm('gifts');};
 window.gcDel=id=>{if(confirm('Delete this gift card request?')){giftcards=giftcards.filter(g=>g.id!==id);saveGC();adm('gifts');}};
 /* ---- announcements ---- */
