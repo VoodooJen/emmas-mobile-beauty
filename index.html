@@ -102,7 +102,7 @@ section{padding:96px 0}
 #arrival.open .a3wrap{transform:scale(7.5);opacity:0;transition:transform 1.05s cubic-bezier(.65,0,.3,1),opacity .8s ease .15s}
 body.entered .hero2{animation:heroSettle 1.4s cubic-bezier(.2,.8,.2,1) both}
 @keyframes heroSettle{from{transform:scale(1.05)}to{transform:scale(1)}}
-.anum{font-family:var(--serif);font-weight:400;font-size:clamp(96px,22vw,190px);letter-spacing:.1em;color:#F2ECDB;line-height:1;animation:numglow 4s ease-in-out infinite}
+.awel{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(64px,13vw,120px);letter-spacing:.04em;color:#F2ECDB;line-height:1;animation:numglow 4s ease-in-out infinite}
 @keyframes numglow{0%,100%{text-shadow:0 0 46px rgba(235,220,172,.22)}50%{text-shadow:0 0 96px rgba(235,220,172,.55)}}
 .anum .colon{color:var(--gold);animation:blink 1.2s step-end infinite}
 .asub{font-family:var(--jost);font-weight:300;font-size:clamp(9px,1.4vw,11px);letter-spacing:9px;color:#6E7860;margin-top:22px}
@@ -419,8 +419,8 @@ footer a:hover{color:var(--gold)}
   <div id="aglow"></div>
   <div id="acam">
   <div class="aph" id="ap1">
-    <div class="anum">11<span class="colon">:</span>11</div>
-    <div class="asub">GROUNDED · GRATEFUL</div>
+    <div class="awel">welcome</div>
+    <div class="asub">BEAUTY · WELLBEING · SOUL CARE</div>
   </div>
   <div class="aph" id="ap2">
     <div class="amsg"><span id="atype"></span><span class="acaret"></span></div>
@@ -577,7 +577,7 @@ footer a:hover{color:var(--gold)}
               <text x="230" y="226" text-anchor="middle" font-family="Jost,sans-serif" font-weight="300" font-size="13.5" letter-spacing="4" fill="#BFA05E">MEDITATION · SOUND · BREATHWORK</text>
             </svg>
           </div>
-          <p>The added extra. Circles, sound baths and soul sessions.</p>
+          <p>The added extra. Circles, sound baths, breathwork, retreats and wellness days.</p>
           <span class="go">See what’s coming up <i>→</i></span>
         </div>
     </div>
@@ -596,7 +596,7 @@ footer a:hover{color:var(--gold)}
         <a class="btn small gold" id="greview1" target="_blank" style="text-align:center">★ Review on Google</a></div>
       </div>
     </div>
-    <div class="wrap" style="margin-top:60px">
+    <div class="wrap" style="margin-top:60px;display:none">
       <div class="center"><div class="eyebrow">Fully qualified · fully insured</div></div>
       <div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:22px">
         <div class="cred"><svg width="32" height="40" viewBox="0 0 40 48" aria-hidden="true"><path d="M 14.5 29 L 11.5 42 L 16.5 39.5 L 19.5 45.5 L 19.5 32 Z" fill="#D8BE82"/><path d="M 25.5 29 L 28.5 42 L 23.5 39.5 L 20.5 45.5 L 20.5 32 Z" fill="#A98D52"/><circle cx="20" cy="18" r="13.5" fill="#FAF6EF" stroke="#BFA05E" stroke-width="1.6"/><circle cx="20" cy="18" r="9.5" fill="none" stroke="#BFA05E" stroke-width="1"/><path d="M 15.5 18.2 L 18.4 21.2 L 24.6 14.6" fill="none" stroke="#55604C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><div><b>VTCT</b><span>Qualified therapist</span></div></div>
@@ -657,7 +657,7 @@ footer a:hover{color:var(--gold)}
   <div class="soul-hero">
     <div class="em">EMMA’S</div>
     <h1>Soul Space</h1>
-    <p data-c="soulIntro">A calm place for mind, body & soul. Meditation, mindfulness, sound and breathwork.</p>
+    <p data-c="soulIntro">A calm place for mind, body & soul. Meditation, sound baths, breathwork, retreats and wellness days.</p>
     <button class="btn ghost-light" onclick="go('book','soul')">Book a session</button>
   </div>
   <section>
@@ -1116,7 +1116,7 @@ let settings=DB.get('settings',{bizname:'Emma’s Mobile Beauty & Holistic Welln
 const ABOUT_DEFAULT='Hi, I’m Emma. It’s just me, one pair of hands and over a decade of love for this work. I bring salon quality treatments to your door across Preston, and through my Soul Space I hold gentle sessions for the mind and soul. When you book, you get me every single time. No rota, no strangers, no rushing. Just Emma.';
 let content=DB.get('content',{tagline:'Beauty, wellbeing and soul care, brought to you',
  about:ABOUT_DEFAULT,
- soulIntro:'A calm place for mind, body & soul. Meditation, mindfulness, sound and breathwork.',
+ soulIntro:'A calm place for mind, body & soul. Meditation, sound baths, breathwork, retreats and wellness days.',
  beautyIntro:'& HOLISTIC WELLNESS · BROUGHT TO YOU'});
 let waitlist=DB.get('waitlist',[]);
 let invoices=DB.get('invoices',[]);const saveINV=()=>DB.set('invoices',invoices);
