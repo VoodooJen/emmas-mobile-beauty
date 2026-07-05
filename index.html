@@ -47,7 +47,7 @@ fbq('init','META_PIXEL_ID_HERE');fbq('track','PageView');
 :root{
   --cream:#FAF6EF; --cream2:#EFECE6; --sand:#F6F2E9;
   --sage:#55604C; --sage-dk:#46503E; --sage-lt:#7A8468;
-  --gold:#BFA05E; --gold-dk:#A98D52;
+  --gold:#8A9B6E; --gold-dk:#6E7F5C;
   --taupe:#8A8072; --ink:#3E3A32; --line:#B5AE9E; --danger:#A65454;
   --clay:#B97C5C; --olive:#8A9B6E;
   --serif:'Cormorant Garamond',serif; --sans:'Outfit',sans-serif; --jost:'Jost',sans-serif;
@@ -63,9 +63,9 @@ a{color:inherit;text-decoration:none}
 .rule.center{margin:22px auto}
 .btn{display:inline-block;font-family:var(--jost);font-weight:400;font-size:14px;letter-spacing:3px;text-transform:uppercase;padding:16px 36px;border:1px solid var(--sage-dk);color:var(--sage-dk);border-radius:9px;transition:all .3s ease;cursor:pointer;background:transparent;position:relative;overflow:hidden;text-align:center}
 .btn:hover{background:var(--sage-dk);color:var(--cream);transform:translateY(-2px)}
-.btn.gold{border:0;padding:17px 37px;background:linear-gradient(115deg,#BFA05E,#D8BE82 45%,#B97C5C);background-size:200% 100%;color:#fff;animation:gslide 4s ease-in-out infinite}
+.btn.gold{border:0;padding:17px 37px;background:linear-gradient(115deg,#8A9B6E,#A9BA92 45%,#B97C5C);background-size:200% 100%;color:#fff;animation:gslide 4s ease-in-out infinite}
 .btn.gold::after{content:'';position:absolute;inset:0;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.5) 50%,transparent 65%);transform:translateX(-120%);animation:btnsheen 3.2s ease-in-out infinite;pointer-events:none}
-.btn.gold:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(169,141,82,.35)}
+.btn.gold:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(110,127,92,.35)}
 .btngroup{display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:center}
 .btn.ghost-light{border-color:rgba(250,246,239,.7);color:var(--cream)}
 .btn.ghost-light:hover{background:var(--cream);color:var(--sage-dk)}
@@ -100,6 +100,12 @@ section{padding:96px 0}
 .arule.draw{transition:width .6s ease;width:min(180px,52vw)}
 .askip{position:absolute;bottom:26px;left:0;right:0;z-index:3;text-align:center;font-family:var(--jost);font-size:9.5px;letter-spacing:6px;color:rgba(200,195,175,.45);opacity:0;transition:opacity 1s}
 #arrival.go .askip{opacity:1}
+#agate{cursor:pointer}
+.aring2{width:clamp(80px,13vw,104px);height:clamp(80px,13vw,104px);border-radius:50%;border:1.5px solid #CBD8BA;box-shadow:0 0 44px rgba(203,216,186,.22),inset 0 0 26px rgba(203,216,186,.12);animation:abreathe2 3.4s ease-in-out infinite;margin-bottom:28px}
+@keyframes abreathe2{0%,100%{transform:scale(.85);opacity:.6}50%{transform:scale(1.1);opacity:1}}
+.agatet{font-family:var(--serif);font-size:clamp(44px,8vw,64px);letter-spacing:.1em;color:#F2ECDB;line-height:1}
+.agates{font-family:var(--jost);font-weight:300;font-size:10px;letter-spacing:7px;color:#8F9A7E;margin-top:20px;animation:gateblink 2.6s ease-in-out infinite}
+@keyframes gateblink{0%,100%{opacity:.45}50%{opacity:1}}
 @keyframes blink{50%{opacity:.2}}
 /* ---------- NAV ---------- */
 nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(250,246,239,.92);backdrop-filter:blur(10px);border-bottom:1px solid rgba(181,174,158,.35)}
@@ -135,19 +141,21 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(250,246,239,
 .h2photo::before{content:'';position:absolute;inset:0;z-index:2;background:linear-gradient(rgba(58,66,50,.05),rgba(58,66,50,.32))}
 .h2frame{position:absolute;inset:14px;z-index:3;pointer-events:none;overflow:visible}
 .h2frame rect{fill:none;vector-effect:non-scaling-stroke}
-.fbase{stroke:rgba(191,160,94,.5);stroke-width:1;animation:framebreathe 6s ease-in-out infinite}
-.fglow{stroke:#EBDCAC;stroke-width:1.7;stroke-linecap:round;stroke-dasharray:14 86;animation:framerun 10s linear infinite;filter:drop-shadow(0 0 5px rgba(235,220,172,.9))}
+.fbase{stroke:rgba(138,155,110,.5);stroke-width:1;animation:framebreathe 6s ease-in-out infinite}
+.fglow{stroke:#CBD8BA;stroke-width:1.7;stroke-linecap:round;stroke-dasharray:14 86;animation:framerun 10s linear infinite;filter:drop-shadow(0 0 5px rgba(203,216,186,.9))}
 @keyframes framerun{to{stroke-dashoffset:-100}}
 @keyframes framebreathe{0%,100%{opacity:.45}50%{opacity:.9}}
 .fleaf{position:absolute;z-index:4;pointer-events:none;animation:leafsway 5.5s ease-in-out infinite;transform-origin:bottom left}
 @keyframes leafsway{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(5deg)}}
+.h2photo .fall{position:absolute;top:-9%;z-index:3;pointer-events:none;opacity:0;animation-name:leaffall;animation-timing-function:linear;animation-iteration-count:infinite}
+@keyframes leaffall{0%{transform:translateY(0) rotate(0deg) translateX(0)}6%{opacity:.85}55%{transform:translateY(300px) rotate(170deg) translateX(22px)}90%{opacity:.65}100%{transform:translateY(580px) rotate(330deg) translateX(-12px);opacity:0}}
 .h2cap{position:absolute;bottom:24px;left:0;right:0;z-index:3;text-align:center;font-family:var(--serif);font-style:italic;font-size:15.5px;letter-spacing:1px;color:var(--cream);text-shadow:0 2px 14px rgba(0,0,0,.45)}
 @media(max-width:900px){.h2grid{grid-template-columns:1fr;gap:26px}.h2copy{padding:6px 0;text-align:center;align-items:center}.h2photo{min-height:320px}.h2btns{justify-content:center}}
 .portalsec{background:var(--cream2);padding:34px 24px 84px}
 .portalhead{text-align:center;margin-bottom:26px}
 .eportals{display:flex;gap:26px;justify-content:center;flex-wrap:wrap;animation:eFade 1.2s 1.15s both}
-.eportal{position:relative;width:min(390px,88vw);border-radius:26px;padding:46px 40px 40px;text-align:center;cursor:pointer;transform-style:preserve-3d;transition:transform .22s ease-out,box-shadow .45s ease;border:1px solid rgba(191,160,94,.35);box-shadow:inset 0 0 0 1px rgba(255,255,255,.22),0 22px 60px rgba(62,58,50,.09)}
-.eportal:hover{box-shadow:inset 0 0 0 1px rgba(191,160,94,.35),0 40px 90px rgba(62,58,50,.20)}
+.eportal{position:relative;width:min(390px,88vw);border-radius:26px;padding:46px 40px 40px;text-align:center;cursor:pointer;transform-style:preserve-3d;transition:transform .22s ease-out,box-shadow .45s ease;border:1px solid rgba(138,155,110,.35);box-shadow:inset 0 0 0 1px rgba(255,255,255,.22),0 22px 60px rgba(62,58,50,.09)}
+.eportal:hover{box-shadow:inset 0 0 0 1px rgba(138,155,110,.35),0 40px 90px rgba(62,58,50,.20)}
 .eportal .glare{position:absolute;inset:0;border-radius:26px;background:radial-gradient(circle at var(--gx,50%) var(--gy,50%),rgba(255,255,255,.30),transparent 58%);opacity:0;transition:opacity .35s;pointer-events:none}
 .eportal:hover .glare{opacity:1}
 .eportal .logo{transform:translateZ(46px);margin-bottom:18px}
@@ -169,8 +177,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(250,246,239,
 .pola.show{opacity:1;transform:translate(-50%,-50%) rotate(var(--rot,2deg)) scale(1);animation:polasway 6s ease-in-out infinite}
 .pola.next{opacity:.55;transform:translate(calc(-50% + 16px),calc(-50% + 12px)) rotate(calc(var(--rot,2deg) * -1.4)) scale(.96);z-index:-1}
 @keyframes polasway{0%,100%{transform:translate(-50%,-50%) rotate(var(--rot,2deg)) scale(1)}50%{transform:translate(-50%,calc(-50% - 8px)) rotate(var(--rot,2deg)) scale(1)}}
-.pola::before{content:'';position:absolute;top:-13px;left:50%;transform:translateX(-50%) rotate(-2.5deg);width:96px;height:28px;background:linear-gradient(180deg,rgba(191,160,94,.42),rgba(191,160,94,.28));border-radius:2px;box-shadow:0 2px 6px rgba(62,58,50,.12)}
-.pola::after{content:'✦';position:absolute;top:22px;right:24px;color:rgba(191,160,94,.85);font-size:14px}
+.pola::before{content:'';position:absolute;top:-13px;left:50%;transform:translateX(-50%) rotate(-2.5deg);width:96px;height:28px;background:linear-gradient(180deg,rgba(138,155,110,.42),rgba(138,155,110,.28));border-radius:2px;box-shadow:0 2px 6px rgba(62,58,50,.12)}
+.pola::after{content:'✦';position:absolute;top:22px;right:24px;color:rgba(138,155,110,.85);font-size:14px}
 /* ---------- LIGHTBOX ---------- */
 #lightbox{position:fixed;inset:0;z-index:260;background:rgba(40,44,34,.9);display:none;align-items:center;justify-content:center;flex-direction:column;padding:26px;cursor:zoom-out}
 #lightbox.open{display:flex}
@@ -308,14 +316,14 @@ footer a:hover{color:var(--gold)}
 .pfloat{position:absolute;pointer-events:none;animation:driftrot 8s ease-in-out infinite}
 @keyframes driftrot{0%,100%{transform:translate(0,0) rotate(0deg);opacity:.85}50%{transform:translate(-8px,-14px) rotate(14deg);opacity:1}}
 .pfloat.p2{animation-duration:10s;animation-delay:2s}
-.cred{display:flex;align-items:center;gap:14px;background:#fff;border:1px solid rgba(191,160,94,.45);border-radius:12px;padding:15px 22px;box-shadow:0 6px 18px rgba(70,80,62,.06);text-align:left}
+.cred{display:flex;align-items:center;gap:14px;background:#fff;border:1px solid rgba(138,155,110,.45);border-radius:12px;padding:15px 22px;box-shadow:0 6px 18px rgba(70,80,62,.06);text-align:left}
 .cred b{display:block;font-family:var(--jost);font-weight:400;font-size:12.5px;letter-spacing:2.5px;text-transform:uppercase;color:var(--sage-dk)}
 .cred span{font-size:12.5px;color:var(--taupe)}
 /* cinematic portal zoom */
 #zoomov{position:fixed;z-index:400;border-radius:26px;transition:all .68s cubic-bezier(.2,.8,.2,1);box-shadow:0 40px 90px rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center;pointer-events:none}
 #zoomov .zt{font-family:var(--serif);letter-spacing:6px;font-size:clamp(20px,4vw,34px);opacity:0;transition:opacity .4s .25s;text-transform:uppercase}
 /* ---------- PROMO POPUP ---------- */
-#promo{position:fixed;right:22px;bottom:22px;z-index:220;width:min(360px,92vw);background:#fff;border-radius:20px;border:1px solid rgba(191,160,94,.5);box-shadow:0 30px 70px rgba(62,58,50,.25);padding:28px;transform:translateY(140%);transition:transform .7s cubic-bezier(.2,.9,.25,1)}
+#promo{position:fixed;right:22px;bottom:22px;z-index:220;width:min(360px,92vw);background:#fff;border-radius:20px;border:1px solid rgba(138,155,110,.5);box-shadow:0 30px 70px rgba(62,58,50,.25);padding:28px;transform:translateY(140%);transition:transform .7s cubic-bezier(.2,.9,.25,1)}
 #promo.show{transform:none}
 #promo .px{position:absolute;top:12px;right:16px;cursor:pointer;color:var(--taupe);font-size:18px}
 #promo h4{font-family:var(--serif);font-size:24px;color:var(--sage-dk);margin-bottom:8px}
@@ -330,7 +338,7 @@ footer a:hover{color:var(--gold)}
 .adm-side .alogo b{color:var(--gold)}
 .adm-side a{display:flex;align-items:center;gap:12px;padding:11px 26px;font-family:var(--jost);font-size:12.5px;letter-spacing:2px;text-transform:uppercase;color:rgba(250,246,239,.7);cursor:pointer;border-left:3px solid transparent;transition:all .25s}
 .adm-side a:hover{color:var(--cream);background:rgba(250,246,239,.06)}
-.adm-side a.on{color:var(--gold);border-left-color:var(--gold);background:rgba(191,160,94,.08)}
+.adm-side a.on{color:var(--gold);border-left-color:var(--gold);background:rgba(138,155,110,.08)}
 .adm-main{background:var(--cream2);padding:38px 40px;min-height:100vh}
 .adm-main h2{font-size:34px;margin-bottom:6px}
 .adm-sub{color:var(--taupe);font-size:14px;margin-bottom:30px}
@@ -400,7 +408,6 @@ footer a:hover{color:var(--gold)}
       <div class="abrand3">& HOLISTIC WELLNESS</div>
     </div>
   </div>
-  <div class="askip" id="askiplbl">TAP TO ENTER</div>
 </div>
 <script>
 (function(){var a=document.getElementById('arrival');if(!a)return;
@@ -413,7 +420,7 @@ footer a:hover{color:var(--gold)}
  function click(){try{var c=ac();if(!c||c.state!=='running')return;var t=c.currentTime,o=c.createOscillator();o.type='sine';o.frequency.setValueAtTime(2400,t);o.frequency.exponentialRampToValueAtTime(900,t+.05);var g=c.createGain();env(g,t,.003,.07,.1);o.connect(g);g.connect(c.destination);o.start(t);o.stop(t+.1);}catch(e){}}
  function chime(){try{var c=ac();if(!c||c.state!=='running')return;[660,990].forEach(function(f,i){var t=c.currentTime,o=c.createOscillator();o.type='sine';o.frequency.value=f;var g=c.createGain();env(g,t+i*.02,.05,1.5,.03);o.connect(g);g.connect(c.destination);o.start(t);o.stop(t+1.7);});}catch(e){}}
  function prime(){if(soundOn)return;soundOn=true;ac();}
- ['pointerdown','touchstart','keydown','wheel','scroll'].forEach(function(ev){window.addEventListener(ev,prime,{once:false,passive:true});});
+ ['pointerdown','touchstart','keydown','wheel','scroll'].forEach(function(ev){window.addEventListener(ev,function(){prime();begin();},{once:false,passive:true});});
  function uiclick(){try{var c=ac();if(!c||c.state!=='running')return;var t=c.currentTime,o=c.createOscillator();o.type='sine';o.frequency.setValueAtTime(1900,t);o.frequency.exponentialRampToValueAtTime(750,t+.04);var g=c.createGain();env(g,t,.002,.05,.055);o.connect(g);g.connect(c.destination);o.start(t);o.stop(t+.08);}catch(e){}}
  window.SND={click:click,uiclick:uiclick,whoosh:whoosh,chime:chime};
  document.addEventListener('click',function(e){
@@ -424,21 +431,25 @@ footer a:hover{color:var(--gold)}
   timers.forEach(function(t){clearTimeout(t);clearInterval(t);});
   whoosh(1.1,480,160,.12);a.classList.add('open');
   setTimeout(function(){if(a.parentNode)a.parentNode.removeChild(a);},1200);}
- a.addEventListener('click',function(){open();});
  function T(fn,ms){timers.push(setTimeout(fn,ms));}
  var MSG='Take a breath. You’re exactly where you’re meant to be.';
- var p1=document.getElementById('ap1'),p2=document.getElementById('ap2'),p3=document.getElementById('ap3');
- a.classList.add('go');chime();
- T(function(){p1.classList.add('on');},250);
- T(function(){p1.classList.remove('on');},2100);
- T(function(){p2.classList.add('on');var el=document.getElementById('atype'),i=0;
-  var iv=setInterval(function(){if(i>=MSG.length){clearInterval(iv);return;}el.textContent+=MSG[i];if(MSG[i]!==' ')tick();i++;},34);timers.push(iv);},2400);
- T(function(){p2.classList.remove('on');},5200);
- T(function(){whoosh(.9,300,2400,.12);p3.classList.add('on');},5700);
- T(function(){document.getElementById('aflare').classList.add('fly');},6100);
- T(function(){document.getElementById('arule').classList.add('draw');click();},6500);
- T(open,7600);
- setTimeout(open,10000);
+ var started=false;
+ function play(){if(started)return;started=true;
+  a.classList.add('go');chime();
+  var p1=document.getElementById('ap1'),p2=document.getElementById('ap2'),p3=document.getElementById('ap3');
+  T(function(){p1.classList.add('on');},380);
+  T(function(){p1.classList.remove('on');},2250);
+  T(function(){p2.classList.add('on');var el=document.getElementById('atype'),i=0;
+   var iv=setInterval(function(){if(i>=MSG.length){clearInterval(iv);return;}el.textContent+=MSG[i];if(MSG[i]!==' ')tick();i++;},34);timers.push(iv);},2550);
+  T(function(){p2.classList.remove('on');},5350);
+  T(function(){whoosh(.9,300,2400,.12);p3.classList.add('on');},5850);
+  T(function(){document.getElementById('aflare').classList.add('fly');},6250);
+  T(function(){document.getElementById('arule').classList.add('draw');click();},6650);
+  T(open,7750);}
+ function begin(){prime();}
+ a.addEventListener('click',function(){prime();}); /* tap brings sound in, never skips the film */
+ play(); /* the film always plays in full, no tap needed */
+ setTimeout(open,12000); /* absolute failsafe */
 })();
 </script>
 
@@ -475,13 +486,17 @@ footer a:hover{color:var(--gold)}
         <div class="h2note"><b>11:11</b> · grounded · grateful · exactly on time</div>
       </div>
       <div class="h2photo">
-        <img src="photos/photo15.jpg" alt="Emma standing by a silver birch tree in Preston">
+        <img src="photos/photo10.jpg" alt="Emma’s gentle hands holding a wildflower — beauty services with care">
         <svg class="h2frame" viewBox="0 0 100 100" preserveAspectRatio="none" style="inset:14px;width:calc(100% - 28px);height:calc(100% - 28px)">
           <rect x="1" y="1" width="98" height="98" rx="2.5" pathLength="100" class="fbase"/>
           <rect x="1" y="1" width="98" height="98" rx="2.5" pathLength="100" class="fglow"/>
         </svg>
-        <svg class="fleaf" style="top:6px;left:8px" width="42" height="42" viewBox="0 0 40 40"><g fill="none" stroke="#D8BE82" stroke-width="1.5" stroke-linecap="round"><path d="M 6 34 Q 14 24 30 8"/><path d="M 13 26 C 18 25 20 21 20 16 C 15 18 13 21 13 26 Z" fill="rgba(216,190,130,.35)"/><path d="M 20 19 C 25 18 27 14 27 9 C 22 11 20 14 20 19 Z" fill="rgba(216,190,130,.35)"/></g></svg>
-        <svg class="fleaf" style="bottom:6px;right:8px;transform:scaleX(-1);animation-delay:2.6s" width="42" height="42" viewBox="0 0 40 40"><g fill="none" stroke="#D8BE82" stroke-width="1.5" stroke-linecap="round"><path d="M 6 34 Q 14 24 30 8"/><path d="M 13 26 C 18 25 20 21 20 16 C 15 18 13 21 13 26 Z" fill="rgba(216,190,130,.35)"/><path d="M 20 19 C 25 18 27 14 27 9 C 22 11 20 14 20 19 Z" fill="rgba(216,190,130,.35)"/></g></svg>
+        <svg class="fleaf" style="top:6px;left:8px" width="42" height="42" viewBox="0 0 40 40"><g fill="none" stroke="#A9BA92" stroke-width="1.5" stroke-linecap="round"><path d="M 6 34 Q 14 24 30 8"/><path d="M 13 26 C 18 25 20 21 20 16 C 15 18 13 21 13 26 Z" fill="rgba(169,186,146,.35)"/><path d="M 20 19 C 25 18 27 14 27 9 C 22 11 20 14 20 19 Z" fill="rgba(169,186,146,.35)"/></g></svg>
+        <svg class="fleaf" style="bottom:6px;right:8px;transform:scaleX(-1);animation-delay:2.6s" width="42" height="42" viewBox="0 0 40 40"><g fill="none" stroke="#A9BA92" stroke-width="1.5" stroke-linecap="round"><path d="M 6 34 Q 14 24 30 8"/><path d="M 13 26 C 18 25 20 21 20 16 C 15 18 13 21 13 26 Z" fill="rgba(169,186,146,.35)"/><path d="M 20 19 C 25 18 27 14 27 9 C 22 11 20 14 20 19 Z" fill="rgba(169,186,146,.35)"/></g></svg>
+        <svg class="fall" style="left:14%;animation-duration:10s;animation-delay:.6s" width="16" height="18" viewBox="0 0 16 18"><path d="M 8 1 C 13 6 12.5 12 8 16 C 3.5 12 3 6 8 1 Z" fill="rgba(169,186,146,.75)"/></svg>
+        <svg class="fall" style="left:38%;animation-duration:13s;animation-delay:3.4s" width="13" height="15" viewBox="0 0 16 18"><path d="M 8 1 C 13 6 12.5 12 8 16 C 3.5 12 3 6 8 1 Z" fill="rgba(138,155,110,.7)"/></svg>
+        <svg class="fall" style="left:63%;animation-duration:11s;animation-delay:6s" width="17" height="19" viewBox="0 0 16 18"><path d="M 8 1 C 13 6 12.5 12 8 16 C 3.5 12 3 6 8 1 Z" fill="rgba(169,186,146,.65)"/></svg>
+        <svg class="fall" style="left:84%;animation-duration:14s;animation-delay:8.6s" width="14" height="16" viewBox="0 0 16 18"><path d="M 8 1 C 13 6 12.5 12 8 16 C 3.5 12 3 6 8 1 Z" fill="rgba(203,216,186,.7)"/></svg>
         <div class="h2cap">grounded &amp; grateful · Preston</div>
       </div>
     </div>
@@ -492,14 +507,14 @@ footer a:hover{color:var(--gold)}
     <div class="eportals">
         <div class="eportal pbeauty" onclick="portalGo('beauty',this)">
           <div class="glare"></div><div class="cardsheen"></div>
-          <svg class="pfloat" style="top:16px;right:20px" width="20" height="20" viewBox="0 0 20 20"><path d="M10 1 Q11.3 8.7 19 10 Q11.3 11.3 10 19 Q8.7 11.3 1 10 Q8.7 8.7 10 1 Z" fill="#BFA05E"/></svg>
+          <svg class="pfloat" style="top:16px;right:20px" width="20" height="20" viewBox="0 0 20 20"><path d="M10 1 Q11.3 8.7 19 10 Q11.3 11.3 10 19 Q8.7 11.3 1 10 Q8.7 8.7 10 1 Z" fill="#8A9B6E"/></svg>
           <svg class="pfloat p2" style="bottom:60px;left:18px" width="15" height="24" viewBox="0 0 15 24"><path d="M 7.5 1 C 12 7 11.6 15 7.5 20 C 3.4 15 3 7 7.5 1 Z" fill="none" stroke="#B97C5C" stroke-width="1.6"/></svg>
           <div class="logo">
             <svg width="260" height="110" viewBox="0 0 520 220">
               <text x="260" y="62" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="28" letter-spacing="12" fill="#8A8072">EMMA’S</text>
               <text x="260" y="128" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="54" letter-spacing="3" fill="#46503E">MOBILE BEAUTY</text>
-              <line x1="165" y1="152" x2="355" y2="152" stroke="#BFA05E" stroke-width="1.6"/>
-              <text x="260" y="190" text-anchor="middle" font-family="Jost,sans-serif" font-weight="300" font-size="17" letter-spacing="6" fill="#A98D52">&amp; HOLISTIC WELLNESS</text>
+              <line x1="165" y1="152" x2="355" y2="152" stroke="#8A9B6E" stroke-width="1.6"/>
+              <text x="260" y="190" text-anchor="middle" font-family="Jost,sans-serif" font-weight="300" font-size="17" letter-spacing="6" fill="#6E7F5C">&amp; HOLISTIC WELLNESS</text>
             </svg>
           </div>
           <p>The main event. Salon-quality treatments brought to your door.</p>
@@ -507,7 +522,7 @@ footer a:hover{color:var(--gold)}
         </div>
         <div class="eportal psoul" onclick="portalGo('soul',this)">
           <div class="glare"></div><div class="cardsheen"></div>
-          <svg class="pfloat" style="top:18px;right:22px" width="18" height="18" viewBox="0 0 20 20"><path d="M10 1 Q11.3 8.7 19 10 Q11.3 11.3 10 19 Q8.7 11.3 1 10 Q8.7 8.7 10 1 Z" fill="#BFA05E"/></svg>
+          <svg class="pfloat" style="top:18px;right:22px" width="18" height="18" viewBox="0 0 20 20"><path d="M10 1 Q11.3 8.7 19 10 Q11.3 11.3 10 19 Q8.7 11.3 1 10 Q8.7 8.7 10 1 Z" fill="#8A9B6E"/></svg>
           <svg class="pfloat p2" style="bottom:64px;left:20px" width="18" height="18" viewBox="0 0 40 40"><circle cx="20" cy="20" r="12" fill="#FAF6EF" opacity=".85"/><circle cx="26" cy="15" r="11" fill="#46503E"/></svg>
           <div class="logo">
             <svg width="230" height="118" viewBox="0 0 460 236">
@@ -516,12 +531,12 @@ footer a:hover{color:var(--gold)}
                 <path d="M 66 9 A 11 11 0 0 1 66 31 A 17 17 0 0 0 66 9 Z" fill="#FAF6EF"/>
                 <path d="M 107 9 A 11 11 0 0 1 107 31 Z" fill="#FAF6EF"/><circle cx="107" cy="20" r="11" fill="none" stroke="#FAF6EF" stroke-width="2"/>
                 <circle cx="148" cy="20" r="11" fill="#FAF6EF"/><path d="M 148 9 A 11 11 0 0 0 148 31 A 28 28 0 0 1 148 9 Z" fill="#46503E"/><circle cx="148" cy="20" r="11" fill="none" stroke="#FAF6EF" stroke-width="2"/>
-                <circle cx="189" cy="20" r="11" fill="#BFA05E"/>
+                <circle cx="189" cy="20" r="11" fill="#8A9B6E"/>
               </g>
               <text x="230" y="102" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="30" letter-spacing="12" fill="#C9C3B4">EMMA’S</text>
               <text x="230" y="170" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="64" letter-spacing="6" fill="#FAF6EF">SOUL SPACE</text>
-              <line x1="150" y1="196" x2="310" y2="196" stroke="#BFA05E" stroke-width="1.6"/>
-              <text x="230" y="226" text-anchor="middle" font-family="Jost,sans-serif" font-weight="300" font-size="13.5" letter-spacing="4" fill="#BFA05E">MEDITATION · SOUND · BREATHWORK</text>
+              <line x1="150" y1="196" x2="310" y2="196" stroke="#8A9B6E" stroke-width="1.6"/>
+              <text x="230" y="226" text-anchor="middle" font-family="Jost,sans-serif" font-weight="300" font-size="13.5" letter-spacing="4" fill="#8A9B6E">MEDITATION · SOUND · BREATHWORK</text>
             </svg>
           </div>
           <p>The added extra. Circles, sound baths and soul sessions.</p>
@@ -546,11 +561,11 @@ footer a:hover{color:var(--gold)}
     <div class="wrap" style="margin-top:60px">
       <div class="center"><div class="eyebrow">Fully qualified · fully insured</div></div>
       <div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:22px">
-        <div class="cred"><svg width="32" height="40" viewBox="0 0 40 48" aria-hidden="true"><path d="M 14.5 29 L 11.5 42 L 16.5 39.5 L 19.5 45.5 L 19.5 32 Z" fill="#D8BE82"/><path d="M 25.5 29 L 28.5 42 L 23.5 39.5 L 20.5 45.5 L 20.5 32 Z" fill="#A98D52"/><circle cx="20" cy="18" r="13.5" fill="#FAF6EF" stroke="#BFA05E" stroke-width="1.6"/><circle cx="20" cy="18" r="9.5" fill="none" stroke="#BFA05E" stroke-width="1"/><path d="M 15.5 18.2 L 18.4 21.2 L 24.6 14.6" fill="none" stroke="#55604C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><div><b>VTCT</b><span>Qualified therapist</span></div></div>
-        <div class="cred"><svg width="32" height="40" viewBox="0 0 40 48" aria-hidden="true"><path d="M 14.5 29 L 11.5 42 L 16.5 39.5 L 19.5 45.5 L 19.5 32 Z" fill="#D8BE82"/><path d="M 25.5 29 L 28.5 42 L 23.5 39.5 L 20.5 45.5 L 20.5 32 Z" fill="#A98D52"/><circle cx="20" cy="18" r="13.5" fill="#FAF6EF" stroke="#BFA05E" stroke-width="1.6"/><circle cx="20" cy="18" r="9.5" fill="none" stroke="#BFA05E" stroke-width="1"/><path d="M 15.5 18.2 L 18.4 21.2 L 24.6 14.6" fill="none" stroke="#55604C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><div><b>City &amp; Guilds</b><span>Qualified</span></div></div>
-        <div class="cred"><svg width="32" height="40" viewBox="0 0 40 48" aria-hidden="true"><path d="M 14.5 29 L 11.5 42 L 16.5 39.5 L 19.5 45.5 L 19.5 32 Z" fill="#D8BE82"/><path d="M 25.5 29 L 28.5 42 L 23.5 39.5 L 20.5 45.5 L 20.5 32 Z" fill="#A98D52"/><circle cx="20" cy="18" r="13.5" fill="#FAF6EF" stroke="#BFA05E" stroke-width="1.6"/><circle cx="20" cy="18" r="9.5" fill="none" stroke="#BFA05E" stroke-width="1"/><path d="M 15.5 18.2 L 18.4 21.2 L 24.6 14.6" fill="none" stroke="#55604C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><div><b>Beauty &amp; Holistic</b><span>Therapist and trainer</span></div></div>
-        <div class="cred"><svg width="32" height="40" viewBox="0 0 40 48" aria-hidden="true"><path d="M 14.5 29 L 11.5 42 L 16.5 39.5 L 19.5 45.5 L 19.5 32 Z" fill="#D8BE82"/><path d="M 25.5 29 L 28.5 42 L 23.5 39.5 L 20.5 45.5 L 20.5 32 Z" fill="#A98D52"/><circle cx="20" cy="18" r="13.5" fill="#FAF6EF" stroke="#BFA05E" stroke-width="1.6"/><circle cx="20" cy="18" r="9.5" fill="none" stroke="#BFA05E" stroke-width="1"/><path d="M 15.5 18.2 L 18.4 21.2 L 24.6 14.6" fill="none" stroke="#55604C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><div><b>Sound Therapy</b><span>Meditation facilitator</span></div></div>
-        <div class="cred"><svg width="32" height="40" viewBox="0 0 40 48" aria-hidden="true"><path d="M 14.5 29 L 11.5 42 L 16.5 39.5 L 19.5 45.5 L 19.5 32 Z" fill="#D8BE82"/><path d="M 25.5 29 L 28.5 42 L 23.5 39.5 L 20.5 45.5 L 20.5 32 Z" fill="#A98D52"/><circle cx="20" cy="18" r="13.5" fill="#FAF6EF" stroke="#BFA05E" stroke-width="1.6"/><circle cx="20" cy="18" r="9.5" fill="none" stroke="#BFA05E" stroke-width="1"/><path d="M 15.5 18.2 L 18.4 21.2 L 24.6 14.6" fill="none" stroke="#55604C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><div><b>Fully Insured</b><span>Public liability</span></div></div>
+        <div class="cred"><svg width="32" height="40" viewBox="0 0 40 48" aria-hidden="true"><path d="M 14.5 29 L 11.5 42 L 16.5 39.5 L 19.5 45.5 L 19.5 32 Z" fill="#A9BA92"/><path d="M 25.5 29 L 28.5 42 L 23.5 39.5 L 20.5 45.5 L 20.5 32 Z" fill="#6E7F5C"/><circle cx="20" cy="18" r="13.5" fill="#FAF6EF" stroke="#8A9B6E" stroke-width="1.6"/><circle cx="20" cy="18" r="9.5" fill="none" stroke="#8A9B6E" stroke-width="1"/><path d="M 15.5 18.2 L 18.4 21.2 L 24.6 14.6" fill="none" stroke="#55604C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><div><b>VTCT</b><span>Qualified therapist</span></div></div>
+        <div class="cred"><svg width="32" height="40" viewBox="0 0 40 48" aria-hidden="true"><path d="M 14.5 29 L 11.5 42 L 16.5 39.5 L 19.5 45.5 L 19.5 32 Z" fill="#A9BA92"/><path d="M 25.5 29 L 28.5 42 L 23.5 39.5 L 20.5 45.5 L 20.5 32 Z" fill="#6E7F5C"/><circle cx="20" cy="18" r="13.5" fill="#FAF6EF" stroke="#8A9B6E" stroke-width="1.6"/><circle cx="20" cy="18" r="9.5" fill="none" stroke="#8A9B6E" stroke-width="1"/><path d="M 15.5 18.2 L 18.4 21.2 L 24.6 14.6" fill="none" stroke="#55604C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><div><b>City &amp; Guilds</b><span>Qualified</span></div></div>
+        <div class="cred"><svg width="32" height="40" viewBox="0 0 40 48" aria-hidden="true"><path d="M 14.5 29 L 11.5 42 L 16.5 39.5 L 19.5 45.5 L 19.5 32 Z" fill="#A9BA92"/><path d="M 25.5 29 L 28.5 42 L 23.5 39.5 L 20.5 45.5 L 20.5 32 Z" fill="#6E7F5C"/><circle cx="20" cy="18" r="13.5" fill="#FAF6EF" stroke="#8A9B6E" stroke-width="1.6"/><circle cx="20" cy="18" r="9.5" fill="none" stroke="#8A9B6E" stroke-width="1"/><path d="M 15.5 18.2 L 18.4 21.2 L 24.6 14.6" fill="none" stroke="#55604C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><div><b>Beauty &amp; Holistic</b><span>Therapist and trainer</span></div></div>
+        <div class="cred"><svg width="32" height="40" viewBox="0 0 40 48" aria-hidden="true"><path d="M 14.5 29 L 11.5 42 L 16.5 39.5 L 19.5 45.5 L 19.5 32 Z" fill="#A9BA92"/><path d="M 25.5 29 L 28.5 42 L 23.5 39.5 L 20.5 45.5 L 20.5 32 Z" fill="#6E7F5C"/><circle cx="20" cy="18" r="13.5" fill="#FAF6EF" stroke="#8A9B6E" stroke-width="1.6"/><circle cx="20" cy="18" r="9.5" fill="none" stroke="#8A9B6E" stroke-width="1"/><path d="M 15.5 18.2 L 18.4 21.2 L 24.6 14.6" fill="none" stroke="#55604C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><div><b>Sound Therapy</b><span>Meditation facilitator</span></div></div>
+        <div class="cred"><svg width="32" height="40" viewBox="0 0 40 48" aria-hidden="true"><path d="M 14.5 29 L 11.5 42 L 16.5 39.5 L 19.5 45.5 L 19.5 32 Z" fill="#A9BA92"/><path d="M 25.5 29 L 28.5 42 L 23.5 39.5 L 20.5 45.5 L 20.5 32 Z" fill="#6E7F5C"/><circle cx="20" cy="18" r="13.5" fill="#FAF6EF" stroke="#8A9B6E" stroke-width="1.6"/><circle cx="20" cy="18" r="9.5" fill="none" stroke="#8A9B6E" stroke-width="1"/><path d="M 15.5 18.2 L 18.4 21.2 L 24.6 14.6" fill="none" stroke="#55604C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><div><b>Fully Insured</b><span>Public liability</span></div></div>
       </div>
     </div>
   </section>
@@ -720,7 +735,7 @@ footer a:hover{color:var(--gold)}
           <label>Available times <span style="text-transform:none;letter-spacing:0">(bookings open up to 48 hours before)</span></label>
           <div id="slotwrap" style="display:flex;gap:10px;flex-wrap:wrap;min-height:44px"><span class="muted" style="font-size:13.5px">Pick a date on the calendar above to see Emma’s free times.</span></div>
           </div>
-          <p id="soulnote" style="display:none;background:var(--sand);border:1px dashed var(--gold);border-radius:10px;padding:14px 18px;font-size:13.5px;color:var(--taupe);margin-top:14px">🌙 Soul Space circles and sound baths have no dates to pick — Emma announces each one personally. Send your enquiry and she will invite you when the next session is announced. Any live announcements appear on the Soul Space page.</p>
+          <p id="soulnote" style="display:none;background:var(--sand);border:1px dashed var(--gold);border-radius:10px;padding:14px 18px;font-size:13.5px;color:var(--taupe);margin-top:14px">Soul Space circles and sound baths have no dates to pick — Emma announces each one personally. Send your enquiry and she will invite you when the next session is announced. Any live announcements appear on the Soul Space page.</p>
           <div class="two">
             <div><label>Your name</label><input type="text" id="bname" required></div>
             <div><label>Phone number</label><input type="tel" id="bphone" required></div>
@@ -728,7 +743,7 @@ footer a:hover{color:var(--gold)}
           <label>Email</label><input type="email" id="bemail" required>
           <label>How would you like to be contacted?</label>
           <select id="bpref"><option>Text message (SMS)</option><option>WhatsApp</option><option>Email</option><option>Phone call</option></select>
-          <label>Birthday <span style="text-transform:none;letter-spacing:0">(optional, for a little birthday treat 🎂)</span></label>
+          <label>Birthday <span style="text-transform:none;letter-spacing:0">(optional, for a little birthday treat)</span></label>
           <input type="date" id="bbday">
           <p id="patchnote" style="display:none;background:var(--sand);border:1px dashed var(--gold);border-radius:10px;padding:12px 16px;font-size:13.5px;color:var(--taupe);margin-top:14px">✦ First time having this treatment? A quick patch test is needed at least 48 hours before. Emma will sort this when she confirms.</p>
           <div id="addrwrap">
@@ -741,13 +756,13 @@ footer a:hover{color:var(--gold)}
           </div>
           <label>Notes, requests or promo code</label><textarea id="bnotes" rows="3"></textarea>
           <label style="display:flex;gap:12px;align-items:flex-start;margin-top:22px;cursor:pointer;text-transform:none;letter-spacing:0;font-family:var(--sans);font-size:14px;color:var(--ink)">
-            <input type="checkbox" id="bagree" required style="width:20px;height:20px;margin-top:2px;accent-color:#BFA05E;flex-shrink:0">
+            <input type="checkbox" id="bagree" required style="width:20px;height:20px;margin-top:2px;accent-color:#8A9B6E;flex-shrink:0">
             <span>I have read and agree to Emma’s <a onclick="event.preventDefault();go('terms')" style="color:var(--gold-dk);cursor:pointer;text-decoration:underline">terms & conditions</a>, including the booking fee, the 48 hour cancellation policy and patch test requirements.</span>
           </label>
           <div class="center" style="margin-top:24px"><button class="btn gold" type="submit">Request booking</button></div>
         </form>
         <div id="confirm">
-          <svg width="54" height="54" viewBox="0 0 20 20"><path d="M10 0 Q11 9 20 10 Q11 11 10 20 Q9 11 0 10 Q9 9 10 0" fill="#BFA05E"/></svg>
+          <svg width="54" height="54" viewBox="0 0 20 20"><path d="M10 0 Q11 9 20 10 Q11 11 10 20 Q9 11 0 10 Q9 9 10 0" fill="#8A9B6E"/></svg>
           <h3>Request received ✨</h3>
           <p class="muted" id="confmsg">Thank you! A confirmation text is on its way to you now, and Emma will approve your slot shortly. You’ll also get a gentle reminder the night before.</p>
           <button class="btn small" style="margin-top:24px" onclick="resetForm()">Make another booking</button>
@@ -776,7 +791,7 @@ footer a:hover{color:var(--gold)}
             <div><label>Who is it for?</label><input id="gto" placeholder="Their name" required></div>
             <div><label>Who is it from?</label><input id="gfrom" placeholder="Your name" required></div>
           </div>
-          <label>A little message on the card</label><textarea id="gmsg" rows="2" placeholder="Happy birthday, you deserve some calm 💛"></textarea>
+          <label>A little message on the card</label><textarea id="gmsg" rows="2" placeholder="Happy birthday, you deserve some calm"></textarea>
           <div class="two">
             <div><label>Your phone</label><input type="tel" id="gphone" required></div>
             <div><label>Your email</label><input type="email" id="gemail" required></div>
@@ -785,8 +800,8 @@ footer a:hover{color:var(--gold)}
           <div class="center" style="margin-top:24px"><button class="btn gold" type="submit">Request gift card</button></div>
         </form>
         <div id="giftconfirm" style="display:none;text-align:center;padding:40px 20px">
-          <svg width="54" height="54" viewBox="0 0 20 20"><path d="M10 0 Q11 9 20 10 Q11 11 10 20 Q9 11 0 10 Q9 9 10 0" fill="#BFA05E"/></svg>
-          <h3 style="font-size:30px;margin:18px 0 10px">What a lovely gift 💛</h3>
+          <svg width="54" height="54" viewBox="0 0 20 20"><path d="M10 0 Q11 9 20 10 Q11 11 10 20 Q9 11 0 10 Q9 9 10 0" fill="#8A9B6E"/></svg>
+          <h3 style="font-size:30px;margin:18px 0 10px">What a lovely gift</h3>
           <p class="muted" id="giftmsg"></p>
           <button class="btn small" style="margin-top:24px" onclick="document.getElementById('giftform').reset();document.getElementById('giftform').style.display='block';document.getElementById('giftconfirm').style.display='none'">Send another</button>
         </div>
@@ -872,7 +887,7 @@ footer a:hover{color:var(--gold)}
         <p id="lerr" style="display:none;color:var(--danger);font-size:13px;margin-top:10px">Not quite, try again.</p>
         <div class="center" style="margin-top:26px"><button class="btn gold" type="submit" style="width:100%">Sign in</button></div>
       </form>
-      <p class="muted" style="font-size:12px;margin-top:20px">Private area for Emma only 💛</p>
+      <p class="muted" style="font-size:12px;margin-top:20px">Private area for Emma only</p>
     </div>
   </div>
 </main>
@@ -922,7 +937,7 @@ footer a:hover{color:var(--gold)}
         <a onclick="go('soul')">Emma’s Soul Space</a>
         <a onclick="go('beauty')">Mobile Beauty</a>
         <a onclick="go('book')">Book now</a>
-        <a onclick="go('gift')">Gift cards 🎁</a>
+        <a onclick="go('gift')">Gift cards</a>
         <a onclick="go('terms')">Terms & Conditions</a>
         <a id="greview3" target="_blank" style="color:var(--gold)">★ Review us on Google</a>
       </div>
@@ -1129,7 +1144,7 @@ function renderPublic(){
   <h4>${esc(a.title)}</h4><p>${esc(a.msg)}</p>
   <div class="pricerow">${s?`<span class="price">£${s.price}</span>`:'<span></span>'}
   ${s?`<button class="btn small" onclick="prefill('soul','${s.id}')">Book this session</button>`:''}</div></div>`;}).join('')
-  :'<p class="muted center" style="grid-column:1/-1">New gatherings are announced here soon. Follow along on Instagram 💛</p>';
+  :'<p class="muted center" style="grid-column:1/-1">New gatherings are announced here soon. Follow along on Instagram.</p>';
  const cats=[...new Set(act.filter(s=>s.sec==='beauty').map(s=>s.cat))];
  document.getElementById('catbar').innerHTML=['All',...cats].map(c=>`<span class="chip ${c===activeCat?'active':''}" onclick="setCat('${c}')">${c}</span>`).join('');
  document.getElementById('beautycards').innerHTML=act.filter(s=>s.sec==='beauty'&&(activeCat==='All'||s.cat===activeCat)).map(s=>card(s,'gold')).join('');
@@ -1167,7 +1182,7 @@ function renderBasket(){
  const tot=basketTotal();
  el.innerHTML=`<div style="display:flex;gap:10px;flex-wrap:wrap">${basket.map((b,i)=>`<span class="chip" style="background:var(--sand);cursor:default">${esc(b.name)} · £${b.price} <b style="cursor:pointer;margin-left:6px;color:var(--danger)" onclick="rmBasket(${i})">✕</b></span>`).join('')}</div>
  <div style="margin-top:12px;font-family:var(--serif);font-size:22px;color:var(--sage-dk)">Your visit: £${tot} <span class="muted" style="font-family:var(--sans);font-size:13px">· ${basket.reduce((a,b)=>a+b.mins,0)} mins</span></div>
- ${tot<MIN_VISIT?`<p style="font-size:13px;color:var(--gold-dk);margin-top:6px">✦ £${MIN_VISIT-tot} more to reach Emma’s £${MIN_VISIT} minimum. Add another little treat 💛</p>`:`<p style="font-size:13px;color:var(--sage);margin-top:6px">✓ Lovely, that’s above the £${MIN_VISIT} minimum.</p>`}`;}
+ ${tot<MIN_VISIT?`<p style="font-size:13px;color:var(--gold-dk);margin-top:6px">✦ £${MIN_VISIT-tot} more to reach Emma’s £${MIN_VISIT} minimum. Add another little treat.</p>`:`<p style="font-size:13px;color:var(--sage);margin-top:6px">✓ Lovely, that’s above the £${MIN_VISIT} minimum.</p>`}`;}
 window.addToVisit=()=>{const s=services.find(x=>x.id===document.getElementById('bservice').value);
  if(!s)return;basket.push({id:s.id,name:s.name,price:s.price,mins:s.mins});renderBasket();patchCheck();};
 window.rmBasket=i=>{basket.splice(i,1);renderBasket();patchCheck();};
@@ -1175,7 +1190,7 @@ window.rmBasket=i=>{basket.splice(i,1);renderBasket();patchCheck();};
 window.submitGift=e=>{e.preventDefault();
  const sel=document.getElementById('gamt').value;
  const amt=sel==='custom'?+document.getElementById('gcustom').value:+sel;
- if(!amt||amt<30){alert('Gift cards start from £30 💛');return false;}
+ if(!amt||amt<30){alert('Gift cards start from £30');return false;}
  const code='EMB-'+Math.random().toString(36).slice(2,6).toUpperCase();
  giftcards.unshift({id:uid(),code,amount:amt,to:document.getElementById('gto').value,
   from:document.getElementById('gfrom').value,msg:document.getElementById('gmsg').value,
@@ -1213,7 +1228,7 @@ let selSlot='',foundArea='';
 window.findAddr=async()=>{
  const pc=document.getElementById('bpc').value.trim().replace(/\s+/g,'');
  const out=document.getElementById('pcfound');
- if(!pc){out.style.display='block';out.textContent='Pop your postcode in first 💛';return;}
+ if(!pc){out.style.display='block';out.textContent='Pop your postcode in first.';return;}
  out.style.display='block';out.textContent='Looking up your postcode…';
  try{
   const r=await fetch('https://api.postcodes.io/postcodes/'+encodeURIComponent(pc));
@@ -1234,11 +1249,11 @@ function freeSlots(iso){
   return !bookings.some(b=>b.date===iso&&b.time===fmtT(t)&&['pending','confirmed'].includes(b.status));
  }).sort();}
 function submitBooking(e){e.preventDefault();
- if(!document.getElementById('bagree').checked){alert('Please tick to agree to the terms & conditions first 💛');return false;}
+ if(!document.getElementById('bagree').checked){alert('Please tick to agree to the terms & conditions first');return false;}
  if(!basket.length)addToVisit();
- if(basketTotal()<MIN_VISIT){alert(`Emma’s minimum visit is £${MIN_VISIT} 💛 Add another treatment to your visit to reach it.`);return false;}
+ if(basketTotal()<MIN_VISIT){alert(`Emma’s minimum visit is £${MIN_VISIT}. Add another treatment to your visit to reach it.`);return false;}
  const sec=document.getElementById('bsection').value;
- if(sec!=='soul'&&(!selSlot||!document.getElementById('bdate').value)){alert('Please pick an available day and time on the calendar first 💛');return false;}
+ if(sec!=='soul'&&(!selSlot||!document.getElementById('bdate').value)){alert('Please pick an available day and time on the calendar first');return false;}
  const pref=document.getElementById('bpref').value;
  const phone=document.getElementById('bphone').value;
  const bk={id:uid(),sec,service:basket.map(b=>b.name).join(' + '),price:basketTotal(),mins:basket.reduce((a,b)=>a+b.mins,0),
@@ -1287,7 +1302,7 @@ function renderSlots(iso){
  const free=iso?freeSlots(iso):[];
  if(!iso){w.innerHTML='<span class="muted" style="font-size:13.5px">Pick a date on the calendar above to see Emma’s free times.</span>';return;}
  if(!free.length){w.innerHTML=`<div style="width:100%">
-  <span class="muted" style="font-size:13.5px">No free times left this day 💛 Want a text if a slot opens?</span>
+  <span class="muted" style="font-size:13.5px">No free times left this day. Want a text if a slot opens?</span>
   <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
   <input id="wname" placeholder="Your name" style="max-width:160px;padding:9px 12px;font-size:13.5px">
   <input id="wphone" placeholder="Phone" style="max-width:150px;padding:9px 12px;font-size:13.5px">
@@ -1806,7 +1821,7 @@ function vGifts(m){
  :'<p class="muted">No gift card requests yet. The Gift Cards page is linked in the footer and home page.</p>'}</div>`;}
 window.giftTpl=g=>`A little something for you, ${g.to} ✨\n\n${g.from} has treated you to a £${g.amount} gift card for Emma’s Mobile Beauty & Holistic Wellness in Preston.${g.msg?`\n\n“${g.msg}” — ${g.from}`:''}\n\nYour code: ${g.code}\nValid for one year on any treatment, brought to your door.\n\nBook your treat: www.emmasholisticbeauty.co.uk`;
 window.giftCopy=id=>{const g=giftcards.find(x=>x.id===id);if(!g)return;
- const done=()=>alert('Gift message copied 💛 paste it into a text or WhatsApp for '+g.to+'.');
+ const done=()=>alert('Gift message copied. Paste it into a text or WhatsApp for '+g.to+'.');
  if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(giftTpl(g)).then(done).catch(()=>prompt('Copy your gift message:',giftTpl(g)));
  else prompt('Copy your gift message:',giftTpl(g));};
 window.giftPDF=id=>{const g=giftcards.find(x=>x.id===id);if(!g)return;
@@ -1816,20 +1831,20 @@ window.giftPDF=id=>{const g=giftcards.find(x=>x.id===id);if(!g)return;
 <style>@page{size:A5 landscape;margin:0}
 *{box-sizing:border-box}body{margin:0;background:#FAF6EF;font-family:'Cormorant Garamond',serif;color:#3E3A32;-webkit-print-color-adjust:exact;print-color-adjust:exact}
 .card{width:210mm;height:148mm;padding:10mm;display:flex}
-.inner{flex:1;border:1px solid #BFA05E;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:8mm 12mm;background:radial-gradient(340mm 200mm at 50% -30%,#FFFDF8,#FAF6EF 60%)}
-.inner:before{content:'';position:absolute;inset:2.2mm;border:.4mm solid rgba(191,160,94,.35);pointer-events:none}
+.inner{flex:1;border:1px solid #8A9B6E;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:8mm 12mm;background:radial-gradient(340mm 200mm at 50% -30%,#FFFDF8,#FAF6EF 60%)}
+.inner:before{content:'';position:absolute;inset:2.2mm;border:.4mm solid rgba(138,155,110,.35);pointer-events:none}
 .b1{font-size:11pt;letter-spacing:5pt;color:#8A8072;margin-top:5mm}
 .b2{font-size:20pt;letter-spacing:2.5pt;color:#46503E;margin:1mm 0}
-.rl{width:42mm;height:.4mm;background:linear-gradient(90deg,transparent,#BFA05E,transparent);margin:2mm auto}
-.b3{font-family:Jost;font-weight:300;font-size:7.5pt;letter-spacing:3pt;color:#A98D52}
+.rl{width:42mm;height:.4mm;background:linear-gradient(90deg,transparent,#8A9B6E,transparent);margin:2mm auto}
+.b3{font-family:Jost;font-weight:300;font-size:7.5pt;letter-spacing:3pt;color:#6E7F5C}
 .gift{font-family:Jost;font-weight:300;font-size:8.5pt;letter-spacing:4.5pt;color:#8A8072;margin-top:7mm}
 .name{font-style:italic;font-size:30pt;color:#46503E;margin:2mm 0}
-.amt{font-size:15pt;color:#3E3A32}.amt b{color:#A98D52;font-weight:500}
+.amt{font-size:15pt;color:#3E3A32}.amt b{color:#6E7F5C;font-weight:500}
 .pm{font-style:italic;font-size:11.5pt;color:#6E6656;max-width:120mm;margin:3mm auto 0}
 .frm{font-style:italic;font-size:11pt;color:#8A8072;margin-top:2mm}
-.code{display:inline-block;font-family:Jost;font-weight:300;font-size:10pt;letter-spacing:3pt;color:#46503E;border:.4mm solid #BFA05E;border-radius:2mm;padding:2.6mm 6mm;margin-top:5mm}
+.code{display:inline-block;font-family:Jost;font-weight:300;font-size:10pt;letter-spacing:3pt;color:#46503E;border:.4mm solid #8A9B6E;border-radius:2mm;padding:2.6mm 6mm;margin-top:5mm}
 .ft{position:absolute;bottom:6mm;left:0;right:0;font-size:9pt;font-style:italic;color:#8A8072}
-.ft .j{font-family:Jost;font-style:normal;font-size:6.5pt;letter-spacing:2.5pt;color:#A98D52;margin-top:1.2mm}
+.ft .j{font-family:Jost;font-style:normal;font-size:6.5pt;letter-spacing:2.5pt;color:#6E7F5C;margin-top:1.2mm}
 </style></head><body><div class="card"><div class="inner">
 <div class="b1">EMMA’S</div><div class="b2">MOBILE BEAUTY</div><div class="rl"></div><div class="b3">&amp; HOLISTIC WELLNESS</div>
 <div class="gift">A GIFT FOR</div>
