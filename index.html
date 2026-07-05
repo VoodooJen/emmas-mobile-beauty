@@ -75,10 +75,17 @@ section{padding:96px 0}
 .center{text-align:center}
 .muted{color:var(--taupe)}
 /* ---------- ARRIVAL 11:11 · apple-style film ---------- */
-#arrival{position:fixed;inset:0;z-index:300;overflow:hidden;background:#080A06;transition:opacity 1.05s cubic-bezier(.7,0,.3,1)}
-#arrival.open{opacity:0;pointer-events:none}
-.acurtain{position:absolute;top:0;bottom:0;width:50.15%;z-index:1;background:#080A06}
+#arrival{position:fixed;inset:0;z-index:300;overflow:hidden;background:#FAF6EF;transition:opacity 1.1s cubic-bezier(.7,0,.3,1),transform 1.1s cubic-bezier(.7,0,.3,1)}
+#arrival.open{opacity:0;transform:scale(1.05);pointer-events:none}
+.acurtain{position:absolute;top:0;bottom:0;width:50.15%;z-index:1;background:#080A06;transition:opacity .55s ease .1s}
+#arrival.open .acurtain{opacity:0}
+#arrival.open #aglow{opacity:0!important}
 .acurtain.l{left:0}.acurtain.r{right:0}
+.afilm{position:absolute;inset:0;overflow:hidden}
+.afilm img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) brightness(.62) contrast(1.08);transform:scale(1.14);transition:transform 2.6s cubic-bezier(.25,.6,.3,1)}
+#ap2b.on .afilm img{transform:scale(1.02)}
+.afilm::after{content:'';position:absolute;inset:0;background:radial-gradient(120% 90% at 50% 45%,transparent 40%,rgba(8,10,6,.75) 100%),linear-gradient(rgba(8,10,6,.25),rgba(8,10,6,.4))}
+.acap{position:absolute;bottom:13%;left:0;right:0;z-index:2;text-align:center;font-family:var(--serif);font-style:italic;font-size:clamp(17px,2.8vw,26px);color:#EDE5D0;text-shadow:0 2px 18px rgba(0,0,0,.65);padding:0 24px}
 #aglow{position:absolute;inset:0;z-index:2;pointer-events:none;background:radial-gradient(700px 480px at 50% 46%,rgba(85,96,76,.22),transparent 70%);opacity:0;transition:opacity 2s ease}
 #arrival.go #aglow{opacity:1}
 .aph{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;opacity:0;pointer-events:none;transform:scale(1.03);transition:opacity .9s cubic-bezier(.4,0,.2,1),transform .9s cubic-bezier(.4,0,.2,1)}
@@ -410,6 +417,7 @@ footer a:hover{color:var(--gold)}
   <div class="aph" id="ap2">
     <div class="amsg"><span id="atype"></span><span class="acaret"></span></div>
   </div>
+  <div class="aph" id="ap2b"><div class="afilm"><img src="photos/photo25.jpg" alt=""><div class="acap">beauty, wellbeing &amp; soul care · brought to you</div></div></div>
   <div class="aph" id="ap3">
     <div class="a3wrap">
       <div id="aflare"></div>
@@ -449,22 +457,24 @@ footer a:hover{color:var(--gold)}
  var started=false;
  function play(){if(started)return;started=true;
   a.classList.add('go');chime();
-  var p1=document.getElementById('ap1'),p2=document.getElementById('ap2'),p3=document.getElementById('ap3');
-  T(function(){p1.classList.add('on');},380);
-  T(function(){p1.classList.remove('on');},2250);
+  var p1=document.getElementById('ap1'),p2=document.getElementById('ap2'),p2b=document.getElementById('ap2b'),p3=document.getElementById('ap3');
+  T(function(){p1.classList.add('on');},350);
+  T(function(){p1.classList.remove('on');},2050);
   T(function(){p2.classList.add('on');var el=document.getElementById('atype'),i=0;
-   var iv=setInterval(function(){if(i>=MSG.length){clearInterval(iv);return;}el.textContent+=MSG[i];if(MSG[i]!==' ')tick();i++;},34);timers.push(iv);},2550);
-  T(function(){p2.classList.remove('on');},5350);
-  T(function(){whoosh(.9,300,2400,.12);p3.classList.add('on');},5850);
-  T(function(){document.getElementById('aflare').classList.add('fly');},6250);
-  T(function(){document.getElementById('arule').classList.add('draw');click();},6650);
-  T(open,7750);}
+   var iv=setInterval(function(){if(i>=MSG.length){clearInterval(iv);return;}el.textContent+=MSG[i];if(MSG[i]!==' ')tick();i++;},30);timers.push(iv);},2300);
+  T(function(){p2.classList.remove('on');},4950);
+  T(function(){whoosh(1.3,180,850,.1);p2b.classList.add('on');},5150);
+  T(function(){p2b.classList.remove('on');},6900);
+  T(function(){whoosh(.9,300,2400,.12);p3.classList.add('on');},7150);
+  T(function(){document.getElementById('aflare').classList.add('fly');},7550);
+  T(function(){document.getElementById('arule').classList.add('draw');click();},7950);
+  T(open,9050);}
  function begin(){prime();}
  /* no tap behaviour at all — sound self-starts the moment the browser allows it */
  var sTry=setInterval(function(){try{var c=ac();if(c&&c.state==='running'){soundOn=true;clearInterval(sTry);}}catch(e){}},350);
  setTimeout(function(){clearInterval(sTry);},30000);
  play(); /* the film always plays in full, nothing to tap */
- setTimeout(open,12000); /* absolute failsafe */
+ setTimeout(open,14000); /* absolute failsafe */
 })();
 </script>
 
