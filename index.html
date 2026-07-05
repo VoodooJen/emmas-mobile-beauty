@@ -407,6 +407,11 @@ footer a:hover{color:var(--gold)}
 .day.today{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold)}
 .day.blocked{background:repeating-linear-gradient(45deg,#F1EDE3,#F1EDE3 6px,#E7E2D5 6px,#E7E2D5 12px)}
 .dnm{font-size:10.5px;line-height:1.35;padding:3px 6px 4px;border-radius:6px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.dnm.done{opacity:.5}
+.mnm{display:block;font-size:9px;line-height:1.35;border-radius:4px;padding:1px 3px;margin:2px 1px 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.mnm.beauty{background:#F3ECD9;color:#7A6435}
+.mnm.soul{background:#E4E9DD;color:#46503E}
+.mnm.more{color:var(--taupe);background:none}
 .dnm b{font-weight:500}
 .dnm .sv{display:block;font-size:9.5px;opacity:.75;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .dnm.beauty{background:#F3ECD9;color:#7A6435}
@@ -791,7 +796,7 @@ footer a:hover{color:var(--gold)}
         <h2 style="font-size:38px">Beauty that comes to you</h2>
         <div class="rule"></div>
         <p>Every appointment is mobile. Your home, your comfort, zero parking stress. Evening and weekend slots available.</p>
-        <div class="tile" style="background-image:url('photos/photo06.jpg');margin-top:24px;aspect-ratio:16/10"><span class="lbl">Wigan & North West · 15 miles</span></div>
+        <div class="tile" style="background-image:url('photos/photo06.jpg');margin-top:24px;aspect-ratio:16/10"><span class="lbl">Preston & surrounds · 15 miles</span></div>
         <div style="margin-top:26px"><button class="btn gold" onclick="go('book','beauty')">Check availability</button></div>
       </div>
     </div>
@@ -1553,7 +1558,7 @@ function vDash(m){
  let mcCells='';for(let i=0;i<mcStart;i++)mcCells+='<div></div>';
  for(let d=1;d<=mcDays;d++){const iso=`${mcY}-${String(mcM+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
   const bs=byD[iso]||[];const blk=settings.blocked.includes(iso);
-  mcCells+=`<div class="mday ${iso===t?'tdy':''} ${blk?'blk':''}" style="aspect-ratio:auto;padding:6px 0;flex-direction:column" onclick="selDay('${iso}');adm('calendar')">${d}${bs.length?`<span style="display:block;width:5px;height:5px;border-radius:50%;background:${bs.some(x=>x.sec==='soul')?'var(--sage)':'var(--gold)'};margin:2px auto 0"></span>`:''}</div>`;}
+  mcCells+=`<div class="mday ${iso===t?'tdy':''} ${blk?'blk':''}" style="aspect-ratio:auto;padding:6px 2px;flex-direction:column;min-height:52px" onclick="selDay('${iso}');adm('calendar')">${d}${bs.slice(0,2).map(b=>`<span class="mnm ${b.sec}" title="${esc(b.name)} · ${esc(b.service)}">${esc(b.name.split(' ')[0])}</span>`).join('')}${bs.length>2?`<span class="mnm more">+${bs.length-2}</span>`:''}</div>`;}
  const doy=Math.floor((Date.now()-new Date(new Date().getFullYear(),0,0))/86400000);
  const seenB=DB.get('seenB',[]);
  const newPend=pending.filter(b=>!seenB.includes(b.id));
@@ -1820,11 +1825,11 @@ function vCal(m){
  for(let i=0;i<start;i++)cells+='<div class="day dim"></div>';
  for(let d=1;d<=days;d++){
   const iso=`${calY}-${String(calM+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
-  const bs=(byDate[iso]||[]).filter(b=>['pending','confirmed'].includes(b.status));
+  const bs=(byDate[iso]||[]).filter(b=>['pending','confirmed','completed'].includes(b.status));
   const blocked=settings.blocked.includes(iso);
   cells+=`<div class="day ${iso===todayISO()?'today':''} ${blocked?'blocked':''}" onclick="selDay('${iso}')">
    <b>${d}</b>
-   ${bs.slice(0,2).map(b=>`<div class="dnm ${b.sec}${b.status==='pending'?' pend':''}" title="${esc(b.name)} · ${esc(b.service)} · ${esc(b.time||'')}">${esc((b.time||'').replace(/\s/g,''))} <b>${esc(b.name.split(' ')[0])}</b><span class="sv">${esc(b.service)}</span></div>`).join('')}
+   ${bs.slice(0,2).map(b=>`<div class="dnm ${b.sec}${b.status==='pending'?' pend':''}${b.status==='completed'?' done':''}" title="${esc(b.name)} · ${esc(b.service)} · ${esc(b.time||'')}">${esc((b.time||'').replace(/\s/g,''))} <b>${esc(b.name.split(' ')[0])}</b><span class="sv">${esc(b.service)}</span></div>`).join('')}
    ${bs.length>2?`<div class="dnm more">+${bs.length-2} more</div>`:''}
    ${blocked?'<div class="muted" style="font-size:10px;letter-spacing:1px;margin-top:3px">BLOCKED</div>':''}</div>`;}
  m.innerHTML=`<h2>Calendar & availability</h2><div class="adm-sub">Sage dots = Soul Space, gold = Mobile Beauty. Blocked days show as unavailable on the public booking calendar.</div>
