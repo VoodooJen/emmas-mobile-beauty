@@ -401,7 +401,7 @@ footer a:hover{color:var(--gold)}
       <div class="abrand3">& HOLISTIC WELLNESS</div>
     </div>
   </div>
-  <div class="askip" id="askiplbl">TAP FOR SOUND</div>
+  <div class="askip" id="askiplbl">TAP TO ENTER</div>
 </div>
 <script>
 (function(){var a=document.getElementById('arrival');if(!a)return;
@@ -413,17 +413,20 @@ footer a:hover{color:var(--gold)}
  function tick(){try{var c=ac();if(!c||c.state!=='running')return;var t=c.currentTime,s=c.createBufferSource();s.buffer=nb(c);var bp=c.createBiquadFilter();bp.type='bandpass';bp.frequency.value=2100;bp.Q.value=9;var g=c.createGain();env(g,t,.004,.05,.04);s.connect(bp);bp.connect(g);g.connect(c.destination);s.start(t);s.stop(t+.08);}catch(e){}}
  function click(){try{var c=ac();if(!c||c.state!=='running')return;var t=c.currentTime,o=c.createOscillator();o.type='sine';o.frequency.setValueAtTime(2400,t);o.frequency.exponentialRampToValueAtTime(900,t+.05);var g=c.createGain();env(g,t,.003,.07,.1);o.connect(g);g.connect(c.destination);o.start(t);o.stop(t+.1);}catch(e){}}
  function chime(){try{var c=ac();if(!c||c.state!=='running')return;[660,990].forEach(function(f,i){var t=c.currentTime,o=c.createOscillator();o.type='sine';o.frequency.value=f;var g=c.createGain();env(g,t+i*.02,.05,1.5,.03);o.connect(g);g.connect(c.destination);o.start(t);o.stop(t+1.7);});}catch(e){}}
- window.addEventListener('pointerdown',function prime(){ac();window.removeEventListener('pointerdown',prime);},{once:true});
+ function prime(){if(soundOn)return;soundOn=true;var c=ac();
+  if(a.parentNode){setTimeout(chime,120);var lbl=document.getElementById('askiplbl');if(lbl)lbl.textContent='SOUND ON · TAP TO ENTER';}}
+ ['pointerdown','touchstart','keydown','wheel','scroll'].forEach(function(ev){window.addEventListener(ev,prime,{once:false,passive:true});});
+ function uiclick(){try{var c=ac();if(!c||c.state!=='running')return;var t=c.currentTime,o=c.createOscillator();o.type='sine';o.frequency.setValueAtTime(1900,t);o.frequency.exponentialRampToValueAtTime(750,t+.04);var g=c.createGain();env(g,t,.002,.05,.055);o.connect(g);g.connect(c.destination);o.start(t);o.stop(t+.08);}catch(e){}}
+ window.SND={click:click,uiclick:uiclick,whoosh:whoosh,chime:chime};
+ document.addEventListener('click',function(e){
+  if(a.parentNode)return; /* film has its own sounds */
+  var t=e.target&&e.target.closest?e.target.closest('button,.btn,.icobtn,.navlinks a,.eportal,.brand,.mday,details summary,.gal .tile'):null;
+  if(t)uiclick();},true);
  function open(){if(opened)return;opened=true;
   timers.forEach(function(t){clearTimeout(t);clearInterval(t);});
   whoosh(1.1,480,160,.12);a.classList.add('open');
   setTimeout(function(){if(a.parentNode)a.parentNode.removeChild(a);},1200);}
- a.addEventListener('click',function(){
-  if(!soundOn){soundOn=true;ac();
-   setTimeout(chime,180);
-   var lbl=document.getElementById('askiplbl');if(lbl)lbl.textContent='SOUND ON · TAP TO ENTER';
-   return;}
-  open();});
+ a.addEventListener('click',function(){open();});
  function T(fn,ms){timers.push(setTimeout(fn,ms));}
  var MSG='Take a breath. You’re exactly where you’re meant to be.';
  var p1=document.getElementById('ap1'),p2=document.getElementById('ap2'),p3=document.getElementById('ap3');
