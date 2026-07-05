@@ -444,7 +444,8 @@ footer a:hover{color:var(--gold)}
 <script>
 (function(){var a=document.getElementById('arrival');if(!a)return;
  var opened=false,timers=[],AC=null,NB=null,soundOn=false;
- function ac(){try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();if(AC.state==='suspended')AC.resume();return AC;}catch(e){return null;}}
+ function MUTED(){try{return localStorage.getItem('emmaSndOff')==='1';}catch(e){return false;}}
+ function ac(){if(MUTED())return null;try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();if(AC.state==='suspended')AC.resume();return AC;}catch(e){return null;}}
  function env(g,t,at,d,pk){g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(pk,t+at);g.gain.exponentialRampToValueAtTime(.0001,t+at+d);}
  function nb(c){if(!NB){NB=c.createBuffer(1,c.sampleRate*1.2,c.sampleRate);var d=NB.getChannelData(0);for(var i=0;i<d.length;i++)d[i]=Math.random()*2-1;}return NB;}
  function whoosh(dur,f0,f1,v){try{var c=ac();if(!c||c.state!=='running')return;var t=c.currentTime,s=c.createBufferSource();s.buffer=nb(c);var bp=c.createBiquadFilter();bp.type='bandpass';bp.Q.value=1.1;bp.frequency.setValueAtTime(f0,t);bp.frequency.exponentialRampToValueAtTime(f1,t+dur);var g=c.createGain();env(g,t,dur*.45,dur*.65,v);s.connect(bp);bp.connect(g);g.connect(c.destination);s.start(t);s.stop(t+dur+.1);}catch(e){}}
@@ -458,18 +459,21 @@ footer a:hover{color:var(--gold)}
  function wshh(){whoosh(.35,900,2600,.06);}
  function pluck(){try{var c=ac();if(!c||c.state!=='running')return;var t=c.currentTime,o=c.createOscillator();o.type='triangle';o.frequency.setValueAtTime(660,t);o.frequency.exponentialRampToValueAtTime(590,t+.1);var g=c.createGain();env(g,t,.003,.14,.05);o.connect(g);g.connect(c.destination);o.start(t);o.stop(t+.2);}catch(e){}}
  function wish(){whoosh(.5,600,2400,.05);setTimeout(twinkle,110);}
+ function drop(base){try{var c=ac();if(!c||c.state!=='running')return;var f=(base||900)*(0.88+Math.random()*.28),t=c.currentTime,o=c.createOscillator();o.type='sine';o.frequency.setValueAtTime(f*2.3,t);o.frequency.exponentialRampToValueAtTime(f*.5,t+.085);var g=c.createGain();env(g,t,.003,.17,.07);o.connect(g);g.connect(c.destination);o.start(t);o.stop(t+.25);}catch(e){}}
+ function trickle(){try{var c=ac();if(!c||c.state!=='running')return;var t=c.currentTime,s=c.createBufferSource();s.buffer=nb(c);var bp=c.createBiquadFilter();bp.type='bandpass';bp.Q.value=7;bp.frequency.setValueAtTime(1300,t);bp.frequency.linearRampToValueAtTime(2300,t+.28);bp.frequency.linearRampToValueAtTime(1000,t+.58);var g=c.createGain();env(g,t,.08,.55,.05);s.connect(bp);bp.connect(g);g.connect(c.destination);s.start(t);s.stop(t+.75);}catch(e){}}
+ function rain(){drop(1500);setTimeout(function(){drop(1050);},75);setTimeout(function(){drop(1850);},160);}
  function swell(){try{var c=ac();if(!c||c.state!=='running')return;var t=c.currentTime,o=c.createOscillator();o.type='sine';o.frequency.setValueAtTime(50,t);o.frequency.linearRampToValueAtTime(72,t+1.8);var g=c.createGain();env(g,t,.7,1.6,.06);o.connect(g);g.connect(c.destination);o.start(t);o.stop(t+2.6);}catch(e){}}
  function thump(){try{var c=ac();if(!c||c.state!=='running')return;var t=c.currentTime,o=c.createOscillator();o.type='sine';o.frequency.setValueAtTime(88,t);o.frequency.exponentialRampToValueAtTime(50,t+.22);var g=c.createGain();env(g,t,.006,.26,.09);o.connect(g);g.connect(c.destination);o.start(t);o.stop(t+.35);}catch(e){}}
- window.SND={click:click,uiclick:uiclick,twinkle:twinkle,wshh:wshh,pluck:pluck,wish:wish,whoosh:whoosh,chime:chime};
+ window.SND={click:click,uiclick:uiclick,twinkle:twinkle,wshh:wshh,pluck:pluck,wish:wish,drop:drop,trickle:trickle,rain:rain,whoosh:whoosh,chime:chime};
  document.addEventListener('click',function(e){
   if(a.parentNode)return; /* film has its own sounds */
   if(!e.target||!e.target.closest)return;
-  if(e.target.closest('.btn.gold')){wish();return;}
-  if(e.target.closest('.eportal')){wshh();setTimeout(twinkle,100);return;}
-  if(e.target.closest('.navlinks a,.brand')){wshh();return;}
-  if(e.target.closest('.btn')){twinkle();return;}
-  if(e.target.closest('.mday,.gal .tile,details summary,.slotbtn')){pluck();return;}
-  if(e.target.closest('button,.icobtn,a[href]')){uiclick();return;}
+  if(e.target.closest('.btn.gold')){drop(650);setTimeout(twinkle,90);return;}
+  if(e.target.closest('.eportal')){trickle();setTimeout(function(){drop(1200);},180);return;}
+  if(e.target.closest('.navlinks a,.brand')){trickle();return;}
+  if(e.target.closest('.btn')){rain();return;}
+  if(e.target.closest('.mday,.gal .tile,details summary,.slotbtn')){drop(1600);return;}
+  if(e.target.closest('button,.icobtn,a[href]')){drop(950);return;}
  },true);
  function open(){if(opened)return;opened=true;
   timers.forEach(function(t){clearTimeout(t);clearInterval(t);});
@@ -502,6 +506,17 @@ footer a:hover{color:var(--gold)}
  setTimeout(function(){clearInterval(sTry);},30000);
  play(); /* the film always plays in full, nothing to tap */
  setTimeout(open,14000); /* absolute failsafe */
+ /* floating sound on/off tab */
+ (function(){var b=document.createElement('button');b.id='sndtab';b.setAttribute('aria-label','Turn sound on or off');
+  b.style.cssText='position:fixed;bottom:18px;right:18px;z-index:290;width:44px;height:44px;border-radius:50%;border:1px solid rgba(191,160,94,.6);background:rgba(250,246,239,.94);cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(62,58,50,.2);padding:0';
+  function ic(){b.innerHTML=MUTED()
+   ?'<svg viewBox="0 0 24 24" width="20" height="20"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="#8A8072"/><line x1="16" y1="8" x2="21" y2="16" stroke="#A98D52" stroke-width="1.8" stroke-linecap="round"/></svg>'
+   :'<svg viewBox="0 0 24 24" width="20" height="20"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="#55604C"/><path d="M16 8.5a5 5 0 0 1 0 7" stroke="#A98D52" stroke-width="1.7" fill="none" stroke-linecap="round"/><path d="M18.5 6.5a8 8 0 0 1 0 11" stroke="#A98D52" stroke-width="1.4" fill="none" stroke-linecap="round" opacity=".7"/></svg>';}
+  ic();
+  b.addEventListener('click',function(e){e.stopPropagation();
+   try{localStorage.setItem('emmaSndOff',MUTED()?'0':'1');}catch(x){}
+   ic();if(!MUTED()){soundOn=true;ac();setTimeout(twinkle,120);}});
+  document.body.appendChild(b);})();
 })();
 </script>
 
@@ -613,14 +628,14 @@ footer a:hover{color:var(--gold)}
         <a class="btn small gold" id="greview1" target="_blank" style="text-align:center">★ Review on Google</a></div>
       </div>
     </div>
-    <div class="wrap" style="margin-top:60px;display:none">
-      <div class="center"><div class="eyebrow">Fully qualified · fully insured</div></div>
+    <div class="wrap" style="margin-top:60px">
+      <div class="center"><div class="eyebrow">Fully qualified · accredited</div></div>
       <div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:22px">
         <div class="cred"><svg width="32" height="40" viewBox="0 0 40 48" aria-hidden="true"><path d="M 14.5 29 L 11.5 42 L 16.5 39.5 L 19.5 45.5 L 19.5 32 Z" fill="#D8BE82"/><path d="M 25.5 29 L 28.5 42 L 23.5 39.5 L 20.5 45.5 L 20.5 32 Z" fill="#A98D52"/><circle cx="20" cy="18" r="13.5" fill="#FAF6EF" stroke="#BFA05E" stroke-width="1.6"/><circle cx="20" cy="18" r="9.5" fill="none" stroke="#BFA05E" stroke-width="1"/><path d="M 15.5 18.2 L 18.4 21.2 L 24.6 14.6" fill="none" stroke="#55604C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><div><b>VTCT</b><span>Qualified therapist</span></div></div>
         <div class="cred"><svg width="32" height="40" viewBox="0 0 40 48" aria-hidden="true"><path d="M 14.5 29 L 11.5 42 L 16.5 39.5 L 19.5 45.5 L 19.5 32 Z" fill="#D8BE82"/><path d="M 25.5 29 L 28.5 42 L 23.5 39.5 L 20.5 45.5 L 20.5 32 Z" fill="#A98D52"/><circle cx="20" cy="18" r="13.5" fill="#FAF6EF" stroke="#BFA05E" stroke-width="1.6"/><circle cx="20" cy="18" r="9.5" fill="none" stroke="#BFA05E" stroke-width="1"/><path d="M 15.5 18.2 L 18.4 21.2 L 24.6 14.6" fill="none" stroke="#55604C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><div><b>City &amp; Guilds</b><span>Qualified</span></div></div>
         <div class="cred"><svg width="32" height="40" viewBox="0 0 40 48" aria-hidden="true"><path d="M 14.5 29 L 11.5 42 L 16.5 39.5 L 19.5 45.5 L 19.5 32 Z" fill="#D8BE82"/><path d="M 25.5 29 L 28.5 42 L 23.5 39.5 L 20.5 45.5 L 20.5 32 Z" fill="#A98D52"/><circle cx="20" cy="18" r="13.5" fill="#FAF6EF" stroke="#BFA05E" stroke-width="1.6"/><circle cx="20" cy="18" r="9.5" fill="none" stroke="#BFA05E" stroke-width="1"/><path d="M 15.5 18.2 L 18.4 21.2 L 24.6 14.6" fill="none" stroke="#55604C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><div><b>Beauty &amp; Holistic</b><span>Therapist and trainer</span></div></div>
         <div class="cred"><svg width="32" height="40" viewBox="0 0 40 48" aria-hidden="true"><path d="M 14.5 29 L 11.5 42 L 16.5 39.5 L 19.5 45.5 L 19.5 32 Z" fill="#D8BE82"/><path d="M 25.5 29 L 28.5 42 L 23.5 39.5 L 20.5 45.5 L 20.5 32 Z" fill="#A98D52"/><circle cx="20" cy="18" r="13.5" fill="#FAF6EF" stroke="#BFA05E" stroke-width="1.6"/><circle cx="20" cy="18" r="9.5" fill="none" stroke="#BFA05E" stroke-width="1"/><path d="M 15.5 18.2 L 18.4 21.2 L 24.6 14.6" fill="none" stroke="#55604C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><div><b>Sound Therapy</b><span>Meditation facilitator</span></div></div>
-        <div class="cred"><svg width="32" height="40" viewBox="0 0 40 48" aria-hidden="true"><path d="M 14.5 29 L 11.5 42 L 16.5 39.5 L 19.5 45.5 L 19.5 32 Z" fill="#D8BE82"/><path d="M 25.5 29 L 28.5 42 L 23.5 39.5 L 20.5 45.5 L 20.5 32 Z" fill="#A98D52"/><circle cx="20" cy="18" r="13.5" fill="#FAF6EF" stroke="#BFA05E" stroke-width="1.6"/><circle cx="20" cy="18" r="9.5" fill="none" stroke="#BFA05E" stroke-width="1"/><path d="M 15.5 18.2 L 18.4 21.2 L 24.6 14.6" fill="none" stroke="#55604C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><div><b>Fully Insured</b><span>Public liability</span></div></div>
+        <div class="cred"><svg width="32" height="40" viewBox="0 0 40 48" aria-hidden="true"><path d="M 14.5 29 L 11.5 42 L 16.5 39.5 L 19.5 45.5 L 19.5 32 Z" fill="#D8BE82"/><path d="M 25.5 29 L 28.5 42 L 23.5 39.5 L 20.5 45.5 L 20.5 32 Z" fill="#A98D52"/><circle cx="20" cy="18" r="13.5" fill="#FAF6EF" stroke="#BFA05E" stroke-width="1.6"/><circle cx="20" cy="18" r="9.5" fill="none" stroke="#BFA05E" stroke-width="1"/><path d="M 15.5 18.2 L 18.4 21.2 L 24.6 14.6" fill="none" stroke="#55604C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><div><b>IPHM</b><span>Accredited teacher &amp; trainer</span></div></div>
       </div>
     </div>
   </section>
@@ -2154,14 +2169,52 @@ function vSettings(m){
  <label>Cancellation policy</label><textarea id="st7" rows="2">${esc(settings.policy)}</textarea>
  <label>Working hours</label><textarea id="st8" rows="3">${esc(settings.hours)}</textarea>
  <label>Service areas</label><input id="st9" value="${esc(settings.areas)}">
- <label>Blocked dates</label>
- <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px">${settings.blocked.map(d=>`<span class="badge b-cancelled" style="cursor:pointer" onclick="toggleBlock('${d}');adm('settings')">${fmtD(d)} ✕</span>`).join('')||'<span class="muted" style="font-size:13px">None</span>'}</div>
- <input type="date" id="st10" style="max-width:220px"> <button class="icobtn" onclick="if(st10.value){toggleBlock(st10.value);adm('settings')}">Block date</button>
+ <label>Availability control</label>
+ <div class="stats" style="margin:8px 0 14px">
+  <div class="stat"><div class="k">Blocked days</div><div class="v">${settings.blocked.length}</div></div>
+  <div class="stat"><div class="k">Open slots · next 3 wks</div><div class="v">${(()=>{let n=0;for(let i=0;i<21;i++){const d=new Date();d.setDate(d.getDate()+i);n+=freeSlots(d.toISOString().slice(0,10)).length;}return n;})()}</div></div>
+  <div class="stat"><div class="k">Days with times set</div><div class="v">${Object.keys(settings.slots).length}</div></div>
+ </div>
+ <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px">${settings.blocked.slice().sort().map(d=>`<span class="badge b-cancelled" style="cursor:pointer" onclick="toggleBlock('${d}');adm('settings')">${fmtD(d)} ✕</span>`).join('')||'<span class="muted" style="font-size:13px">No blocked dates. Tap any badge to unblock it.</span>'}</div>
+ <div class="two" style="align-items:end">
+  <div><label>Block one date</label><input type="date" id="st10"></div>
+  <div style="padding-bottom:2px"><button class="icobtn" onclick="if(st10.value){toggleBlock(st10.value);adm('settings')}">Block date</button></div>
+ </div>
+ <div class="two" style="align-items:end">
+  <div><label>Block a range (holidays, time off)</label><div style="display:flex;gap:8px"><input type="date" id="st10a"><input type="date" id="st10b"></div></div>
+  <div style="padding-bottom:2px"><button class="icobtn" onclick="blockRange()">Block range</button> <button class="icobtn warn" onclick="unblockAll()">Unblock all</button></div>
+ </div>
+ <label>Weekly pattern — your usual working days &amp; times</label>
+ <div style="display:flex;gap:12px;flex-wrap:wrap;font-size:13px;margin:6px 0 10px">
+  ${['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].map((n,i)=>`<label style="display:flex;gap:5px;align-items:center;text-transform:none;letter-spacing:0;font-size:13px"><input type="checkbox" class="wd" value="${i}" ${(settings.weekDays||[2,3,4,5,6]).includes(i)?'checked':''}>${n}</label>`).join('')}
+ </div>
+ <div class="two" style="align-items:end">
+  <div><label>Times (comma separated)</label><input id="sttimes" value="${esc(settings.weekTimes||'10:00, 13:00, 15:30, 17:30')}"></div>
+  <div><label>Weeks ahead</label><div style="display:flex;gap:8px"><input type="number" id="stweeks" value="3" min="1" max="12" style="max-width:90px"><button class="icobtn" onclick="applyTmpl()">Apply availability</button></div></div>
+ </div>
+ <p class="muted" style="font-size:12.5px;margin-top:10px">Everything here saves instantly to your device. Blocked days never get slots, and clients only ever see the green days with free times.</p>
  <div class="center" style="margin-top:26px"><button class="btn small gold" onclick="saveSettings()">Save settings</button></div></div>`;}
 window.saveSettings=()=>{settings.bizname=st1.value;settings.phone=st2.value;settings.email=st3.value;settings.greview=stg.value;
  settings.instaUrl=st4.value;settings.fbUrl=st5.value;settings.tiktokUrl=st11.value;settings.reminder=st6.value;settings.policy=st7.value;
  settings.enquiryReply=stq.value;settings.confirmMsg=stc.value;settings.thanksMsg=stt.value;settings.depositUrl=std.value;
  settings.hours=st8.value;settings.areas=st9.value;saveSet();renderPublic();adm('settings');};
+window.blockRange=()=>{const a=document.getElementById('st10a').value,b=document.getElementById('st10b').value;
+ if(!a||!b){alert('Pick both a start and end date.');return;}
+ let d=new Date(a+'T12:00');const end=new Date(b+'T12:00');
+ while(d<=end){const iso=d.toISOString().slice(0,10);
+  if(!settings.blocked.includes(iso))settings.blocked.push(iso);
+  d.setDate(d.getDate()+1);}
+ saveSet();adm('settings');};
+window.unblockAll=()=>{if(confirm('Unblock every date?')){settings.blocked=[];saveSet();adm('settings');}};
+window.applyTmpl=()=>{const days=[...document.querySelectorAll('.wd:checked')].map(x=>+x.value);
+ const times=document.getElementById('sttimes').value.split(',').map(s=>s.trim()).filter(Boolean);
+ const wks=Math.min(12,Math.max(1,+document.getElementById('stweeks').value||3));
+ if(!days.length||!times.length){alert('Pick at least one day and one time.');return;}
+ settings.weekDays=days;settings.weekTimes=document.getElementById('sttimes').value;
+ for(let i=0;i<wks*7;i++){const d=new Date();d.setDate(d.getDate()+i);
+  const iso=d.toISOString().slice(0,10);
+  if(days.includes(d.getDay())&&!settings.blocked.includes(iso))settings.slots[iso]=times.slice();}
+ saveSet();alert('Availability set for the next '+wks+' weeks. Blocked days were left alone.');adm('settings');};
 /* ---- modal ---- */
 function openModal(html){document.getElementById('modalbox').innerHTML=html;document.getElementById('modal').classList.add('open');}
 function closeModal(){document.getElementById('modal').classList.remove('open');}
