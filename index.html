@@ -44,17 +44,35 @@ a{color:inherit;text-decoration:none}
 section{padding:96px 0}
 .center{text-align:center}
 .muted{color:var(--taupe)}
-/* ---------- ARRIVAL 11:11 ---------- */
-#arrival{position:fixed;inset:0;z-index:300;background:radial-gradient(900px 600px at 50% 35%,#FFFDF8,var(--cream) 55%,var(--cream2));display:flex;align-items:center;justify-content:center;flex-direction:column;transition:opacity .9s ease,visibility .9s;animation:arrAuto .9s ease 2.7s forwards}
-#arrival.gone{opacity:0;visibility:hidden;pointer-events:none}
-@keyframes arrAuto{to{opacity:0;visibility:hidden;pointer-events:none}}
-.arr-num{font-family:var(--serif);font-size:clamp(80px,16vw,150px);letter-spacing:.08em;color:var(--sage-dk);display:flex;align-items:center;gap:.12em;animation:arrIn 1.4s cubic-bezier(.2,.9,.25,1) both}
-.arr-num .colon{color:var(--gold);animation:blink 1.1s step-end infinite}
-.arr-line{width:0;height:1.5px;background:var(--gold);margin:26px auto 24px;animation:lineGrow 1.3s .5s ease both}
-.arr-msg{font-family:var(--serif);font-style:italic;font-size:clamp(17px,2.4vw,23px);color:var(--taupe);animation:arrIn 1.4s .7s both}
-.arr-sub{font-family:var(--jost);font-size:11px;letter-spacing:5px;color:var(--gold-dk);text-transform:uppercase;margin-top:34px;animation:arrIn 1.4s 1.2s both}
-@keyframes arrIn{from{opacity:0;transform:translateY(26px) scale(.97)}to{opacity:1;transform:none}}
-@keyframes lineGrow{from{width:0}to{width:150px}}
+/* ---------- ARRIVAL 11:11 · cinematic forest night ---------- */
+#arrival{position:fixed;inset:0;z-index:300;overflow:hidden;cursor:pointer}
+.acurtain{position:absolute;top:0;bottom:0;width:50.15%;z-index:1;transition:transform 1.05s cubic-bezier(.72,0,.18,1)}
+.acurtain.l{left:0;background:radial-gradient(950px 640px at 100% 40%,#2E3527 0%,#20261A 55%,#151A10 100%)}
+.acurtain.r{right:0;background:radial-gradient(950px 640px at 0% 40%,#2E3527 0%,#20261A 55%,#151A10 100%)}
+.acurtain.l::after,.acurtain.r::after{content:'';position:absolute;top:0;bottom:0;width:1px;background:linear-gradient(transparent,rgba(191,160,94,.45) 30%,rgba(191,160,94,.45) 70%,transparent);opacity:0;transition:opacity .6s}
+.acurtain.l::after{right:0}.acurtain.r::after{left:0}
+#arrival.armed .acurtain::after{opacity:1}
+#arrival.open .acurtain.l{transform:translateX(-101%)}
+#arrival.open .acurtain.r{transform:translateX(101%)}
+#adust{position:absolute;inset:0;z-index:2;pointer-events:none}
+.aph{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;opacity:0;pointer-events:none}
+.aph.a1{animation:aio 2.5s .15s both}
+.aph.a2{animation:aio 2.4s 2.45s both}
+.aph.a3{animation:ain 1.3s 4.65s both}
+#arrival.open .aph{animation:none!important;opacity:0;transition:opacity .35s}
+@keyframes aio{0%{opacity:0;transform:translateY(18px) scale(.97);filter:blur(6px)}20%,74%{opacity:1;transform:none;filter:blur(0)}100%{opacity:0;transform:translateY(-12px)}}
+@keyframes ain{from{opacity:0;transform:translateY(20px) scale(.97);filter:blur(6px)}to{opacity:1;transform:none;filter:blur(0)}}
+.akick{font-family:var(--jost);font-weight:300;font-size:11px;letter-spacing:7px;color:#8F9A7E;text-transform:uppercase;margin-bottom:18px}
+.anum{font-family:var(--serif);font-size:clamp(92px,20vw,180px);letter-spacing:.08em;color:#E8DFC8;line-height:1;text-shadow:0 0 70px rgba(191,160,94,.35)}
+.anum .colon{color:var(--gold);animation:blink 1.1s step-end infinite}
+.aring{width:clamp(90px,14vw,120px);height:clamp(90px,14vw,120px);border-radius:50%;border:1.5px solid var(--gold);box-shadow:0 0 44px rgba(191,160,94,.22),inset 0 0 30px rgba(191,160,94,.14);animation:abreathe 4s ease-in-out infinite}
+@keyframes abreathe{0%,100%{transform:scale(.82);opacity:.65}50%{transform:scale(1.12);opacity:1}}
+.amsg{font-family:var(--serif);font-style:italic;font-size:clamp(18px,3vw,26px);color:#D9D2BC;margin-top:30px;max-width:520px}
+.abrand1{font-family:var(--serif);font-size:clamp(13px,2vw,17px);letter-spacing:9px;color:#B4AD97;margin:20px 0 6px}
+.abrand2{font-family:var(--serif);font-size:clamp(30px,5.4vw,52px);letter-spacing:4px;color:#F1EADB}
+.abrand3{font-family:var(--jost);font-weight:300;font-size:clamp(10px,1.6vw,13px);letter-spacing:6px;color:var(--gold);margin-top:12px}
+.arule{width:150px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:16px auto 0}
+.askip{position:absolute;bottom:26px;left:0;right:0;z-index:3;text-align:center;font-family:var(--jost);font-size:9.5px;letter-spacing:5px;color:rgba(200,195,175,.5);animation:ain 1s 1.4s both}
 @keyframes blink{50%{opacity:.25}}
 /* ---------- NAV ---------- */
 nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(250,246,239,.92);backdrop-filter:blur(10px);border-bottom:1px solid rgba(181,174,158,.35)}
@@ -70,35 +88,26 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(250,246,239,
   .navlinks.open{display:flex}
   #burger{display:block}
 }
-/* ---------- 3D ENTRY ---------- */
-.entry{min-height:100svh;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;text-align:center;padding:130px 24px 60px;background:radial-gradient(700px 500px at 12% 18%,rgba(185,124,92,.10),transparent 62%),radial-gradient(620px 480px at 88% 72%,rgba(138,155,110,.13),transparent 62%),radial-gradient(1200px 700px at 50% -10%,#FFFDF8 0%,var(--cream) 45%,var(--cream2) 100%)}
-.entry::after{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(120% 90% at 50% 45%,transparent 55%,rgba(70,80,62,.07) 100%)}
-#dust{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
-.orbit{position:absolute;top:50%;left:50%;translate:-50% -50%;border-radius:50%;pointer-events:none;z-index:1}
-.orbit.o1{width:min(660px,86vmin);height:min(660px,86vmin);border:1px solid rgba(191,160,94,.32);animation:spin 46s linear infinite}
-.orbit.o1::after{content:'';position:absolute;top:-5px;left:50%;width:9px;height:9px;border-radius:50%;background:var(--gold);box-shadow:0 0 12px rgba(191,160,94,.7)}
-.orbit.o2{width:min(920px,118vmin);height:min(920px,118vmin);border:1px dashed rgba(181,174,158,.30);animation:spinR 80s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-@keyframes spinR{to{transform:rotate(-360deg)}}
-.estage{position:relative;z-index:2;perspective:1200px;transform-style:preserve-3d;animation:eZoom 1.8s cubic-bezier(.2,.8,.2,1) backwards;transition:transform .35s cubic-bezier(.2,.8,.2,1)}
-@keyframes eZoom{from{opacity:0;transform:scale(1.035)}to{opacity:1;transform:scale(1)}}
-.efw{position:absolute;z-index:1;pointer-events:none}
-.efw img{width:clamp(150px,15vw,210px);aspect-ratio:4/5;object-fit:cover;border:10px solid #FFFEFB;box-shadow:0 34px 70px rgba(62,58,50,.28);display:block}
-.efw.f1{left:5%;top:18%}.efw.f1 img{transform:rotate(-7deg)}
-.efw.f2{right:5%;bottom:12%}.efw.f2 img{transform:rotate(6deg)}
-.efw.f3{right:9%;top:14%}.efw.f3 img{width:clamp(110px,10vw,150px);transform:rotate(4deg)}
-@media(max-width:980px){.efw{display:none}}
-.sheen{position:absolute;inset:-10% -20%;pointer-events:none;background:linear-gradient(115deg,transparent 42%,rgba(255,255,255,.55) 50%,transparent 58%);transform:translateX(-130%);animation:sweep 7s ease-in-out 2.4s infinite;mix-blend-mode:soft-light}
-@keyframes sweep{0%{transform:translateX(-130%)}26%{transform:translateX(130%)}100%{transform:translateX(130%)}}
-.elayer{will-change:transform;transition:transform .25s cubic-bezier(.2,.8,.2,1)}
-.ekicker{font-family:var(--jost);font-weight:300;font-size:12px;letter-spacing:6px;color:var(--gold-dk);text-transform:uppercase;margin-bottom:14px;animation:eFade 1.2s .2s both}
-.e1111{font-family:var(--serif);font-size:15px;letter-spacing:4px;color:var(--taupe);margin-bottom:24px;animation:eFade 1.2s .45s both}
-.e1111 b{color:var(--gold-dk);font-weight:500}
-.etitle{font-size:clamp(36px,6.4vw,86px);letter-spacing:.06em;text-transform:uppercase;font-weight:500;line-height:1.02;color:var(--sage-dk)}
-.etitle .lt{display:inline-block;animation:eRise .9s cubic-bezier(.2,.9,.25,1) both}
-.etitle .sp{display:inline-block;width:.35em}
-.etag{font-family:var(--serif);font-style:italic;font-size:clamp(19px,2.6vw,27px);color:var(--taupe);margin:22px 0 46px;animation:eFade 1.2s .9s both}
-.earc{margin-bottom:26px;animation:eFade 1.4s .1s both}
+/* ---------- HERO v2 · split editorial ---------- */
+.hero2{position:relative;background:radial-gradient(700px 500px at 10% 12%,rgba(185,124,92,.09),transparent 62%),radial-gradient(620px 480px at 92% 85%,rgba(138,155,110,.12),transparent 62%),radial-gradient(1200px 700px at 50% -10%,#FFFDF8 0%,var(--cream) 45%,var(--cream2) 100%);padding:118px 24px 36px}
+.h2grid{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1.08fr 1fr;gap:44px;align-items:stretch}
+.h2copy{display:flex;flex-direction:column;justify-content:center;padding:30px 0}
+.h2copy .earc{margin-bottom:20px;animation:eFade 1.2s .15s both}
+.h2kick{font-family:var(--jost);font-weight:300;font-size:11.5px;letter-spacing:6px;color:var(--gold-dk);text-transform:uppercase;margin-bottom:16px;animation:eFade 1.2s .3s both}
+.h2title{font-family:var(--serif);font-weight:500;font-size:clamp(40px,5.6vw,72px);line-height:1.05;color:var(--sage-dk);animation:eFade 1.2s .45s both}
+.h2sub{font-family:var(--serif);font-style:italic;font-size:clamp(17px,2.2vw,24px);color:var(--taupe);margin:12px 0 32px;animation:eFade 1.2s .6s both}
+.h2btns{display:flex;gap:12px;flex-wrap:wrap;animation:eFade 1.2s .75s both}
+.h2note{font-family:var(--serif);font-size:14px;letter-spacing:3px;color:var(--taupe);margin-top:26px;animation:eFade 1.2s .9s both}
+.h2note b{color:var(--gold-dk);font-weight:500}
+.h2photo{position:relative;border-radius:24px;overflow:hidden;min-height:480px;box-shadow:0 34px 80px rgba(62,58,50,.18);animation:eFade 1.4s .35s both}
+.h2photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%;animation:kenburns 20s ease-in-out infinite alternate}
+@keyframes kenburns{from{transform:scale(1)}to{transform:scale(1.09) translate(-1.4%,1.4%)}}
+.h2photo::before{content:'';position:absolute;inset:0;z-index:2;background:linear-gradient(rgba(58,66,50,.05),rgba(58,66,50,.32))}
+.h2frame{position:absolute;inset:14px;border:1px solid rgba(191,160,94,.75);border-radius:14px;z-index:3;pointer-events:none}
+.h2cap{position:absolute;bottom:24px;left:0;right:0;z-index:3;text-align:center;font-family:var(--serif);font-style:italic;font-size:15.5px;letter-spacing:1px;color:var(--cream);text-shadow:0 2px 14px rgba(0,0,0,.45)}
+@media(max-width:900px){.h2grid{grid-template-columns:1fr;gap:26px}.h2copy{padding:6px 0;text-align:center;align-items:center}.h2photo{min-height:320px}.h2btns{justify-content:center}}
+.portalsec{background:var(--cream2);padding:34px 24px 84px}
+.portalhead{text-align:center;margin-bottom:26px}
 .eportals{display:flex;gap:26px;justify-content:center;flex-wrap:wrap;animation:eFade 1.2s 1.15s both}
 .eportal{position:relative;width:min(390px,88vw);border-radius:26px;padding:46px 40px 40px;text-align:center;cursor:pointer;transform-style:preserve-3d;transition:transform .22s ease-out,box-shadow .45s ease;border:1px solid rgba(191,160,94,.35);box-shadow:inset 0 0 0 1px rgba(255,255,255,.22),0 22px 60px rgba(62,58,50,.09)}
 .eportal:hover{box-shadow:inset 0 0 0 1px rgba(191,160,94,.35),0 40px 90px rgba(62,58,50,.20)}
@@ -113,21 +122,16 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(250,246,239,
 .eportal.pbeauty{background:linear-gradient(155deg,#FFFFFF 0%,#F1EDE3 100%)}
 .eportal.psoul .go{color:var(--gold)}
 .eportal.pbeauty .go{color:var(--gold-dk)}
-.scrollcue{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);font-family:var(--jost);font-size:10.5px;letter-spacing:5px;color:var(--taupe);cursor:pointer;z-index:3;animation:cueFloat 2.6s ease-in-out infinite}
-@keyframes eRise{from{opacity:0;transform:translateY(46px) rotateX(38deg)}to{opacity:1;transform:none}}
 @keyframes eFade{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
-@keyframes cueFloat{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,8px)}}
-@media(hover:none){.elayer{animation:drift 9s ease-in-out infinite alternate}}
-@keyframes drift{from{transform:translate3d(-8px,0,0)}to{transform:translate3d(8px,-10px,0)}}
-@media (prefers-reduced-motion:reduce){.etitle .lt,.ekicker,.etag,.eportals,.earc,.arr-num,.arr-msg{animation:none}.elayer,.orbit{animation:none}}
+@media (prefers-reduced-motion:reduce){.h2title,.h2sub,.h2btns,.h2photo,.h2photo img,.eportals,.earc,.aph,.aring{animation:none;opacity:1}}
 /* ---------- POLAROIDS ---------- */
-.polastack{position:relative;min-height:520px;display:flex;align-items:center;justify-content:center}
-.pola{position:absolute;width:min(330px,78vw);background:#FFFEFB;padding:16px 16px 62px;box-shadow:0 30px 70px rgba(62,58,50,.26),0 4px 14px rgba(62,58,50,.12);border-radius:5px;opacity:0;transform:rotate(-7deg) translateY(26px) scale(.93);transition:opacity 1.2s ease,transform 1.2s cubic-bezier(.2,.8,.2,1)}
+.polastack{position:relative;min-height:540px;overflow:visible}
+.pola{position:absolute;left:50%;top:50%;width:min(300px,72%);background:#FFFEFB;padding:16px 16px 62px;box-shadow:0 30px 70px rgba(62,58,50,.26),0 4px 14px rgba(62,58,50,.12);border-radius:5px;opacity:0;transform:translate(-50%,-50%) rotate(-7deg) scale(.93);transition:opacity 1.2s ease,transform 1.2s cubic-bezier(.2,.8,.2,1)}
 .pola img{width:100%;aspect-ratio:4/5;object-fit:cover;display:block;filter:saturate(.95) contrast(1.02)}
 .pola .cap{position:absolute;bottom:18px;left:0;right:0;text-align:center;font-family:var(--serif);font-style:italic;font-size:19px;color:#6E6656;letter-spacing:.5px}
-.pola.show{opacity:1;transform:rotate(var(--rot,2deg)) scale(1);animation:polasway 6s ease-in-out infinite}
-.pola.next{opacity:.55;transform:rotate(calc(var(--rot,2deg) * -1.4)) translate(18px,14px) scale(.96);z-index:-1}
-@keyframes polasway{0%,100%{translate:0 0}50%{translate:0 -8px}}
+.pola.show{opacity:1;transform:translate(-50%,-50%) rotate(var(--rot,2deg)) scale(1);animation:polasway 6s ease-in-out infinite}
+.pola.next{opacity:.55;transform:translate(calc(-50% + 16px),calc(-50% + 12px)) rotate(calc(var(--rot,2deg) * -1.4)) scale(.96);z-index:-1}
+@keyframes polasway{0%,100%{transform:translate(-50%,-50%) rotate(var(--rot,2deg)) scale(1)}50%{transform:translate(-50%,calc(-50% - 8px)) rotate(var(--rot,2deg)) scale(1)}}
 .pola::before{content:'';position:absolute;top:-13px;left:50%;transform:translateX(-50%) rotate(-2.5deg);width:96px;height:28px;background:linear-gradient(180deg,rgba(191,160,94,.42),rgba(191,160,94,.28));border-radius:2px;box-shadow:0 2px 6px rgba(62,58,50,.12)}
 .pola::after{content:'✦';position:absolute;top:22px;right:24px;color:rgba(191,160,94,.85);font-size:14px}
 /* ---------- LIGHTBOX ---------- */
@@ -193,7 +197,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold)}
 .mday.sel{background:var(--sage-dk);color:#fff}
 .mday.tdy{border-color:var(--gold)}
 /* ---------- SECTION THEMES ---------- */
-.soul-hero{background:linear-gradient(rgba(58,66,50,.72),rgba(58,66,50,.82)),url('photos/photo04.jpg') center 30%/cover;color:var(--cream);text-align:center;padding:190px 24px 130px}
+.soul-hero{background:linear-gradient(rgba(58,66,50,.72),rgba(58,66,50,.82)),url('photos/photo25.jpg') center 30%/cover;color:var(--cream);text-align:center;padding:190px 24px 130px}
 .soul-hero h1{color:var(--cream);font-size:clamp(40px,6vw,72px);letter-spacing:8px;text-transform:uppercase}
 .soul-hero .em{font-family:var(--serif);letter-spacing:10px;font-size:18px;color:var(--gold);margin-bottom:18px}
 .soul-hero p{font-style:italic;font-family:var(--serif);font-size:22px;opacity:.9;max-width:560px;margin:18px auto 40px}
@@ -203,7 +207,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold)}
 .catbar{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:44px}
 .chip{font-family:var(--jost);font-size:13px;letter-spacing:2px;padding:9px 22px;border-radius:999px;border:1px solid var(--line);cursor:pointer;background:#fff;transition:all .25s}
 .chip.active,.chip:hover{background:var(--sage-dk);color:var(--cream);border-color:var(--sage-dk)}
-footer{background:var(--sage-dk);color:rgba(250,246,239,.75);padding:70px 0 36px}
+footer{background:radial-gradient(900px 500px at 50% 0%,#2A3122,#1F2519 70%);color:rgba(250,246,239,.75);padding:70px 0 36px}
 footer h4{font-family:var(--serif);font-size:24px;color:var(--cream);margin-bottom:16px}
 .fgrid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:46px}
 @media(max-width:860px){.fgrid{grid-template-columns:1fr 1fr}}
@@ -236,6 +240,41 @@ footer a:hover{color:var(--gold)}
 .breather::before{content:'';position:absolute;inset:0;background:linear-gradient(rgba(58,66,50,.30),rgba(58,66,50,.48))}
 .breather p{position:relative;z-index:2;font-family:var(--serif);font-style:italic;font-size:clamp(22px,3.4vw,34px);color:var(--cream);max-width:720px;line-height:1.5;text-shadow:0 2px 18px rgba(0,0,0,.35)}
 .breather .sig{position:relative;z-index:2;display:block;font-family:var(--jost);font-size:12px;letter-spacing:5px;color:var(--gold);margin-top:18px;text-transform:uppercase}
+/* ---------- RESPONSIVE POLISH ---------- */
+.aboutgrid{display:grid;grid-template-columns:1fr;gap:26px;align-items:center}
+.twocol{display:grid;grid-template-columns:1fr;gap:40px}
+@media(min-width:861px){
+ .aboutgrid{grid-template-columns:1fr 1.2fr;gap:60px}
+ .twocol{grid-template-columns:1fr 1fr;gap:60px}
+}
+@media(max-width:860px){
+ .polastack{min-height:460px}
+ section{padding:70px 0}
+ .breather{min-height:300px;background-attachment:scroll}
+}
+@media(max-width:640px){
+ .polastack{min-height:400px}
+ .pola{width:min(210px,64%);padding:12px 12px 48px}
+ .pola .cap{font-size:16px;bottom:14px}
+ .fgrid{grid-template-columns:1fr;gap:26px}
+ .btn{padding:14px 26px;font-size:13px}
+ .minical{padding:16px}
+}
+/* ---------- LIVING PORTALS ---------- */
+.eportal{overflow:hidden}
+.eportal .cardsheen{position:absolute;inset:-10%;background:linear-gradient(115deg,transparent 44%,rgba(255,255,255,.32) 50%,transparent 56%);transform:translateX(-140%);animation:cardsheen 7s ease-in-out infinite;pointer-events:none}
+.eportal.psoul .cardsheen{animation-delay:3.2s}
+@keyframes cardsheen{0%{transform:translateX(-140%)}30%{transform:translateX(140%)}100%{transform:translateX(140%)}}
+.eportal .logo svg{animation:logoFloat 6s ease-in-out infinite}
+.eportal.psoul .logo svg{animation-delay:1.4s}
+@keyframes logoFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.pfloat{position:absolute;pointer-events:none;animation:driftrot 8s ease-in-out infinite}
+@keyframes driftrot{0%,100%{transform:translate(0,0) rotate(0deg);opacity:.85}50%{transform:translate(-8px,-14px) rotate(14deg);opacity:1}}
+.pfloat.p2{animation-duration:10s;animation-delay:2s}
+.trustchip{font-family:var(--jost);font-size:13px;letter-spacing:2px;text-transform:uppercase;padding:11px 20px;border:1px solid rgba(191,160,94,.55);border-radius:999px;background:#fff;color:var(--sage-dk)}
+/* cinematic portal zoom */
+#zoomov{position:fixed;z-index:400;border-radius:26px;transition:all .68s cubic-bezier(.2,.8,.2,1);box-shadow:0 40px 90px rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center;pointer-events:none}
+#zoomov .zt{font-family:var(--serif);letter-spacing:6px;font-size:clamp(20px,4vw,34px);opacity:0;transition:opacity .4s .25s;text-transform:uppercase}
 /* ---------- PROMO POPUP ---------- */
 #promo{position:fixed;right:22px;bottom:22px;z-index:220;width:min(360px,92vw);background:#fff;border-radius:20px;border:1px solid rgba(191,160,94,.5);box-shadow:0 30px 70px rgba(62,58,50,.25);padding:28px;transform:translateY(140%);transition:transform .7s cubic-bezier(.2,.9,.25,1)}
 #promo.show{transform:none}
@@ -303,17 +342,53 @@ footer a:hover{color:var(--gold)}
 </head>
 <body>
 
-<div id="arrival" onclick="enterSite()">
-  <div class="arr-sub" style="margin:0 0 30px;animation-delay:.05s">E M M A ’ S &nbsp; M O B I L E &nbsp; B E A U T Y</div>
-  <div class="arr-num"><span>11</span><span class="colon">:</span><span>11</span></div>
-  <div class="arr-line"></div>
-  <div class="arr-msg">Take a breath. You’re exactly where you’re meant to be.</div>
+<div id="arrival">
+  <div class="acurtain l"></div><div class="acurtain r"></div>
+  <canvas id="adust"></canvas>
+  <div class="aph a1">
+    <div class="akick">Make a wish</div>
+    <div class="anum">11<span class="colon">:</span>11</div>
+  </div>
+  <div class="aph a2">
+    <div class="aring"></div>
+    <div class="amsg">Take a breath. You’re exactly where you’re meant to be.</div>
+  </div>
+  <div class="aph a3">
+    <svg width="210" height="37" viewBox="0 0 230 40">
+      <circle cx="25" cy="20" r="12" fill="#E8DFC8"/><circle cx="21" cy="16.5" r="2.4" fill="#B4AD97" opacity=".6"/><circle cx="28.5" cy="21" r="1.6" fill="#B4AD97" opacity=".55"/><circle cx="24" cy="25.5" r="1.9" fill="#B4AD97" opacity=".5"/>
+      <path d="M 70 7 Q 72.9 17.1 83 20 Q 72.9 22.9 70 33 Q 67.1 22.9 57 20 Q 67.1 17.1 70 7 Z" fill="#E8DFC8"/>
+      <path d="M 115 8 A 12 12 0 0 1 115 32 A 17.4 17.4 0 0 0 115 8 Z" fill="#E8DFC8"/>
+      <path d="M 160.0 6.6 L 163.5 15.2 L 172.8 15.8 L 165.6 21.8 L 167.9 30.9 L 160.0 25.9 L 152.1 30.9 L 154.4 21.8 L 147.2 15.8 L 156.5 15.2 Z" fill="#E8DFC8"/>
+      <circle cx="205" cy="20" r="9.5" fill="#BFA05E"/>
+      <g stroke="#BFA05E" stroke-width="1.8" stroke-linecap="round"><line x1="218" y1="20" x2="222" y2="20"/><line x1="192" y1="20" x2="188" y2="20"/><line x1="205" y1="7" x2="205" y2="3"/><line x1="205" y1="33" x2="205" y2="37"/><line x1="214.2" y1="10.8" x2="217" y2="8"/><line x1="195.8" y1="10.8" x2="193" y2="8"/><line x1="214.2" y1="29.2" x2="217" y2="32"/><line x1="195.8" y1="29.2" x2="193" y2="32"/></g>
+    </svg>
+    <div class="abrand1">EMMA’S</div>
+    <div class="abrand2">MOBILE BEAUTY</div>
+    <div class="arule"></div>
+    <div class="abrand3">& HOLISTIC WELLNESS</div>
+  </div>
+  <div class="askip">TAP TO ENTER</div>
 </div>
 <script>
-(function(){var a=document.getElementById('arrival');
- function hide(){a.classList.add('gone');}
- a.addEventListener('click',hide);
- setTimeout(hide,3000);})();
+(function(){var a=document.getElementById('arrival');if(!a)return;
+ var opened=false;
+ function open(){if(opened)return;opened=true;a.classList.add('open');
+  setTimeout(function(){if(a.parentNode)a.parentNode.removeChild(a);},1250);}
+ a.addEventListener('click',open);
+ setTimeout(function(){a.classList.add('armed');},4600);
+ setTimeout(open,6100);
+ setTimeout(open,9000); /* absolute failsafe */
+ try{
+  var cv=document.getElementById('adust'),cx=cv.getContext('2d'),P=[];
+  cv.width=innerWidth;cv.height=innerHeight;
+  for(var i=0;i<(innerWidth<700?26:52);i++)P.push({x:Math.random()*cv.width,y:Math.random()*cv.height,r:.7+Math.random()*1.6,s:.1+Math.random()*.3,tw:Math.random()*6.3,ts:.008+Math.random()*.02});
+  (function tick(){if(!a.parentNode)return;cx.clearRect(0,0,cv.width,cv.height);
+   for(var j=0;j<P.length;j++){var p=P[j];p.y-=p.s;p.tw+=p.ts;if(p.y<-4){p.y=cv.height+4;p.x=Math.random()*cv.width;}
+    var al=.25+.4*(.5+.5*Math.sin(p.tw));
+    cx.beginPath();cx.arc(p.x,p.y,p.r,0,7);cx.fillStyle='rgba(216,190,130,'+al.toFixed(2)+')';cx.fill();}
+   requestAnimationFrame(tick);})();
+ }catch(e){}
+})();
 </script>
 
 <nav id="mainnav">
@@ -333,12 +408,9 @@ footer a:hover{color:var(--gold)}
 
 <!-- ================= HOME ================= -->
 <main class="page active" id="page-home">
-  <div class="entry" id="entry">
-    <canvas id="dust"></canvas>
-    <div class="orbit o1"></div>
-    <div class="orbit o2"></div>
-    <div class="estage">
-      <div class="elayer" data-depth="0.06">
+  <div class="hero2" id="entry">
+    <div class="h2grid">
+      <div class="h2copy">
         <div class="earc">
           <svg width="250" height="44" viewBox="0 0 230 40">
             <circle cx="25" cy="20" r="12" fill="#55604C"/><circle cx="21" cy="16.5" r="2.4" fill="#39412F" opacity=".55"/><circle cx="28.5" cy="21" r="1.6" fill="#39412F" opacity=".5"/><circle cx="24" cy="25.5" r="1.9" fill="#39412F" opacity=".45"/>
@@ -349,18 +421,31 @@ footer a:hover{color:var(--gold)}
             <g stroke="#BFA05E" stroke-width="1.8" stroke-linecap="round"><line x1="218" y1="20" x2="222" y2="20"/><line x1="192" y1="20" x2="188" y2="20"/><line x1="205" y1="7" x2="205" y2="3"/><line x1="205" y1="33" x2="205" y2="37"/><line x1="214.2" y1="10.8" x2="217" y2="8"/><line x1="195.8" y1="10.8" x2="193" y2="8"/><line x1="214.2" y1="29.2" x2="217" y2="32"/><line x1="195.8" y1="29.2" x2="193" y2="32"/></g>
           </svg>
         </div>
+        <div class="h2kick">Beauty · Wellbeing · Soul Care</div>
+        <h1 class="h2title">Beauty that comes<br>to your door.</h1>
+        <p class="h2sub" data-c="tagline">and calm that stays with you · Preston & surrounds</p>
+        <div class="h2btns">
+          <button class="btn gold" onclick="go('book')">Book now</button>
+          <button class="btn" onclick="go('pricelist')">Price list</button>
+          <button class="btn" onclick="go('gift')">🎁 Gift cards</button>
+        </div>
+        <div class="h2note"><b>11:11</b> · grounded · grateful · exactly on time</div>
       </div>
-      <div class="elayer" data-depth="0.03" style="position:relative">
-        <div class="sheen"></div>
-        <div class="ekicker">Beauty · Wellbeing · Soul Care</div>
-        <div class="e1111"><b>11:11</b> · grounded · grateful · exactly on time</div>
-        <h1 class="etitle" id="etitle">EMMA’S MOBILE BEAUTY</h1>
-        <div style="font-family:var(--jost);font-weight:300;font-size:clamp(13px,1.8vw,18px);letter-spacing:8px;color:var(--gold-dk);margin-top:14px;animation:eFade 1.2s .8s both">& HOLISTIC WELLNESS</div>
-        <p class="etag" data-c="tagline">Beauty, wellbeing and soul care, brought to you</p>
+      <div class="h2photo">
+        <img src="photos/photo12.jpg" alt="Emma walking through a Preston meadow at golden hour">
+        <div class="h2frame"></div>
+        <div class="h2cap">grounded in the Preston countryside</div>
       </div>
-      <div class="eportals elayer" data-depth="0.015">
-        <div class="eportal pbeauty" onclick="go('beauty')">
-          <div class="glare"></div>
+    </div>
+  </div>
+
+  <div class="portalsec">
+    <div class="portalhead"><div class="eyebrow">Two worlds, one Emma</div></div>
+    <div class="eportals">
+        <div class="eportal pbeauty" onclick="portalGo('beauty',this)">
+          <div class="glare"></div><div class="cardsheen"></div>
+          <svg class="pfloat" style="top:16px;right:20px" width="20" height="20" viewBox="0 0 20 20"><path d="M10 1 Q11.3 8.7 19 10 Q11.3 11.3 10 19 Q8.7 11.3 1 10 Q8.7 8.7 10 1 Z" fill="#BFA05E"/></svg>
+          <svg class="pfloat p2" style="bottom:60px;left:18px" width="15" height="24" viewBox="0 0 15 24"><path d="M 7.5 1 C 12 7 11.6 15 7.5 20 C 3.4 15 3 7 7.5 1 Z" fill="none" stroke="#B97C5C" stroke-width="1.6"/></svg>
           <div class="logo">
             <svg width="260" height="110" viewBox="0 0 520 220">
               <text x="260" y="62" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="28" letter-spacing="12" fill="#8A8072">EMMA’S</text>
@@ -372,8 +457,10 @@ footer a:hover{color:var(--gold)}
           <p>The main event. Salon-quality treatments brought to your door.</p>
           <span class="go">Explore treatments <i>→</i></span>
         </div>
-        <div class="eportal psoul" onclick="go('soul')">
-          <div class="glare"></div>
+        <div class="eportal psoul" onclick="portalGo('soul',this)">
+          <div class="glare"></div><div class="cardsheen"></div>
+          <svg class="pfloat" style="top:18px;right:22px" width="18" height="18" viewBox="0 0 20 20"><path d="M10 1 Q11.3 8.7 19 10 Q11.3 11.3 10 19 Q8.7 11.3 1 10 Q8.7 8.7 10 1 Z" fill="#BFA05E"/></svg>
+          <svg class="pfloat p2" style="bottom:64px;left:20px" width="18" height="18" viewBox="0 0 40 40"><circle cx="20" cy="20" r="12" fill="#FAF6EF" opacity=".85"/><circle cx="26" cy="15" r="11" fill="#46503E"/></svg>
           <div class="logo">
             <svg width="230" height="118" viewBox="0 0 460 236">
               <g transform="translate(115,0)">
@@ -392,13 +479,11 @@ footer a:hover{color:var(--gold)}
           <p>The added extra. Circles, sound baths and soul sessions.</p>
           <span class="go">See what’s coming up <i>→</i></span>
         </div>
-      </div>
     </div>
-    <div class="scrollcue" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">SCROLL ✦</div>
   </div>
 
   <section id="about">
-    <div class="wrap" style="display:grid;grid-template-columns:1fr 1.2fr;gap:60px;align-items:center" id="aboutgrid">
+    <div class="wrap aboutgrid" id="aboutgrid">
       <div class="polastack" id="polastack"></div>
       <div>
         <div class="eyebrow">Meet Emma · a one woman business</div>
@@ -408,6 +493,16 @@ footer a:hover{color:var(--gold)}
         <p style="margin-top:14px">Every appointment is unhurried, personal and built around you. Grounded. Grateful. Present.</p>
         <div style="margin-top:30px"><button class="btn small" onclick="go('book')">Book with Emma</button>
         <a class="btn small gold" id="greview1" target="_blank" style="margin-left:10px">★ Review on Google</a></div>
+      </div>
+    </div>
+    <div class="wrap" style="margin-top:60px">
+      <div class="center"><div class="eyebrow">Fully qualified · fully insured</div></div>
+      <div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:18px">
+        <span class="trustchip">✓ VTCT Qualified</span>
+        <span class="trustchip">✓ City & Guilds Qualified</span>
+        <span class="trustchip">✓ Beauty & Holistic Therapist and Trainer</span>
+        <span class="trustchip">✓ Sound Therapy & Meditation Facilitator</span>
+        <span class="trustchip">✓ Fully Insured</span>
       </div>
     </div>
   </section>
@@ -449,6 +544,7 @@ footer a:hover{color:var(--gold)}
       <h2 style="color:var(--cream);font-size:44px">Ready when you are</h2>
       <p style="font-family:var(--serif);font-style:italic;font-size:22px;opacity:.8;margin:16px 0 36px">Your moment of calm, or your next glow up, is one click away.</p>
       <button class="btn ghost-light" onclick="go('book')">Book an appointment</button>
+      <button class="btn ghost-light" style="margin-left:12px" onclick="go('gift')">🎁 Buy a gift card</button>
     </div>
   </section>
 </main>
@@ -529,7 +625,7 @@ footer a:hover{color:var(--gold)}
     <p>“Beauty grows quietly, like wildflowers.”</p>
     <span class="sig">Brought to your door</span></div></div>
   <section style="background:var(--cream2)">
-    <div class="wrap" style="display:grid;grid-template-columns:1fr 1fr;gap:60px" id="faqwrap">
+    <div class="wrap twocol" id="faqwrap">
       <div>
         <div class="eyebrow">Good to know</div>
         <h2 style="font-size:38px">FAQs</h2>
@@ -565,8 +661,10 @@ footer a:hover{color:var(--gold)}
             <option value="beauty">Emma’s Mobile Beauty</option>
             <option value="soul">Emma’s Soul Space</option>
           </select>
-          <label>Service</label>
-          <select id="bservice" required></select>
+          <label>Build your visit <span style="text-transform:none;letter-spacing:0">(£30 minimum per visit, mix and match little treats)</span></label>
+          <select id="bservice"></select>
+          <div style="margin-top:12px"><button type="button" class="btn small" onclick="addToVisit()">+ Add to my visit</button></div>
+          <div id="basket" style="margin-top:14px"></div>
           <label>Chosen date</label><input type="date" id="bdate" required readonly placeholder="Pick a green day above">
           <label>Available times <span style="text-transform:none;letter-spacing:0">(bookings open up to 48 hours before)</span></label>
           <div id="slotwrap" style="display:flex;gap:10px;flex-wrap:wrap;min-height:44px"><span class="muted" style="font-size:13.5px">Pick a date on the calendar above to see Emma’s free times.</span></div>
@@ -589,7 +687,11 @@ footer a:hover{color:var(--gold)}
             <label>House number & street</label><input type="text" id="baddr" placeholder="e.g. 12 Elm Grove">
           </div>
           <label>Notes, requests or promo code</label><textarea id="bnotes" rows="3"></textarea>
-          <div class="center" style="margin-top:30px"><button class="btn gold" type="submit">Request booking</button></div>
+          <label style="display:flex;gap:12px;align-items:flex-start;margin-top:22px;cursor:pointer;text-transform:none;letter-spacing:0;font-family:var(--sans);font-size:14px;color:var(--ink)">
+            <input type="checkbox" id="bagree" required style="width:20px;height:20px;margin-top:2px;accent-color:#BFA05E;flex-shrink:0">
+            <span>I have read and agree to Emma’s <a onclick="event.preventDefault();go('terms')" style="color:var(--gold-dk);cursor:pointer;text-decoration:underline">terms & conditions</a>, including the booking fee, the 48 hour cancellation policy and patch test requirements.</span>
+          </label>
+          <div class="center" style="margin-top:24px"><button class="btn gold" type="submit">Request booking</button></div>
         </form>
         <div id="confirm">
           <svg width="54" height="54" viewBox="0 0 20 20"><path d="M10 0 Q11 9 20 10 Q11 11 10 20 Q9 11 0 10 Q9 9 10 0" fill="#BFA05E"/></svg>
@@ -598,6 +700,82 @@ footer a:hover{color:var(--gold)}
           <button class="btn small" style="margin-top:24px" onclick="resetForm()">Make another booking</button>
         </div>
       </div>
+    </div>
+  </section>
+</main>
+
+<!-- ================= GIFT CARDS ================= -->
+<main class="page" id="page-gift">
+  <div class="breather" style="background-image:url('photos/photo27.jpg');min-height:280px;margin-top:76px"><div>
+    <p>“The gift of glow, wrapped in calm.”</p>
+    <span class="sig">Gift cards from Emma</span></div></div>
+  <section style="padding-top:70px">
+    <div class="wrap">
+      <div class="center"><div class="eyebrow">Give the gift of glow</div>
+      <h2 style="font-size:44px">Gift Cards</h2><div class="rule center"></div>
+      <p class="muted" style="max-width:540px;margin:0 auto 34px">Treat someone to beauty or soul care from Emma. Valid for one year, usable on any treatment. Emma confirms payment by bank transfer, PayPal or SumUp link.</p></div>
+      <div class="bookbox">
+        <form id="giftform" onsubmit="return submitGift(event)">
+          <label>Gift card amount</label>
+          <select id="gamt"><option value="30">£30</option><option value="50" selected>£50</option><option value="75">£75</option><option value="100">£100</option><option value="custom">Custom amount</option></select>
+          <div id="gcustomwrap" style="display:none"><label>Custom amount (£30 minimum)</label><input type="number" id="gcustom" min="30" placeholder="e.g. 40"></div>
+          <div class="two">
+            <div><label>Who is it for?</label><input id="gto" placeholder="Their name" required></div>
+            <div><label>Who is it from?</label><input id="gfrom" placeholder="Your name" required></div>
+          </div>
+          <label>A little message on the card</label><textarea id="gmsg" rows="2" placeholder="Happy birthday, you deserve some calm 💛"></textarea>
+          <div class="two">
+            <div><label>Your phone</label><input type="tel" id="gphone" required></div>
+            <div><label>Your email</label><input type="email" id="gemail" required></div>
+          </div>
+          <p class="muted" style="font-size:12.5px;margin-top:16px">Gift cards are valid for one year and covered by the <a onclick="event.preventDefault();go('terms')" style="color:var(--gold-dk);cursor:pointer;text-decoration:underline">terms & conditions</a>.</p>
+          <div class="center" style="margin-top:24px"><button class="btn gold" type="submit">Request gift card</button></div>
+        </form>
+        <div id="giftconfirm" style="display:none;text-align:center;padding:40px 20px">
+          <svg width="54" height="54" viewBox="0 0 20 20"><path d="M10 0 Q11 9 20 10 Q11 11 10 20 Q9 11 0 10 Q9 9 10 0" fill="#BFA05E"/></svg>
+          <h3 style="font-size:30px;margin:18px 0 10px">What a lovely gift 💛</h3>
+          <p class="muted" id="giftmsg"></p>
+          <button class="btn small" style="margin-top:24px" onclick="document.getElementById('giftform').reset();document.getElementById('giftform').style.display='block';document.getElementById('giftconfirm').style.display='none'">Send another</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ================= TERMS ================= -->
+<main class="page" id="page-terms">
+  <section style="padding-top:150px">
+    <div class="wrap" style="max-width:820px">
+      <div class="center"><div class="eyebrow">The small print, with love</div>
+      <h2 style="font-size:44px">Terms & Conditions</h2><div class="rule center"></div></div>
+      <div class="panel" style="background:#fff;border:1px solid rgba(181,174,158,.5);border-radius:18px;padding:34px;margin-top:34px">
+      <h3 style="font-size:22px;margin-bottom:10px">Booking & cancellation</h3>
+      <p style="font-size:15.5px">All new clients are asked to pay a small non refundable booking fee to secure their appointment, with the remaining balance paid on completion of the treatment. Please give at least 48 hours notice to cancel or move an appointment. Within 48 hours the booking fee becomes non refundable and a 50% booking fee will be required to secure any future appointment. Missed appointments without notice (no shows) are charged at 100% of the booking fee. Treatments over £50 require a 50% non refundable booking fee, payable via PayPal, SumUp link or bank transfer. All booking fees are deducted from the full treatment price as long as there is no cancellation within 48 hours. The minimum mobile visit is £30, and smaller treatments can happily be combined to reach it. If you are running late, please let Emma know. Arrivals more than 15 minutes late may mean a shortened treatment at the full price, so the next client is not kept waiting.</p>
+      <h3 style="font-size:22px;margin:24px 0 10px">Busy periods</h3>
+      <p style="font-size:15.5px">Appointments at the busiest times for new clients (summer months, Christmas and New Year) require a 50% non refundable booking fee. Cancellations at the busiest times with less than 48 hours notice require a 100% cancellation fee.</p>
+      <h3 style="font-size:22px;margin:24px 0 10px">Out of hours</h3>
+      <p style="font-size:15.5px">Appointments before 9am or after 6pm, on bank holidays and Saturdays carry a premium of £10 extra per hour.</p>
+      <h3 style="font-size:22px;margin:24px 0 10px">Health changes</h3>
+      <p style="font-size:15.5px">Please let Emma know of any health or medication changes so your details can be kept up to date and your treatments kept safe.</p>
+      <h3 style="font-size:22px;margin:24px 0 10px">Gift certificates</h3>
+      <p style="font-size:15.5px">Gift certificates must be used within one year of purchase, and where possible within the same appointment. Donated gift certificates must be used within 6 months, and once an appointment is made the date cannot be changed.</p>
+      <h3 style="font-size:22px;margin:24px 0 10px">Patch tests & consultations</h3>
+      <p style="font-size:15.5px">Certain treatments (including lash and brow tinting, lash lifts and spray tans) legally require a patch test at least 48 hours before your first appointment. If a required patch test has not been carried out, Emma reserves the right to decline the treatment on the day and the booking fee will not be refunded. Please answer consultation questions honestly, as treatments are carried out based on the information you provide.</p>
+      <h3 style="font-size:22px;margin:24px 0 10px">Liability & insurance</h3>
+      <p style="font-size:15.5px">Emma is a fully qualified and fully insured Beauty and Holistic Therapist. Every treatment is carried out with professional care and products used as directed. Emma cannot accept liability for reactions arising from information withheld at consultation, from failure to follow aftercare advice, or from patch tests declined by the client. Holistic and wellness sessions (including reiki, sound therapy, meditation and breathwork) support wellbeing and are not a substitute for medical diagnosis or treatment. Please consult your GP for medical concerns.</p>
+      <h3 style="font-size:22px;margin:24px 0 10px">Right to refuse</h3>
+      <p style="font-size:15.5px">Emma works alone in clients’ homes and reserves the right to refuse or end an appointment where she feels unsafe or is treated disrespectfully, or where a health condition makes treatment unsuitable. In these cases fees for work already carried out remain payable.</p>
+      <h3 style="font-size:22px;margin:24px 0 10px">Age policy</h3>
+      <p style="font-size:15.5px">Clients must be 18 or over. Selected treatments may be carried out for under 18s only with a parent or guardian’s written consent and with the parent or guardian present throughout.</p>
+      <h3 style="font-size:22px;margin:24px 0 10px">Your information & privacy</h3>
+      <p style="font-size:15.5px">Your name, contact details, address and consultation notes are collected only to manage your bookings, reminders and treatment safety, in line with UK GDPR. Your information is never sold or shared with third parties for marketing. You may ask to see or delete your details at any time by contacting Emma. Photographs of treatment results are only ever taken or shared with your clear consent.</p>
+      <h3 style="font-size:22px;margin:24px 0 10px">Payments</h3>
+      <p style="font-size:15.5px">Payment is accepted by cash, bank transfer, PayPal or SumUp card link. Booking fees are payable at the time of booking to confirm your appointment.</p>
+      <h3 style="font-size:22px;margin:24px 0 10px">Complaints & feedback</h3>
+      <p style="font-size:15.5px">If anything is not right, please tell Emma within 48 hours of your appointment so it can be put right fairly. Feedback is always welcomed with love.</p>
+      <p class="muted" style="font-size:13.5px;margin-top:24px">Prices may change without prior notice. Any changes to these terms are at Emma’s discretion. These terms do not affect your statutory rights. Last updated July 2026.</p>
+      </div>
+      <div class="center" style="margin:34px 0 40px"><button class="btn gold" onclick="go('book')">Happy with that? Book now</button></div>
     </div>
   </section>
 </main>
@@ -641,7 +819,7 @@ footer a:hover{color:var(--gold)}
         <p id="lerr" style="display:none;color:var(--danger);font-size:13px;margin-top:10px">Not quite, try again.</p>
         <div class="center" style="margin-top:26px"><button class="btn gold" type="submit" style="width:100%">Sign in</button></div>
       </form>
-      <p class="muted" style="font-size:12px;margin-top:20px">Demo login: <b>emma</b> / <b>1111</b></p>
+      <p class="muted" style="font-size:12px;margin-top:20px">Private area for Emma only 💛</p>
     </div>
   </div>
 </main>
@@ -658,6 +836,7 @@ footer a:hover{color:var(--gold)}
       <a data-av="clients" onclick="adm('clients')">Clients</a>
       <a data-av="services" onclick="adm('services')">Services</a>
       <a data-av="promos" onclick="adm('promos')">Promotions</a>
+      <a data-av="gifts" onclick="adm('gifts')">Gift cards</a>
       <a data-av="anns" onclick="adm('anns')">Announcements</a>
       <a data-av="gallery" onclick="adm('gallery')">Gallery</a>
       <a data-av="content" onclick="adm('content')">Content</a>
@@ -690,6 +869,8 @@ footer a:hover{color:var(--gold)}
         <a onclick="go('soul')">Emma’s Soul Space</a>
         <a onclick="go('beauty')">Mobile Beauty</a>
         <a onclick="go('book')">Book now</a>
+        <a onclick="go('gift')">Gift cards 🎁</a>
+        <a onclick="go('terms')">Terms & Conditions</a>
         <a id="greview3" target="_blank" style="color:var(--gold)">★ Review us on Google</a>
       </div>
       <div><h4>Contact</h4>
@@ -782,40 +963,41 @@ const DEFAULT_SERVICES=[
  ['soul','Soul Space','Group Moon Circle','Monthly gathering of intention, sound and sisterhood.',22,90]
 ].map((s,i)=>({id:'sv'+i,sec:s[0],cat:s[1],name:s[2],desc:s[3],price:s[4],mins:s[5],active:true}));
 let services=DB.get('services',DEFAULT_SERVICES);
-function seedBookings(){
- const mk=(sv,off,time,name,phone,email,status,addr)=>{const s=services.find(x=>x.name===sv)||services[0];
-  return {id:uid(),sec:s.sec,service:s.name,price:s.price,mins:s.mins,date:dOff(off),time,name,phone,email,addr:addr||'',notes:'',status,created:dOff(off-3)};};
- return [
-  mk('Sound Bath Journey',0,'Evening (4pm – 8pm)','Rachel Turner','07700 900101','rachel@example.com','confirmed'),
-  mk('Gel Polish',0,'Morning (9am – 12pm)','Sophie Bell','07700 900102','sophie@example.com','confirmed','12 Elm Grove, Fulwood'),
-  mk('Reiki',1,'Afternoon (12pm – 4pm)','Aisha Khan','07700 900103','aisha@example.com','pending'),
-  mk('Lash Lift',1,'Evening (4pm – 8pm)','Claire Dean','07700 900104','claire@example.com','pending','8 Croft Way, Fulwood'),
-  mk('Pregnancy / Oncology Massage',3,'Morning (9am – 12pm)','Beth Ford','07700 900105','beth@example.com','confirmed','44 Lark Ave, Penwortham'),
-  mk('Breathwork Journey',5,'Evening (4pm – 8pm)','Gemma Hall','07700 900106','gemma@example.com','pending'),
-  mk('Rose Quartz Massage Facial',-2,'Afternoon (12pm – 4pm)','Sophie Bell','07700 900102','sophie@example.com','completed','12 Elm Grove, Fulwood'),
-  mk('Group Moon Circle',-6,'Evening (4pm – 8pm)','Rachel Turner','07700 900101','rachel@example.com','completed'),
-  mk('Full Body Massage',-9,'Morning (9am – 12pm)','Nadia Cole','07700 900107','nadia@example.com','completed','3 Mill Lane, Leyland'),
-  mk('Spray Tan',-12,'Evening (4pm – 8pm)','Erin Walsh','07700 900108','erin@example.com','completed','21 Bank St, Chorley'),
-  mk('Inch Loss Body Wrap',-16,'Morning (9am – 12pm)','Beth Ford','07700 900105','beth@example.com','completed','44 Lark Ave, Penwortham'),
-  mk('Hollywood Wax',-1,'Morning (9am – 12pm)','Erin Walsh','07700 900108','erin@example.com','cancelled','21 Bank St, Chorley')];}
-let bookings=DB.get('bookings',null); if(!bookings){bookings=seedBookings();DB.set('bookings',bookings);}
-let gallery=DB.get('gallery',[
+let bookings=DB.get('bookings',[]);
+/* one time purge of any old demo data so the studio runs on real bookings only */
+if(!DB.get('realdata',false)){
+ bookings=bookings.filter(b=>!(b.phone||'').replace(/\s/g,'').startsWith('07700'));
+ DB.set('bookings',bookings);DB.set('realdata',true);}
+const DEFGAL=[
  {id:uid(),sec:'soul',label:'Lotus ritual',img:3},{id:uid(),sec:'soul',label:'Crystal sound bowl',img:17},
  {id:uid(),sec:'soul',label:'Chimes by the water',img:7},{id:uid(),sec:'soul',label:'Water lilies',img:26},
- {id:uid(),sec:'soul',label:'Shell chimes',img:2},{id:uid(),sec:'soul',label:'By the lake',img:6},
- {id:uid(),sec:'beauty',label:'Gentle hands',img:10},{id:uid(),sec:'beauty',label:'Nature & nurture',img:11}]);
-let anns=DB.get('anns',[
- {id:uid(),date:dOff(9),title:'Full Moon Circle 🌕',msg:'Our monthly gathering of intention, sound and sisterhood. Bring a blanket and an open heart. Limited to 12 places.',svc:'Group Moon Circle',active:true},
- {id:uid(),date:dOff(4),title:'Sound Bath Sunday',msg:'A deep-rest evening of bowls, chimes and gong waves. The kindest way to end your week.',svc:'Sound Bath Journey',active:true},
- {id:uid(),date:dOff(16),title:'New: 4-week Breathwork Journey',msg:'Four gentle sessions to build a breathing practice that actually sticks. Beginners so welcome.',svc:'Breathwork Journey',active:true}]);
+ {id:uid(),sec:'soul',label:'Shell chimes',img:2},{id:uid(),sec:'soul',label:'By the water’s edge',img:6},
+ {id:uid(),sec:'beauty',label:'Gentle hands',img:10},{id:uid(),sec:'beauty',label:'Nature & nurture',img:11},
+ {id:uid(),sec:'soul',label:'Stillness on the water',img:1},{id:uid(),sec:'soul',label:'Through the wildflowers',img:5},
+ {id:uid(),sec:'soul',label:'Reaching for light',img:8},{id:uid(),sec:'beauty',label:'Small wonders',img:9},
+ {id:uid(),sec:'soul',label:'Held by the trees',img:14},{id:uid(),sec:'beauty',label:'Rooted',img:15},
+ {id:uid(),sec:'soul',label:'Rest & restore',img:16},{id:uid(),sec:'beauty',label:'Sound in hand',img:18},
+ {id:uid(),sec:'soul',label:'Among the branches',img:19},{id:uid(),sec:'beauty',label:'Quiet moments',img:20},
+ {id:uid(),sec:'soul',label:'Soft light',img:21},{id:uid(),sec:'soul',label:'Surrender',img:23},
+ {id:uid(),sec:'soul',label:'The old oak',img:24},{id:uid(),sec:'beauty',label:'Touch the water',img:27}];
+let gallery=DB.get('gallery',DEFGAL);
+/* one time upgrade: fill the gallery with the full photo set if Emma hasn't customised it */
+if(!DB.get('realgal2',false)){
+ if(gallery.length<=8)gallery=DEFGAL;
+ DB.set('gallery',gallery);DB.set('realgal2',true);}
+let anns=DB.get('anns',[]);
+if(!DB.get('realanns',false)){
+ anns=anns.filter(a=>!['Full Moon Circle 🌕','Sound Bath Sunday','New: 4-week Breathwork Journey'].includes(a.title));
+ DB.set('anns',anns);DB.set('realanns',true);}
 const saveA=()=>DB.set('anns',anns);
-let promos=DB.get('promos',[{id:uid(),title:'New client welcome ✨',msg:'10% off your first mobile beauty treatment. Just mention this when Emma confirms your booking.',code:'WELCOME10',img:3,active:true}]);
-let settings=DB.get('settings',{bizname:'Emma’s Mobile Beauty & Holistic Wellness',phone:'07501 411 252',email:'hello@emmaservices.co.uk',
- insta:'@emmas.soul.space',fb:'Emma’s Mobile Beauty',
- instaUrl:'https://instagram.com/',fbUrl:'https://facebook.com/',tiktokUrl:'https://tiktok.com/',
+let promos=DB.get('promos',[{id:uid(),title:'New client welcome ✨',msg:'10% off your first mobile beauty treatment. Just mention this when Emma confirms your booking.',code:'WELCOME10',img:3,active:false}]);
+if(!DB.get('realpromos',false)){promos.forEach(p=>p.active=false);DB.set('promos',promos);DB.set('realpromos',true);}
+let settings=DB.get('settings',{bizname:'Emma’s Mobile Beauty & Holistic Wellness',phone:'07501 411 252',email:'beautybyemma@live.co.uk',
+ insta:'@emmasmobilebeauty',fb:'Emma’s Mobile Beauty',
+ instaUrl:'https://instagram.com/emmasmobilebeauty',fbUrl:'https://www.facebook.com/',tiktokUrl:'https://tiktok.com/',
  greview:'https://g.page/r/PASTE-EMMAS-GOOGLE-REVIEW-LINK/review',
  reminder:'Hi {name} ✨ a gentle reminder of your {service} tomorrow ({date}) at {time}. {location} Please give 24 hrs notice for changes. Grateful for you, Emma x',
- policy:'Please give 24 hours’ notice to move or cancel. Deposits transfer to your next appointment.',
+ policy:'New clients pay a small non refundable booking fee, with the rest paid after the treatment. Please give at least 48 hours notice to cancel or move an appointment, otherwise the booking fee is kept and a 50% fee secures your next visit. No shows are charged the full booking fee. Full details in the Terms & Conditions.',
  hours:'Tue to Fri · 9am to 8pm\nSaturday · 9am to 4pm\nSun & Mon · rest days',
  blocked:[],slots:{},areas:'Preston · Fulwood · Penwortham · Leyland · Chorley · Bamber Bridge (approx. 15 miles)'});
 /* seed bookable slots for the next 3 weeks if Emma hasn't set any yet */
@@ -831,6 +1013,8 @@ let content=DB.get('content',{tagline:'Beauty, wellbeing and soul care, brought 
  beautyIntro:'& HOLISTIC WELLNESS · BROUGHT TO YOU'});
 let waitlist=DB.get('waitlist',[]);
 const saveW=()=>DB.set('waitlist',waitlist);
+let giftcards=DB.get('giftcards',[]);
+const saveGC=()=>DB.set('giftcards',giftcards);
 let metrics=DB.get('metrics',{views:0,pl:0,bstart:0,bsent:0});
 metrics.views++;DB.set('metrics',metrics);
 const saveM=()=>DB.set('metrics',metrics);
@@ -860,6 +1044,11 @@ if(/Emma Services/.test(content.about))content.about=ABOUT_DEFAULT;
 if(/—/.test(content.tagline))content.tagline='Beauty, wellbeing and soul care, brought to you';
 if(/Emma Services/.test(settings.bizname))settings.bizname='Emma’s Mobile Beauty & Holistic Wellness';
 if(/–/.test(settings.hours))settings.hours='Tue to Fri · 9am to 8pm\nSaturday · 9am to 4pm\nSun & Mon · rest days';
+if(settings.email==='hello@emmaservices.co.uk')settings.email='beautybyemma@live.co.uk';
+if(settings.instaUrl==='https://instagram.com/'){settings.instaUrl='https://instagram.com/emmasmobilebeauty';settings.insta='@emmasmobilebeauty';}
+if(settings.fbUrl==='https://facebook.com/')settings.fbUrl='https://www.facebook.com/';
+const NEWPOLICY='New clients pay a small non refundable booking fee, with the rest paid after the treatment. Please give at least 48 hours notice to cancel or move an appointment, otherwise the booking fee is kept and a 50% fee secures your next visit. No shows are charged the full booking fee. Full details in the Terms & Conditions.';
+if((settings.policy||'').startsWith('Please give 24')||(settings.policy||'').startsWith('New clients pay a small non refundable booking fee to secure'))settings.policy=NEWPOLICY;
 DB.set('content',content);DB.set('settings',settings);
 const saveB=()=>DB.set('bookings',bookings), saveS=()=>DB.set('services',services),
  saveG=()=>DB.set('gallery',gallery), saveSet=()=>DB.set('settings',settings),
@@ -895,9 +1084,9 @@ function renderPublic(){
  document.getElementById('pricetable').innerHTML='<tr><th>Treatment</th><th>Duration</th><th>Price</th></tr>'+
   act.filter(s=>s.sec==='beauty').map(s=>{const hdr=s.cat!==lastCat?`<tr><td colspan="3" style="background:var(--sand);font-family:var(--jost);letter-spacing:3px;font-size:12px;text-transform:uppercase;color:var(--gold-dk)">${esc(s.cat)}</td></tr>`:'';lastCat=s.cat;
    return hdr+`<tr><td>${esc(s.name)}</td><td>${s.mins} mins</td><td class="pr">£${s.price}</td></tr>`;}).join('');
- document.getElementById('homegal').innerHTML=gallery.slice(0,8).map(tile).join('');
- document.getElementById('soulgal').innerHTML=gallery.filter(g=>g.sec==='soul').slice(0,4).map(tile).join('');
- document.getElementById('beautygal').innerHTML=(gallery.filter(g=>g.sec==='beauty').length?gallery.filter(g=>g.sec==='beauty'):gallery.slice(0,4)).slice(0,4).map(tile).join('');
+ document.getElementById('homegal').innerHTML=gallery.slice(0,12).map(tile).join('');
+ document.getElementById('soulgal').innerHTML=gallery.filter(g=>g.sec==='soul').slice(0,8).map(tile).join('');
+ document.getElementById('beautygal').innerHTML=(gallery.filter(g=>g.sec==='beauty').length?gallery.filter(g=>g.sec==='beauty'):gallery.slice(0,4)).slice(0,8).map(tile).join('');
  document.querySelectorAll('[data-c]').forEach(el=>{const k=el.dataset.c;if(content[k])el.textContent=content[k];});
  document.getElementById('f-phone').textContent=settings.phone;
  document.getElementById('f-email').textContent=settings.email;
@@ -913,14 +1102,49 @@ function renderPublic(){
 function setCat(c){activeCat=c;renderPublic();}
 const PATCH_NEEDED=['Eyelash Tint','Eyebrow Tint','Lash Lift','Spray Tan'];
 function patchCheck(){const s=services.find(x=>x.id===document.getElementById('bservice').value);
- document.getElementById('patchnote').style.display=(s&&PATCH_NEEDED.includes(s.name))?'block':'none';}
+ const inBasket=basket.some(b=>PATCH_NEEDED.includes(b.name));
+ document.getElementById('patchnote').style.display=((s&&PATCH_NEEDED.includes(s.name))||inBasket)?'block':'none';}
+/* --- visit basket (£30 minimum) --- */
+let basket=[];
+const MIN_VISIT=30;
+const basketTotal=()=>basket.reduce((a,b)=>a+b.price,0);
+function renderBasket(){
+ const el=document.getElementById('basket');if(!el)return;
+ if(!basket.length){el.innerHTML=`<p class="muted" style="font-size:13px">Nothing added yet. Pick a treatment above and tap add. Emma’s minimum visit is £${MIN_VISIT}.</p>`;return;}
+ const tot=basketTotal();
+ el.innerHTML=`<div style="display:flex;gap:10px;flex-wrap:wrap">${basket.map((b,i)=>`<span class="chip" style="background:var(--sand);cursor:default">${esc(b.name)} · £${b.price} <b style="cursor:pointer;margin-left:6px;color:var(--danger)" onclick="rmBasket(${i})">✕</b></span>`).join('')}</div>
+ <div style="margin-top:12px;font-family:var(--serif);font-size:22px;color:var(--sage-dk)">Your visit: £${tot} <span class="muted" style="font-family:var(--sans);font-size:13px">· ${basket.reduce((a,b)=>a+b.mins,0)} mins</span></div>
+ ${tot<MIN_VISIT?`<p style="font-size:13px;color:var(--gold-dk);margin-top:6px">✦ £${MIN_VISIT-tot} more to reach Emma’s £${MIN_VISIT} minimum. Add another little treat 💛</p>`:`<p style="font-size:13px;color:var(--sage);margin-top:6px">✓ Lovely, that’s above the £${MIN_VISIT} minimum.</p>`}`;}
+window.addToVisit=()=>{const s=services.find(x=>x.id===document.getElementById('bservice').value);
+ if(!s)return;basket.push({id:s.id,name:s.name,price:s.price,mins:s.mins});renderBasket();patchCheck();};
+window.rmBasket=i=>{basket.splice(i,1);renderBasket();patchCheck();};
+/* --- gift cards --- */
+window.submitGift=e=>{e.preventDefault();
+ const sel=document.getElementById('gamt').value;
+ const amt=sel==='custom'?+document.getElementById('gcustom').value:+sel;
+ if(!amt||amt<30){alert('Gift cards start from £30 💛');return false;}
+ const code='EMB-'+Math.random().toString(36).slice(2,6).toUpperCase();
+ giftcards.unshift({id:uid(),code,amount:amt,to:document.getElementById('gto').value,
+  from:document.getElementById('gfrom').value,msg:document.getElementById('gmsg').value,
+  phone:document.getElementById('gphone').value,email:document.getElementById('gemail').value,
+  status:'requested',created:todayISO()});
+ saveGC();
+ if(window.fbq)fbq('track','Lead');
+ document.getElementById('giftmsg').innerHTML=`Your gift card request for <b>£${amt}</b> is with Emma. Your code is <b style="font-family:var(--jost);letter-spacing:2px">${code}</b>. Emma will text you payment details (bank transfer, PayPal or SumUp), and once paid the card is ready to give. Valid for one year.`;
+ document.getElementById('giftform').style.display='none';
+ document.getElementById('giftconfirm').style.display='block';
+ return false;};
+document.addEventListener('change',e=>{if(e.target&&e.target.id==='gamt')
+ document.getElementById('gcustomwrap').style.display=e.target.value==='custom'?'block':'none';});
 function fillServices(preId){const sec=document.getElementById('bsection').value;
  const sel=document.getElementById('bservice');
  sel.innerHTML=pubServices().filter(s=>s.sec===sec).map(s=>`<option value="${s.id}">${esc(s.name)} · £${s.price} (${s.mins} mins)</option>`).join('');
  document.getElementById('addrwrap').style.display=sec==='beauty'?'block':'none';
  if(preId)sel.value=preId;
- sel.onchange=patchCheck;patchCheck();}
-function prefill(sec,id){go('book');document.getElementById('bsection').value=sec;fillServices(id);}
+ sel.onchange=patchCheck;patchCheck();renderBasket();}
+function prefill(sec,id){go('book');
+ if(document.getElementById('bsection').value!==sec){basket=[];}
+ document.getElementById('bsection').value=sec;fillServices(id);addToVisit();}
 let selSlot='',foundArea='';
 window.findAddr=async()=>{
  const pc=document.getElementById('bpc').value.trim().replace(/\s+/g,'');
@@ -946,14 +1170,17 @@ function freeSlots(iso){
   return !bookings.some(b=>b.date===iso&&b.time===fmtT(t)&&['pending','confirmed'].includes(b.status));
  }).sort();}
 function submitBooking(e){e.preventDefault();
+ if(!document.getElementById('bagree').checked){alert('Please tick to agree to the terms & conditions first 💛');return false;}
+ if(!basket.length)addToVisit();
+ if(basketTotal()<MIN_VISIT){alert(`Emma’s minimum visit is £${MIN_VISIT} 💛 Add another treatment to your visit to reach it.`);return false;}
  if(!selSlot||!document.getElementById('bdate').value){alert('Please pick an available day and time on the calendar first 💛');return false;}
- const s=services.find(x=>x.id===document.getElementById('bservice').value);
+ const sec=document.getElementById('bsection').value;
  const pref=document.getElementById('bpref').value;
  const phone=document.getElementById('bphone').value;
- const bk={id:uid(),sec:s.sec,service:s.name,price:s.price,mins:s.mins,
+ const bk={id:uid(),sec,service:basket.map(b=>b.name).join(' + '),price:basketTotal(),mins:basket.reduce((a,b)=>a+b.mins,0),
   date:document.getElementById('bdate').value,time:fmtT(selSlot),pref,src:SRC,
   bday:document.getElementById('bbday').value||'',
-  patch:PATCH_NEEDED.includes(s.name),
+  patch:basket.some(b=>PATCH_NEEDED.includes(b.name)),
   name:document.getElementById('bname').value,phone,
   email:document.getElementById('bemail').value,
   addr:[document.getElementById('baddr').value,foundArea,document.getElementById('bpc').value.toUpperCase()].filter(Boolean).join(', '),
@@ -966,7 +1193,7 @@ function submitBooking(e){e.preventDefault();
  document.getElementById('bookform').style.display='none';
  document.getElementById('confirm').style.display='block';
  return false;}
-function resetForm(){document.getElementById('bookform').reset();selSlot='';fillServices();renderMini();renderSlots('');
+function resetForm(){document.getElementById('bookform').reset();selSlot='';basket=[];renderBasket();fillServices();renderMini();renderSlots('');
  document.getElementById('bookform').style.display='block';
  document.getElementById('confirm').style.display='none';}
 /* --- public availability mini calendar (slot-aware) --- */
@@ -1035,6 +1262,18 @@ function initPromo(){
  <button class="btn small gold" style="width:100%" onclick="sessionStorage.setItem('promoSeen','1');document.getElementById('promo').classList.remove('show');go('book')">Book now</button>`;
  setTimeout(()=>box.classList.add('show'),5200);}
 /* ================= ROUTER ================= */
+function portalGo(page,el){
+ const r=el.getBoundingClientRect();
+ const ov=document.createElement('div');ov.id='zoomov';
+ ov.style.left=r.left+'px';ov.style.top=r.top+'px';ov.style.width=r.width+'px';ov.style.height=r.height+'px';
+ ov.style.background=page==='soul'?'linear-gradient(155deg,#4C5643,#3C4535)':'linear-gradient(155deg,#FFFFFF,#F1EDE3)';
+ ov.innerHTML=`<span class="zt" style="color:${page==='soul'?'#FAF6EF':'#46503E'}">${page==='soul'?'Emma’s Soul Space':'Emma’s Mobile Beauty'}</span>`;
+ document.body.appendChild(ov);
+ requestAnimationFrame(()=>{requestAnimationFrame(()=>{
+  ov.style.left='0px';ov.style.top='0px';ov.style.width='100vw';ov.style.height='100vh';ov.style.borderRadius='0';
+  ov.querySelector('.zt').style.opacity='1';});});
+ setTimeout(()=>{go(page);ov.style.opacity='0';ov.style.transition='opacity .45s ease';
+  setTimeout(()=>ov.remove(),480);},760);}
 function go(page,anchor){
  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
  document.getElementById('page-'+page).classList.add('active');
@@ -1049,16 +1288,23 @@ function go(page,anchor){
 }
 /* ================= ADMIN ================= */
 let curAdm='dash';
+async function sha(s){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));
+ return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('');}
+const AUTH_U=['99ca7dc4cdd844adbd920d66505576644918d096417e510d2830896b0309fe21','682f101ffc8b4fd903fc876c94a0ff84b1f67b2a8e113d1196dae5c2ef5c8f24'];
+const AUTH_P='edbb60b46313d1bc33cc396f47bd23c45339ed434273271a2f99ad91519c7178';
 function doLogin(e){e.preventDefault();
- const u=document.getElementById('luser').value.trim().toLowerCase(),p=document.getElementById('lpass').value;
- if((u==='emma'||u===settings.email.toLowerCase())&&p==='1111'){sessionStorage.setItem('emmaAdmin','1');go('admin');}
- else document.getElementById('lerr').style.display='block';
+ (async()=>{
+  const u=await sha(document.getElementById('luser').value.trim().toLowerCase());
+  const p=await sha(document.getElementById('lpass').value);
+  if(AUTH_U.includes(u)&&p===AUTH_P){sessionStorage.setItem('emmaAdmin','1');go('admin');}
+  else document.getElementById('lerr').style.display='block';
+ })();
  return false;}
 function logout(){sessionStorage.removeItem('emmaAdmin');go('home');}
 function requireAuth(){if(sessionStorage.getItem('emmaAdmin')!=='1'){go('login');return false}return true}
 function adm(view){if(!requireAuth())return;curAdm=view;
  document.querySelectorAll('[data-av]').forEach(a=>a.classList.toggle('on',a.dataset.av===view));
- ({dash:vDash,analytics:vAnalytics,bookings:vBookings,calendar:vCal,clients:vClients,services:vServices,promos:vPromos,anns:vAnns,gallery:vGallery,content:vContent,settings:vSettings})[view](document.getElementById('admmain'));}
+ ({dash:vDash,analytics:vAnalytics,bookings:vBookings,calendar:vCal,clients:vClients,services:vServices,promos:vPromos,gifts:vGifts,anns:vAnns,gallery:vGallery,content:vContent,settings:vSettings})[view](document.getElementById('admmain'));}
 const badge=s=>`<span class="badge b-${s}">${s}</span>`;
 const fmtD=d=>{if(!d)return '·';const x=new Date(d+'T12:00');return x.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})};
 function cxCount(b){const k=(b.email||b.phone||b.name).toLowerCase();
@@ -1091,6 +1337,20 @@ function vDash(m){
  const income=bookings.filter(b=>b.date.slice(0,7)===month&&['completed','confirmed'].includes(b.status)).reduce((a,b)=>a+b.price,0);
  const tomorrow=dOff(1);
  const remind=bookings.filter(b=>b.date===tomorrow&&b.status==='confirmed');
+ const wkIncome=bookings.filter(b=>b.date>=dOff(-6)&&b.date<=t&&['completed','confirmed'].includes(b.status)).reduce((a,b)=>a+b.price,0);
+ const lastWk=bookings.filter(b=>b.date>=dOff(-13)&&b.date<=dOff(-7)&&['completed','confirmed'].includes(b.status)).reduce((a,b)=>a+b.price,0);
+ const trend=lastWk?Math.round((wkIncome-lastWk)/lastWk*100):null;
+ const nextUp=bookings.filter(b=>b.date>=t&&['pending','confirmed'].includes(b.status)).sort((a,b)=>(a.date+a.time)>(b.date+b.time)?1:-1)[0];
+ const week=bookings.filter(b=>b.date>=t&&b.date<=dOff(6)&&['pending','confirmed'].includes(b.status)).sort((a,b)=>(a.date+a.time)>(b.date+b.time)?1:-1);
+ const wkEarnAhead=week.reduce((a,b)=>a+b.price,0);
+ /* mini calendar */
+ const mcY=new Date().getFullYear(),mcM=new Date().getMonth();
+ const mcFirst=new Date(mcY,mcM,1),mcStart=(mcFirst.getDay()+6)%7,mcDays=new Date(mcY,mcM+1,0).getDate();
+ const byD={};bookings.forEach(b=>{if(['pending','confirmed'].includes(b.status))(byD[b.date]=byD[b.date]||[]).push(b);});
+ let mcCells='';for(let i=0;i<mcStart;i++)mcCells+='<div></div>';
+ for(let d=1;d<=mcDays;d++){const iso=`${mcY}-${String(mcM+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+  const bs=byD[iso]||[];const blk=settings.blocked.includes(iso);
+  mcCells+=`<div class="mday ${iso===t?'tdy':''} ${blk?'blk':''}" style="aspect-ratio:auto;padding:6px 0;flex-direction:column" onclick="selDay('${iso}');adm('calendar')">${d}${bs.length?`<span style="display:block;width:5px;height:5px;border-radius:50%;background:${bs.some(x=>x.sec==='soul')?'var(--sage)':'var(--gold)'};margin:2px auto 0"></span>`:''}</div>`;}
  const doy=Math.floor((Date.now()-new Date(new Date().getFullYear(),0,0))/86400000);
  m.innerHTML=`<h2>Good ${new Date().getHours()<12?'morning':'afternoon'}, Emma ✨</h2>
  <div class="adm-sub">${new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'})} · 11:11 energy</div>
@@ -1099,10 +1359,20 @@ function vDash(m){
   <div style="font-family:var(--serif);font-style:italic;font-size:24px;line-height:1.4">“${QUOTES[doy%QUOTES.length]}”</div></div>
  <div class="stats">
   <div class="stat"><div class="k">Today</div><div class="v">${todays.length}</div></div>
-  <div class="stat"><div class="k">Upcoming</div><div class="v">${upcoming.length}</div></div>
   <div class="stat"><div class="k">Pending</div><div class="v">${pending.length}</div></div>
-  <div class="stat"><div class="k">Completed</div><div class="v">${completed.length}</div></div>
+  <div class="stat"><div class="k">This week</div><div class="v">£${wkIncome} ${trend!==null?`<small style="font-size:14px;color:${trend>=0?'var(--sage)':'var(--danger)'}">${trend>=0?'▲':'▼'}${Math.abs(trend)}%</small>`:''}</div></div>
   <div class="stat"><div class="k">Month income</div><div class="v">£${income}</div></div>
+  <div class="stat"><div class="k">Booked ahead (7 days)</div><div class="v">£${wkEarnAhead}</div></div>
+  <div class="stat"><div class="k">Completed all time</div><div class="v">${completed.length}</div></div>
+ </div>
+ <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:26px" class="dashcols">
+ <div class="panel"><h3>Your week ahead ${nextUp?`<span class="muted" style="font-family:var(--sans);font-size:13px;letter-spacing:0;float:right">Next: ${esc(nextUp.name.split(' ')[0])} · ${fmtD(nextUp.date)} ${esc(nextUp.time||'')}</span>`:''}</h3>
+ ${week.length?week.slice(0,6).map(b=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid rgba(181,174,158,.3)">
+  <span><b>${fmtD(b.date)}</b> ${esc(b.time||'')} · ${esc(b.name)}<br><span class="muted" style="font-size:12.5px">${esc(b.service)} · £${b.price} ${b.addr?'· '+esc(b.addr.split(',')[0]):''}</span></span>
+  ${badge(b.status)}</div>`).join(''):'<p class="muted">A clear week so far. Time for a promotion?</p>'}</div>
+ <div class="panel"><h3>This month <button class="icobtn" style="float:right" onclick="adm('calendar')">Full calendar</button></h3>
+ <div class="mgrid">${['Mo','Tu','We','Th','Fr','Sa','Su'].map(d=>`<div class="dw">${d}</div>`).join('')}${mcCells}</div>
+ <div class="legend" style="margin-top:10px"><span><span class="dot soul"></span> Soul Space</span><span><span class="dot beauty"></span> Mobile Beauty</span></div></div>
  </div>
  <div class="panel"><h3>Today <button class="icobtn" style="float:right" onclick="weeklyDigest()">Weekly digest</button></h3>${todays.length?tableB(todays,true):'<p class="muted">Nothing booked today. A rest day is productive too.</p>'}</div>
  ${(()=>{const mo=new Date().getMonth()+1;
@@ -1446,6 +1716,30 @@ window.editPromo=id=>{const p=id?promos.find(x=>x.id===id):{title:'',msg:'',code
 window.savePromo=id=>{const v={title:document.getElementById('pt').value,msg:document.getElementById('pm').value,code:document.getElementById('pc').value,img:+document.getElementById('pp').value};
  if(id)Object.assign(promos.find(p=>p.id===id),v);else promos.push({id:uid(),active:false,...v});
  saveP();closeModal();adm('promos');};
+/* ---- gift cards (admin) ---- */
+function vGifts(m){
+ const gbadge=s=>`<span class="badge ${s==='paid'?'b-confirmed':s==='redeemed'?'b-completed':'b-pending'}">${s}</span>`;
+ m.innerHTML=`<h2>Gift cards</h2><div class="adm-sub">Requests from the site. Mark paid once the money lands, and redeemed when it’s used.</div>
+ <div class="stats">
+  <div class="stat"><div class="k">Awaiting payment</div><div class="v">${giftcards.filter(g=>g.status==='requested').length}</div></div>
+  <div class="stat"><div class="k">Paid, not yet used</div><div class="v">${giftcards.filter(g=>g.status==='paid').length}</div></div>
+  <div class="stat"><div class="k">Value outstanding</div><div class="v">£${giftcards.filter(g=>g.status==='paid').reduce((a,g)=>a+g.amount,0)}</div></div>
+ </div>
+ <div class="panel">${giftcards.length?`<div style="overflow-x:auto"><table>
+ <tr><th>Code</th><th>Amount</th><th>To / From</th><th>Buyer</th><th>Date</th><th>Status</th><th></th></tr>
+ ${giftcards.map(g=>`<tr><td><b style="font-family:var(--jost);letter-spacing:1px">${esc(g.code)}</b></td>
+ <td class="pr">£${g.amount}</td>
+ <td>${esc(g.to)}<br><span class="muted" style="font-size:12px">from ${esc(g.from)}${g.msg?' · “'+esc(g.msg)+'”':''}</span></td>
+ <td style="font-size:13px">${esc(g.phone)}<br>${esc(g.email)}</td>
+ <td>${fmtD(g.created)}</td><td>${gbadge(g.status)}</td>
+ <td><div class="rowbtns">
+ ${g.status==='requested'?`<a class="icobtn" href="${smsLink(g.phone,`Hi ${g.from.split(' ')[0]} 💛 thank you for your £${g.amount} gift card for ${g.to}! To confirm it, you can pay by bank transfer, PayPal or SumUp link. Just reply and I’ll send the details. Emma x`)}">Send payment text</a>
+ <button class="icobtn" onclick="gcStatus('${g.id}','paid')">Mark paid</button>`:''}
+ ${g.status==='paid'?`<button class="icobtn" onclick="gcStatus('${g.id}','redeemed')">Mark redeemed</button>`:''}
+ <button class="icobtn warn" onclick="gcDel('${g.id}')">✕</button></div></td></tr>`).join('')}</table></div>`
+ :'<p class="muted">No gift card requests yet. The Gift Cards page is linked in the footer and home page.</p>'}</div>`;}
+window.gcStatus=(id,s)=>{giftcards.find(g=>g.id===id).status=s;saveGC();adm('gifts');};
+window.gcDel=id=>{if(confirm('Delete this gift card request?')){giftcards=giftcards.filter(g=>g.id!==id);saveGC();adm('gifts');}};
 /* ---- announcements ---- */
 function vAnns(m){
  m.innerHTML=`<h2>Soul Space announcements</h2><div class="adm-sub">Upcoming circles, sound baths and series. Live ones show on the Soul Space page with a booking link.</div>
@@ -1530,22 +1824,8 @@ window.saveSettings=()=>{settings.bizname=st1.value;settings.phone=st2.value;set
 /* ---- modal ---- */
 function openModal(html){document.getElementById('modalbox').innerHTML=html;document.getElementById('modal').classList.add('open');}
 function closeModal(){document.getElementById('modal').classList.remove('open');}
-/* ================= 3D ENTRY ENGINE ================= */
-function enterSite(){document.getElementById('arrival').classList.add('gone');}
-setTimeout(enterSite,3400);
+/* ================= PORTAL TILT (hero v2) ================= */
 (function(){
-  const t=document.getElementById('etitle');
-  t.innerHTML=[...t.textContent].map((ch,i)=>ch===' '?'<span class="sp"></span>':`<span class="lt" style="animation-delay:${.25+i*.05}s">${ch}</span>`).join('');
-  const entry=document.getElementById('entry');
-  const layers=document.querySelectorAll('.elayer');
-  const stage=document.querySelector('.estage');
-  entry.addEventListener('mousemove',e=>{
-    const cx=e.clientX/innerWidth-.5, cy=e.clientY/innerHeight-.5;
-    layers.forEach(l=>{const d=+l.dataset.depth;
-      l.style.transform=`translate3d(${(-cx*d*1100).toFixed(1)}px,${(-cy*d*650).toFixed(1)}px,0)`;});
-    stage.style.transform=`rotateX(${(-cy*4).toFixed(2)}deg) rotateY(${(cx*6).toFixed(2)}deg)`;
-  });
-  entry.addEventListener('mouseleave',()=>{layers.forEach(l=>l.style.transform='');stage.style.transform='';});
   document.querySelectorAll('.eportal').forEach(c=>{
     c.addEventListener('mousemove',e=>{
       const r=c.getBoundingClientRect();
@@ -1555,19 +1835,6 @@ setTimeout(enterSite,3400);
     });
     c.addEventListener('mouseleave',()=>{c.style.transform='';});
   });
-  const cv=document.getElementById('dust'),ctx=cv.getContext('2d');let P=[];
-  function size(){cv.width=entry.offsetWidth;cv.height=entry.offsetHeight;}
-  function seed(){P=Array.from({length:innerWidth<700?24:46},()=>({
-    x:Math.random()*cv.width,y:Math.random()*cv.height,
-    r:.7+Math.random()*1.5,s:.07+Math.random()*.22,
-    tw:Math.random()*Math.PI*2,ts:.006+Math.random()*.015}));}
-  function tick(){ctx.clearRect(0,0,cv.width,cv.height);
-    for(const p of P){p.y-=p.s;p.tw+=p.ts;if(p.y<-4){p.y=cv.height+4;p.x=Math.random()*cv.width;}
-      const a=.18+.3*(.5+.5*Math.sin(p.tw));
-      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,7);ctx.fillStyle=`rgba(191,160,94,${a.toFixed(2)})`;ctx.fill();}
-    requestAnimationFrame(tick);}
-  size();seed();tick();
-  addEventListener('resize',()=>{size();seed();});
 })();
 renderPublic();initPola();initPromo();
 document.getElementById('bookform').addEventListener('input',function once(){
