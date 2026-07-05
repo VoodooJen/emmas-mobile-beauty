@@ -75,16 +75,20 @@ section{padding:96px 0}
 .center{text-align:center}
 .muted{color:var(--taupe)}
 /* ---------- ARRIVAL 11:11 · apple-style film ---------- */
-#arrival{position:fixed;inset:0;z-index:300;overflow:hidden;cursor:pointer;background:#080A06}
-.acurtain{position:absolute;top:0;bottom:0;width:50.15%;z-index:1;background:#080A06;transition:transform 1.05s cubic-bezier(.8,0,.15,1)}
+#arrival{position:fixed;inset:0;z-index:300;overflow:hidden;background:#080A06;transition:opacity 1.05s cubic-bezier(.7,0,.3,1)}
+#arrival.open{opacity:0;pointer-events:none}
+.acurtain{position:absolute;top:0;bottom:0;width:50.15%;z-index:1;background:#080A06}
 .acurtain.l{left:0}.acurtain.r{right:0}
-#arrival.open .acurtain.l{transform:translateX(-101%)}
-#arrival.open .acurtain.r{transform:translateX(101%)}
 #aglow{position:absolute;inset:0;z-index:2;pointer-events:none;background:radial-gradient(700px 480px at 50% 46%,rgba(85,96,76,.22),transparent 70%);opacity:0;transition:opacity 2s ease}
 #arrival.go #aglow{opacity:1}
 .aph{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;opacity:0;pointer-events:none;transform:scale(1.03);transition:opacity .9s cubic-bezier(.4,0,.2,1),transform .9s cubic-bezier(.4,0,.2,1)}
 .aph.on{opacity:1;transform:scale(1)}
-#arrival.open .aph{opacity:0!important;transition:opacity .35s}
+#arrival.open .aph{opacity:0!important;transition:opacity .3s}
+#arrival.open #ap3{opacity:1!important}
+.a3wrap{will-change:transform;transform-origin:50% 46%}
+#arrival.open .a3wrap{transform:scale(7.5);opacity:0;transition:transform 1.05s cubic-bezier(.65,0,.3,1),opacity .8s ease .15s}
+body.entered .hero2{animation:heroSettle 1.4s cubic-bezier(.2,.8,.2,1) both}
+@keyframes heroSettle{from{transform:scale(1.05)}to{transform:scale(1)}}
 .anum{font-family:var(--serif);font-weight:400;font-size:clamp(96px,22vw,190px);letter-spacing:.1em;color:#F2ECDB;line-height:1}
 .anum .colon{color:var(--gold);animation:blink 1.2s step-end infinite}
 .asub{font-family:var(--jost);font-weight:300;font-size:clamp(9px,1.4vw,11px);letter-spacing:9px;color:#6E7860;margin-top:22px}
@@ -429,8 +433,10 @@ footer a:hover{color:var(--gold)}
   if(t)uiclick();},true);
  function open(){if(opened)return;opened=true;
   timers.forEach(function(t){clearTimeout(t);clearInterval(t);});
-  whoosh(1.1,480,160,.12);a.classList.add('open');
-  setTimeout(function(){if(a.parentNode)a.parentNode.removeChild(a);},1200);}
+  whoosh(1.15,480,160,.12);
+  document.body.classList.add('entered');
+  a.classList.add('open');
+  setTimeout(function(){if(a.parentNode)a.parentNode.removeChild(a);},1250);}
  function T(fn,ms){timers.push(setTimeout(fn,ms));}
  var MSG='Take a breath. You’re exactly where you’re meant to be.';
  var started=false;
